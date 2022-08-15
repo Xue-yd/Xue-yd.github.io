@@ -191,6 +191,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/15/FCA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%A7%8Breads%E6%96%87%E4%BB%B6%E4%B9%8BuBAM%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/15/FCA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%A7%8Breads%E6%96%87%E4%BB%B6%E4%B9%8BuBAM%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">FCA数据库中的原始reads文件之uBAM文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-15 14:53:22 / 修改时间：14:58:01" itemprop="dateCreated datePublished" datetime="2022-08-15T14:53:22+08:00">2022-08-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/scRNA-seq/" itemprop="url" rel="index"><span itemprop="name">scRNA-seq</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>624</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="1-什么是uBAM文件？"><a href="#1-什么是uBAM文件？" class="headerlink" title="1.什么是uBAM文件？"></a>1.什么是uBAM文件？</h2><p>uBAM文件，即unmapped or unaligned BAM文件，里面的reads是没有经过比对的，目的是为了储存原始的reads信息。</p>
+<h2 id="2-uBAM-vs-fastq"><a href="#2-uBAM-vs-fastq" class="headerlink" title="2.uBAM vs fastq"></a>2.uBAM vs fastq</h2><p>相比于fastq文件来说，uBAM文件储存的信息更加丰富。由于fastq文件的格式原因，很多信息都不能存放在fastq文件中。而BAM文件中只需要加上tag信息即可。以FlyCellAtlas中的原始BAM文件为例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1	4	*	0	255	*	*	0	91	ATTGGCGACAGAT...CGGAATATATATATATGTATATAT	FFFFFFFFFFFFFFFFFFF...FFFFFFFFFFFFFFFFFF	on:Z:A00428:211:H77T5DSXY:3:1101:1090:1000@2:N:0:GCTCAACC	op:Z:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFF,FFFFFFFFF:FFFFFF	RX:Z:CATCTATTATAT	QX:Z:FFFFFFFFFF:F	CR:Z:TTGGGTAAGGAGGCAG	CY:Z:#FFFFFFFFFFFFFFF</span><br></pre></td></tr></table></figure>
+
+<p>RX tag即UMI信息，QX tag为UMI测序质量信息，CR tag为cell barcode序列，CY tag为cell barcode的测序质量信息。对于单细胞测序而言，一个uBAM文件即将R1(cell barcode + UMI)和R2(真正的reads)的fastq信息都包含在内。</p>
+<h2 id="3-uBAM转换为cellranger需要的fastq"><a href="#3-uBAM转换为cellranger需要的fastq" class="headerlink" title="3.uBAM转换为cellranger需要的fastq"></a>3.uBAM转换为cellranger需要的fastq</h2><p>cellranger处理的fastq文件，有两个reads文件和index文件，index文件不是必需的。R1文件中储存的是cell barcode+UMI序列相关信息，R2文件中储存的是真正的测序序列。对于R2文件来说，直接用samtools fastq即可完成转换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools  fastq sample1.bam &gt; fastq/sample1-1_S1_L001_R2_001.fastq.gz</span><br></pre></td></tr></table></figure>
+
+<p>对于R1文件而言，就有些复杂，我们可以首先将BAM文件中的UMI、barcode序列信息进行提取，然后再用samtools完成转换。这是一个笨方法，而且耗费资源，速度也比较慢，但是不需要写脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sample1-1 sample1-2 sample1-3</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">samtools view <span class="variable">$i</span>.bam | awk <span class="string">&#x27;&#123;print $1&quot;\t&quot;$2&quot;\t&quot;$3&quot;\t&quot;$4&quot;\t&quot;$5&quot;\t&quot;$6&quot;\t&quot;$7&quot;\t&quot;$8&quot;\t&quot;$9&quot;\t&quot;$16$14&quot;\t&quot;$17$15&#125;&#x27;</span> &gt; <span class="variable">$i</span>.tmp;		<span class="comment">#提取序列基本信息和barcode(16列)和UMI(14列)信息，17、15列为相对应的质量信息</span></span><br><span class="line">sed -i <span class="string">&#x27;1,$s/CR:Z://g&#x27;</span> <span class="variable">$i</span>.tmp;    <span class="comment">#处理文件，去掉tag标签，只保留序列</span></span><br><span class="line">sed -i <span class="string">&#x27;1,$s/CY:Z://g&#x27;</span> <span class="variable">$i</span>.tmp;</span><br><span class="line">sed -i <span class="string">&#x27;1,$s/RX:Z://g&#x27;</span> <span class="variable">$i</span>.tmp;</span><br><span class="line">sed -i <span class="string">&#x27;1,$s/QX:Z://g&#x27;</span> <span class="variable">$i</span>.tmp;</span><br><span class="line"><span class="built_in">cat</span> header <span class="variable">$i</span>.tmp &gt; <span class="variable">$i</span>.sam;		<span class="comment">#加上头文件</span></span><br><span class="line"><span class="built_in">rm</span> <span class="variable">$i</span>.tmp;</span><br><span class="line">samtools view -@ 10 -bS <span class="variable">$i</span>.sam -o <span class="variable">$i</span>.R1.bam;	<span class="comment">#转换为bam文件，节省空间</span></span><br><span class="line"><span class="built_in">rm</span> <span class="variable">$i</span>.sam;</span><br><span class="line">samtools fastq <span class="variable">$i</span>.R1.bam &gt; fastq/<span class="variable">$i_S1_L001_R1_001</span>.fastq; <span class="comment">#BAM转换为fastq（reads1）</span></span><br><span class="line">samtools fastq <span class="variable">$i</span>.bam &gt; fastq/<span class="variable">$i_S1_L001_R2_001</span>.fastq;    <span class="comment">#（reads2）</span></span><br><span class="line">gzip fastq/<span class="variable">$i</span>.R1_001.fastq;</span><br><span class="line">gzip fastq/<span class="variable">$i</span>.R2_001.fastq;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>完成转换之后就可以走下游的cellranger流程啦！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -339,9 +432,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -382,7 +487,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">0k</span>
+    <span title="站点总字数">1k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
