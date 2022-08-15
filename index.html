@@ -191,6 +191,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/15/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8Bcellranger-count/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/15/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8Bcellranger-count/" class="post-title-link" itemprop="url">scRNA-seq分析之cellranger count</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-15 18:06:58 / 修改时间：18:29:43" itemprop="dateCreated datePublished" datetime="2022-08-15T18:06:58+08:00">2022-08-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/scRNA-seq/" itemprop="url" rel="index"><span itemprop="name">scRNA-seq</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>397</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="1-生成cellranger参考基因组"><a href="#1-生成cellranger参考基因组" class="headerlink" title="1. 生成cellranger参考基因组"></a>1. 生成cellranger参考基因组</h2><p>cellranger官方提供有小鼠和人类的参考基因组，其他物种的需要用mkref自己产生。</p>
+<h3 id="1-1-生成用于产生参考基因组的gtf文件"><a href="#1-1-生成用于产生参考基因组的gtf文件" class="headerlink" title="1.1 生成用于产生参考基因组的gtf文件"></a>1.1 生成用于产生参考基因组的gtf文件</h3><p>–attribute参数用于指定gtf文件中的biotype。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cellranger mkgtf Dmel.gtf Dmel.BDGP6.32.104.filtered.gtf \</span><br><span class="line">--attribute=gene_biotype:protein_coding \</span><br><span class="line">--attribute=gene_biotype:lncRNA \</span><br><span class="line">--attribute=gene_biotype:antisense</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-生成参考基因组文件"><a href="#1-2-生成参考基因组文件" class="headerlink" title="1.2 生成参考基因组文件"></a>1.2 生成参考基因组文件</h3><p>接下来根据上一步产生的gtf文件生成参考基因组文件，–genome参数指定接下来产生的参考基因组的文件夹名字，–fasta为下载的参考基因组的序列文件，–gtf为上一步产生的gtf文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cellranger mkref --genome=Dmel.genome \</span><br><span class="line">--fasta=Dme.dna.fa \</span><br><span class="line">--gtf=Dmel.BDGP6.32.104.filtered.gtf</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-cellranger-count定量"><a href="#2-cellranger-count定量" class="headerlink" title="2. cellranger count定量"></a>2. cellranger count定量</h2><p>有了fastq和参考基因组，接下来就可以定量了。<br>–id输出文件夹名字，–transcriptome参考基因组所在的文件夹，–fastqs为fastq序列所在的文件名，–sample用于分析的文件prefix，–localcores线程数，–localmem内存数，加上–nosecondary参数不进行下游聚类分析。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cellranger count --<span class="built_in">id</span>=run_sample1 \</span><br><span class="line">--fastqs=/storage/XYD/mywork/fastq \</span><br><span class="line">--sample=sample1-44,sample1-48,sample1-49,sample1-56 \</span><br><span class="line">--transcriptome=/storage/XYD/00.reference/01.Dmel/Dmel.genome \</span><br><span class="line">--localcores=12 \</span><br><span class="line">--localmem=128 \</span><br><span class="line">--nosecondary</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/15/FCA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%A7%8Breads%E6%96%87%E4%BB%B6%E4%B9%8BuBAM%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -310,6 +400,13 @@
 
               <time title="创建时间：2022-08-13 17:08:49" itemprop="dateCreated datePublished" datetime="2022-08-13T17:08:49+08:00">2022-08-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-15 18:05:02" itemprop="dateModified" datetime="2022-08-15T18:05:02+08:00">2022-08-15</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -432,7 +529,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,7 +542,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

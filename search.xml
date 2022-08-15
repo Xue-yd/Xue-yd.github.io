@@ -17,6 +17,9 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>FCA数据库中的原始reads文件之uBAM文件</title>
@@ -40,6 +43,27 @@
       <tags>
         <tag>scRNA-seq</tag>
         <tag>raw reads</tag>
+        <tag>10X genomics</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scRNA-seq分析之cellranger count</title>
+    <url>/2022/08/15/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8Bcellranger-count/</url>
+    <content><![CDATA[<h2 id="1-生成cellranger参考基因组"><a href="#1-生成cellranger参考基因组" class="headerlink" title="1. 生成cellranger参考基因组"></a>1. 生成cellranger参考基因组</h2><p>cellranger官方提供有小鼠和人类的参考基因组，其他物种的需要用mkref自己产生。</p>
+<h3 id="1-1-生成用于产生参考基因组的gtf文件"><a href="#1-1-生成用于产生参考基因组的gtf文件" class="headerlink" title="1.1 生成用于产生参考基因组的gtf文件"></a>1.1 生成用于产生参考基因组的gtf文件</h3><p>–attribute参数用于指定gtf文件中的biotype。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cellranger mkgtf Dmel.gtf Dmel.BDGP6.32.104.filtered.gtf \</span><br><span class="line">--attribute=gene_biotype:protein_coding \</span><br><span class="line">--attribute=gene_biotype:lncRNA \</span><br><span class="line">--attribute=gene_biotype:antisense</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-生成参考基因组文件"><a href="#1-2-生成参考基因组文件" class="headerlink" title="1.2 生成参考基因组文件"></a>1.2 生成参考基因组文件</h3><p>接下来根据上一步产生的gtf文件生成参考基因组文件，–genome参数指定接下来产生的参考基因组的文件夹名字，–fasta为下载的参考基因组的序列文件，–gtf为上一步产生的gtf文件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cellranger mkref --genome=Dmel.genome \</span><br><span class="line">--fasta=Dme.dna.fa \</span><br><span class="line">--gtf=Dmel.BDGP6.32.104.filtered.gtf</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-cellranger-count定量"><a href="#2-cellranger-count定量" class="headerlink" title="2. cellranger count定量"></a>2. cellranger count定量</h2><p>有了fastq和参考基因组，接下来就可以定量了。<br>–id输出文件夹名字，–transcriptome参考基因组所在的文件夹，–fastqs为fastq序列所在的文件名，–sample用于分析的文件prefix，–localcores线程数，–localmem内存数，加上–nosecondary参数不进行下游聚类分析。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cellranger count --<span class="built_in">id</span>=run_sample1 \</span><br><span class="line">--fastqs=/storage/XYD/mywork/fastq \</span><br><span class="line">--sample=sample1-44,sample1-48,sample1-49,sample1-56 \</span><br><span class="line">--transcriptome=/storage/XYD/00.reference/01.Dmel/Dmel.genome \</span><br><span class="line">--localcores=12 \</span><br><span class="line">--localmem=128 \</span><br><span class="line">--nosecondary</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>scRNA-seq</category>
+      </categories>
+      <tags>
+        <tag>scRNA-seq</tag>
         <tag>10X genomics</tag>
       </tags>
   </entry>
