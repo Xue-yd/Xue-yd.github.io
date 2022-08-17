@@ -99,4 +99,34 @@
         <tag>Seurat</tag>
       </tags>
   </entry>
+  <entry>
+    <title>RNA-seq分析之数据质控</title>
+    <url>/2022/08/14/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E6%8E%A7/</url>
+    <content><![CDATA[<h2 id="1-fastq文件质控"><a href="#1-fastq文件质控" class="headerlink" title="1.fastq文件质控"></a>1.fastq文件质控</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fastq -f fastq -t 10 -o ./ ./myfastq_r1.fq.gz ./myfastq_r2.fq.gz</span><br></pre></td></tr></table></figure>
+
+<p>之后会产生质控报告和zip文件，查看报告，可以看到base quality、GC content等信息。质控报告每个版块的具体的意义参考(<a href="https://zhuanlan.zhihu.com/p/20731723">https://zhuanlan.zhihu.com/p/20731723</a> )。</p>
+<h2 id="2-去除接头序列"><a href="#2-去除接头序列" class="headerlink" title="2.去除接头序列"></a>2.去除接头序列</h2><p>RNA-seq建库测序时，会在样品末端加上接头序列，在后续的步骤中需要去除。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Usage:</span><br><span class="line">    cutadapt -a ADAPTER [options] [-o output.fastq] input.fastq</span><br><span class="line"></span><br><span class="line">For paired-end reads:</span><br><span class="line">    cutadapt -a ADAPT1 -A ADAPT2 [options] -o out1.fastq -p out2.fastq in1.fastq                            in2.fastq</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>去除接头序列，这里我用cutadapt，对于双端测序来说，需要去掉read1和read2两个序列，参数-a和-A分别是read1和read2序列的3’端序列。-e即error rate,-n为2即最多每条read最多去掉两个adapter，-m为20去掉adapter之后若reads长度小于20，则去掉这条reads，–pair-filter这个参数对于双端测序而言，read1和read2都有可能检测到接头。如果选择any，则只要两个中其中一个检测到接头，read1和read2均舍弃；如果选择both，则必须两个都检测到接头，read1和read2才舍弃，-j线程数，-q [5’CUTOFF,]3’CUTOFF参数，quality cutoff，去掉5’端、3’端碱基质量低于该值。双端测序需要提供两个值。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT</span><br><span class="line">\ -e 0.1 -O 5 -n 2 -m 20 --pair-filter both -q 20,20 -j 10</span><br><span class="line">\ -o 01.clean/CS-1.clean.r1.fq.gz -p 01.clean/CS-1.clean.r2.fq.gz</span><br><span class="line">\ 00.rawdata/CS-1-LEG8830_L2_1.fq.gz 00.rawdata/CS-1-LEG8830_L2_2.fq.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-去除测序刚开始时不稳定的reads"><a href="#3-去除测序刚开始时不稳定的reads" class="headerlink" title="3.去除测序刚开始时不稳定的reads"></a>3.去除测序刚开始时不稳定的reads</h2><p>测序仪进行测序时，刚开始10bp左右的reads测序不稳定，可以进行适当修剪。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cutadapt -u 10 -o trimmed.fastq input_reads.fastq</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-去除rRNA序列"><a href="#4-去除rRNA序列" class="headerlink" title="4.去除rRNA序列"></a>4.去除rRNA序列</h2><p>有时候质控得到的结果中GC含量为双峰，这可能是一些RNA过表达引起的GC偏好，需要去除一些rRNA序列或是其他我们并不关心的序列，但是也并不必过于担忧，RNA-seq中本身就有一些表达量高的序列，所以质控报告中只要一些如碱基质量等的关键因素满足要求，后续只是进行差异表达等的分析，不去除也是可以的。<br>首先，我们需要在NCBI数据库中下载rRNA序列的fasta文件，然后用Hisat2进行比对，保留没有比对上的序列即可,过程如下：</p>
+<h3 id="4-1-构建索引"><a href="#4-1-构建索引" class="headerlink" title="4.1 构建索引"></a>4.1 构建索引</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hisat2-build -p 10 rRNA.fasta ./rRNA/rRNA</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-输出没有比对上的序列"><a href="#4-2-输出没有比对上的序列" class="headerlink" title="4.2 输出没有比对上的序列"></a>4.2 输出没有比对上的序列</h3><p>–un-conc-gz参数输出没有比对上的序列。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> CS-1 CS-2 PS-1 PS-2</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	hisat2 -x 03.<span class="built_in">rm</span>/rRNA/rRNA \</span><br><span class="line">	-1 01.clean/<span class="variable">$i</span>.r1.clean.fq.gz \</span><br><span class="line">	-2 01.clean/<span class="variable">$i</span>.r2.clean.fq.gz \</span><br><span class="line">	--un-conc-gz 03.<span class="built_in">rm</span>/<span class="variable">$&#123;i&#125;</span>_rmr_%.fq.gz -p 10 -S 03.<span class="built_in">rm</span>/<span class="variable">$&#123;i&#125;</span>.rRNA.sam</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这一步进行完之后便会发现fastq文件小了许多，这便是去除成功了。然后便可以继续接下来的分析了。</p>
+<p>参考资料：<br>1.<a href="https://zhuanlan.zhihu.com/p/20731723">https://zhuanlan.zhihu.com/p/20731723</a><br>2.<a href="https://mp.weixin.qq.com/s/jVTmp4VJQxB6Lwxh1QmNkA">https://mp.weixin.qq.com/s/jVTmp4VJQxB6Lwxh1QmNkA</a></p>
+]]></content>
+      <categories>
+        <category>RNA-seq</category>
+      </categories>
+      <tags>
+        <tag>RNA-seq</tag>
+      </tags>
+  </entry>
 </search>
