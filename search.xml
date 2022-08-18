@@ -62,6 +62,13 @@
 
 <h2 id="2-cellranger-count定量"><a href="#2-cellranger-count定量" class="headerlink" title="2. cellranger count定量"></a>2. cellranger count定量</h2><p>有了fastq和参考基因组，接下来就可以定量了。<br>–id输出文件夹名字，–transcriptome参考基因组所在的文件夹，–fastqs为fastq序列所在的文件名，–sample用于分析的文件prefix，–localcores线程数，–localmem内存数，加上–nosecondary参数不进行下游聚类分析。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cellranger count --<span class="built_in">id</span>=run_sample1 \</span><br><span class="line">--fastqs=/storage/XYD/mywork/fastq \</span><br><span class="line">--sample=sample1-44,sample1-48,sample1-49,sample1-56 \</span><br><span class="line">--transcriptome=/storage/XYD/00.reference/01.Dmel/Dmel.genome \</span><br><span class="line">--localcores=12 \</span><br><span class="line">--localmem=128 \</span><br><span class="line">--nosecondary</span><br></pre></td></tr></table></figure>
+
+<p>定量结束之后，产生的文件夹里outs&#x2F;下会有一个网页文件web_summary.html，打开会看到下图的信息。</p>
+<p><img src="/pic/2022-815-cellranger-count-1.jpg" alt="alt 图标"></p>
+<p>发现有个warning：Low fraction reads in cells，显示我的数据大概在54％左右，理想情况下应该为70%，官方的解释有两种可能：1.环境RNA水平过高；2.有一部分细胞RNA content很低，若是第二种情况，那么可以在count步骤加上–force-cells参数，设置一下自己预期的细胞数量，从而去掉RNA含量低的细胞。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cellranger count --<span class="built_in">id</span>=run_sample1 \</span><br><span class="line">--fastqs=/storage/XYD/mywork/fastq \</span><br><span class="line">--sample=sample1-44,sample1-48,sample1-49,sample1-56 \</span><br><span class="line">--transcriptome=/storage/XYD/00.reference/01.Dmel/Dmel.genome \</span><br><span class="line">--localcores=12 \</span><br><span class="line">--localmem=128 \</span><br><span class="line">--nosecondary</span><br><span class="line">--force-cells=13000</span><br></pre></td></tr></table></figure>
+
+<p>参考资料：<br>1.<a href="https://kb.10xgenomics.com/hc/en-us/articles/360003919491-How-to-interpret-the-Fraction-Reads-in-Cells-metric-">https://kb.10xgenomics.com/hc/en-us/articles/360003919491-How-to-interpret-the-Fraction-Reads-in-Cells-metric-</a></p>
 ]]></content>
       <categories>
         <category>scRNA-seq</category>
