@@ -4,6 +4,7 @@
     <title>Hello World</title>
     <url>/2022/08/13/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
 <p>D:\SogouDownload\nodejs\node_global\hexo d</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -28,7 +29,13 @@
   <entry>
     <title>FCA数据库中的原始reads文件之uBAM文件</title>
     <url>/2022/08/15/FCA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%A7%8Breads%E6%96%87%E4%BB%B6%E4%B9%8BuBAM%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<h2 id="1-什么是uBAM文件？"><a href="#1-什么是uBAM文件？" class="headerlink" title="1.什么是uBAM文件？"></a>1.什么是uBAM文件？</h2><p>uBAM文件，即unmapped or unaligned BAM文件，里面的reads是没有经过比对的，目的是为了储存原始的reads信息。</p>
+    <content><![CDATA[<p>本文介绍uBAM文件：</p>
+<ul>
+<li>什么是uBAM文件</li>
+<li>uBAM vs fastq</li>
+<li>uBAM转换为fastq<span id="more"></span></li>
+</ul>
+<h2 id="1-什么是uBAM文件？"><a href="#1-什么是uBAM文件？" class="headerlink" title="1.什么是uBAM文件？"></a>1.什么是uBAM文件？</h2><p>uBAM文件，即unmapped or unaligned BAM文件，里面的reads是没有经过比对的，目的是为了储存原始的reads信息。</p>
 <h2 id="2-uBAM-vs-fastq"><a href="#2-uBAM-vs-fastq" class="headerlink" title="2.uBAM vs fastq"></a>2.uBAM vs fastq</h2><p>相比于fastq文件来说，uBAM文件储存的信息更加丰富。由于fastq文件的格式原因，很多信息都不能存放在fastq文件中。而BAM文件中只需要加上tag信息即可。以FlyCellAtlas中的原始BAM文件为例:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1	4	*	0	255	*	*	0	91	ATTGGCGACAGAT...CGGAATATATATATATGTATATAT	FFFFFFFFFFFFFFFFFFF...FFFFFFFFFFFFFFFFFF	on:Z:A00428:211:H77T5DSXY:3:1101:1090:1000@2:N:0:GCTCAACC	op:Z:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFF,FFFFFFFFF:FFFFFF	RX:Z:CATCTATTATAT	QX:Z:FFFFFFFFFF:F	CR:Z:TTGGGTAAGGAGGCAG	CY:Z:#FFFFFFFFFFFFFFF</span><br></pre></td></tr></table></figure>
 
