@@ -121,7 +121,20 @@
   <entry>
     <title>RNA-seq分析(1)之数据质控</title>
     <url>/2022/08/14/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E6%8E%A7/</url>
-    <content><![CDATA[<h2 id="1-fastq文件质控"><a href="#1-fastq文件质控" class="headerlink" title="1.fastq文件质控"></a>1.fastq文件质控</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fastq -f fastq -t 10 -o ./ ./myfastq_r1.fq.gz ./myfastq_r2.fq.gz</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>本文介绍RNA-seq上游分析之数据质控：</p>
+<ul>
+<li>fastqc质控<ul>
+<li>去除接头序列</li>
+<li>reads trim</li>
+</ul>
+</li>
+<li>去除rRNA序列<ul>
+<li>rRNA index</li>
+<li>反向mapping<span id="more"></span></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-fastq文件质控"><a href="#1-fastq文件质控" class="headerlink" title="1.fastq文件质控"></a>1.fastq文件质控</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fastq -f fastq -t 10 -o ./ ./myfastq_r1.fq.gz ./myfastq_r2.fq.gz</span><br></pre></td></tr></table></figure>
 
 <p>之后会产生质控报告和zip文件，查看报告，可以看到base quality、GC content等信息。质控报告每个版块的具体的意义参考(<a href="https://zhuanlan.zhihu.com/p/20731723">https://zhuanlan.zhihu.com/p/20731723</a> )。</p>
 <h2 id="2-去除接头序列"><a href="#2-去除接头序列" class="headerlink" title="2.去除接头序列"></a>2.去除接头序列</h2><p>RNA-seq建库测序时，会在样品末端加上接头序列，在后续的步骤中需要去除。</p>
@@ -155,7 +168,7 @@
 <ul>
 <li>Hisat2 mapping</li>
 <li>FeatureCounts 定量</li>
-<li>DEseq2差异分析</li>
+<li>DEseq2差异分析<span id="more"></span></li>
 </ul>
 <h2 id="1-Hisat2-mapping"><a href="#1-Hisat2-mapping" class="headerlink" title="1.Hisat2 mapping"></a>1.Hisat2 mapping</h2><p>Hisat2 mapping,-x即参考基因组所在的文件夹位置，-1、-2分别为read1和read2的fastq文件，然后将比对产生的sam文件转为bam并进行排序。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> CS-1 CS-2 PS-1 PS-2</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	hisat2 -x ~/00.reference/index/Dro.mel/genome</span><br><span class="line">	\ -1 03.<span class="built_in">cut</span>/<span class="variable">$i</span>.r1.trimmed.fq.gz</span><br><span class="line">	\ -2 03.<span class="built_in">cut</span>/<span class="variable">$i</span>.r2.trimmed.fq.gz</span><br><span class="line">	\ -p 12 -S 05.mapping/<span class="variable">$i</span>.sam</span><br><span class="line">	samtools view -S -b 05.mapping/<span class="variable">$i</span>.sam -o 05.mapping/<span class="variable">$i</span>.bam</span><br><span class="line">	samtools <span class="built_in">sort</span> -l 9 05.mapping/<span class="variable">$i</span>.bam -o 05.mapping/<span class="variable">$i</span>.sorted.bam</span><br><span class="line">	<span class="built_in">rm</span> 05.mapping/<span class="variable">$i</span>.sam 05.mapping/<span class="variable">$i</span>.bam</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
