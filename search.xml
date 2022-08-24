@@ -212,7 +212,9 @@
 <li>提取细胞坐标信息</li>
 <li>提取表达矩阵</li>
 <li>提取平均表达量</li>
-<li>聚类细胞数目与比例统计<span id="more"></span></li>
+<li>聚类细胞数目与比例统计</li>
+<li>修改聚类后的idents</li>
+<li>提取部分Seurat对象<span id="more"></span></li>
 </ul>
 </li>
 </ul>
