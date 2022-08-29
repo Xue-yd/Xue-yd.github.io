@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="本文总结利用RNA-seq数据进行snp calling的流程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2022/08/13/hello-world/index.html">
+<meta property="og:title" content="GATK&#x2F;bcftools变异检测">
+<meta property="og:url" content="http://example.com/2022/08/27/GATK-bcftools%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="本文总结利用RNA-seq数据进行snp calling的流程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-13T09:08:49.978Z">
-<meta property="article:modified_time" content="2022-08-20T03:44:52.178Z">
+<meta property="article:published_time" content="2022-08-27T01:39:00.000Z">
+<meta property="article:modified_time" content="2022-08-29T13:37:28.089Z">
 <meta property="article:author" content="Xue Yingdi">
-<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="SNP calling">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/08/13/hello-world/">
+<link rel="canonical" href="http://example.com/2022/08/27/GATK-bcftools%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Hello World | Xueyd's Blog</title>
+  <title>GATK/bcftools变异检测 | Xueyd's Blog</title>
   
 
 
@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/13/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/27/GATK-bcftools%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          GATK/bcftools变异检测
         </h1>
 
         <div class="post-meta">
@@ -218,14 +218,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-08-13 17:08:49" itemprop="dateCreated datePublished" datetime="2022-08-13T17:08:49+08:00">2022-08-13</time>
+              <time title="创建时间：2022-08-27 09:39:00" itemprop="dateCreated datePublished" datetime="2022-08-27T09:39:00+08:00">2022-08-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-20 11:44:52" itemprop="dateModified" datetime="2022-08-20T11:44:52+08:00">2022-08-20</time>
+                <time title="修改时间：2022-08-29 21:37:28" itemprop="dateModified" datetime="2022-08-29T21:37:28+08:00">2022-08-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,7 +233,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                  <a href="/categories/SNP-calling/" itemprop="url" rel="index"><span itemprop="name">SNP calling</span></a>
                 </span>
             </span>
 
@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>340</span>
+              <span>467</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -269,22 +269,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+        <p>本文总结利用RNA-seq数据进行snp calling的流程。</p>
 <span id="more"></span>
-<p>D:\SogouDownload\nodejs\node_global\hexo d</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="1-构建参考基因组index"><a href="#1-构建参考基因组index" class="headerlink" title="1. 构建参考基因组index"></a>1. 构建参考基因组index</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bwa index Dmel.dna.fa</span><br><span class="line">samtools faidx Dmel.dna.fa</span><br><span class="line">picard CreateSequenceDictionary -R ~/00.reference/01.Dmel/Dmel.dna.fa -O Dmel.dna.dict</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h2 id="2-bam文件预处理"><a href="#2-bam文件预处理" class="headerlink" title="2. bam文件预处理"></a>2. bam文件预处理</h2><p>对bam文件进行排序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samtools merge -@ 10 -l 9 merged.bam sample1.bam sample2.bam sample3.bam</span><br><span class="line">samtools <span class="built_in">sort</span> -@ 10 -l 9 merged.bam -o merged.sort.bam</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h2 id="3-去重复mark-duplicates"><a href="#3-去重复mark-duplicates" class="headerlink" title="3. 去重复mark duplicates"></a>3. 去重复mark duplicates</h2><p>去除掉建库、测序过程中偏好性导致的一些”假阳性”地增高的reads。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">picard MarkDuplicates -I merged.sort.bam</span><br><span class="line">\ -M merged_mark_metrics.txt</span><br><span class="line">\ --REMOVE_DUPLICATES 1</span><br><span class="line">\ -O merged.sort.removed.bam</span><br><span class="line"></span><br><span class="line">picard BuildBamIndex merged.sort.removed.bam</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="4-1-GATK-snp-calling"><a href="#4-1-GATK-snp-calling" class="headerlink" title="4-1. GATK snp calling"></a>4-1. GATK snp calling</h2><h3 id="1-SplitNCigarReads"><a href="#1-SplitNCigarReads" class="headerlink" title="1. SplitNCigarReads"></a>1. SplitNCigarReads</h3><p>这一步是针对RNA-seq数据call snp特有的步骤。mRNA转录本主要是由DNA的外显子exon的可变剪切，不包括intron部分。因此，在RNA-seq数据call snp时，如果直接比对到基因组上，若比对到intron的N区域，就会有假阳性的snp，为了减少假阳性，需要将reads进行切割，跨越intron区域。若为n个intron的read片段，则切割为n+1个子read片段。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gatk SplitNCigarReads -R ~/00.reference/01.Dmel/Dmel.dna.fa</span><br><span class="line">\ -I merged.sort.removed.splited.bam </span><br><span class="line">\ -O erged.sort.removed.splited.bam</span><br></pre></td></tr></table></figure>
 
+<h3 id="2-GATK-snp-calling"><a href="#2-GATK-snp-calling" class="headerlink" title="2. GATK snp calling"></a>2. GATK snp calling</h3><p>HaplotypeCaller进行变异检测，之后，只保留SNP位点,并对SNP进行过滤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gatk HaplotypeCaller -R ~/00.reference/01.Dmel/Dmel.dna.fa</span><br><span class="line">\ --ploidy 2 -I 03.bam/merged.sort.removed.bam</span><br><span class="line">\ -O 04.call_snp/all.merged.vcf.gz</span><br><span class="line"></span><br><span class="line">gatk SelectVariants -R ~/00.reference/01.Dmel/Dmel.dna.fa</span><br><span class="line">\ -O 04.call_snp/all.merged.snp.vcf</span><br><span class="line">\ --variant 04.call_snp/all.merged.vcf.gz</span><br><span class="line">\ --select-type-to-include SNP</span><br><span class="line"></span><br><span class="line">gatk VariantFiltration -R ~/00.reference/01.Dmel/Dmel.dna.fa</span><br><span class="line">\ -V 04.call_snp/all.merged.snp.vcf.gz</span><br><span class="line">\ --cluster-size 4 --cluster-window-size 10</span><br><span class="line">\ --mask-name aroundIndel --mask 04.call_snp/all.merged.indel.vcf.gz -mask-extension 3</span><br><span class="line">\ --filter-name <span class="string">&quot;lowMQRankSum&quot;</span> --filter-expression <span class="string">&quot;MQRankSum &lt; 12.5&quot;</span></span><br><span class="line">\ --filter-name <span class="string">&quot;highFS&quot;</span> --filter-expression <span class="string">&quot;FS &gt; 60.0&quot;</span></span><br><span class="line">\ --filter-name <span class="string">&quot;lowReadPosRankSum&quot;</span> --filter-expression <span class="string">&quot;ReadPosRankSum &lt; -8.0&quot;</span></span><br><span class="line">\ --filter-name <span class="string">&quot;lowMQ&quot;</span> --filter-expression <span class="string">&quot;MQ &lt; 40.0&quot;</span></span><br><span class="line">\ --filter-name <span class="string">&quot;lowQD&quot;</span> --filter-expression <span class="string">&quot;QD &lt; 2.0&quot;</span></span><br><span class="line">\ --genotype-filter-name <span class="string">&quot;lowDP&quot;</span> --genotype-filter-expression <span class="string">&quot;DP &lt; 8.0&quot;</span></span><br><span class="line">\ -O 05.filter_snp/all.merged.filered.snp.vcf.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-bcftools-snp-calling"><a href="#4-2-bcftools-snp-calling" class="headerlink" title="4-2. bcftools snp calling"></a>4-2. bcftools snp calling</h2><p>去重复之后，也可利用bcftools进行snp calling,并进行过滤。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bcftools mpileup -f ~/00.reference/01.Dmel/Dmel.dna.fa 03.bam/merged.sort.removed.bam | bcftools call --ploidy 2 -Oz -o all.merged.vcf.gz</span><br><span class="line">bcftools filter all.merged.vcf.gz -e <span class="string">&#x27;QUAL&lt;30&#x27;</span> --SnpGap 5 -e <span class="string">&#x27;DP&lt;10&#x27;</span> -Oz -o all.filtered.merged.vcf.gz;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -299,7 +302,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/08/13/hello-world/" title="Hello World">http://example.com/2022/08/13/hello-world/</a>
+    <a href="http://example.com/2022/08/27/GATK-bcftools%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" title="GATK&#x2F;bcftools变异检测">http://example.com/2022/08/27/GATK-bcftools变异检测/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -310,7 +313,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/SNP-calling/" rel="tag"># SNP calling</a>
           </div>
 
         
@@ -318,11 +321,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/08/14/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E6%8E%A7/" rel="next" title="RNA-seq分析(1)之数据质控">
-      RNA-seq分析(1)之数据质控 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/08/24/Seurat%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="prev" title="Seurat数据结构">
+      <i class="fa fa-chevron-left"></i> Seurat数据结构
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -381,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9E%84%E5%BB%BA%E5%8F%82%E8%80%83%E5%9F%BA%E5%9B%A0%E7%BB%84index"><span class="nav-number">1.</span> <span class="nav-text">1. 构建参考基因组index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-bam%E6%96%87%E4%BB%B6%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. bam文件预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8E%BB%E9%87%8D%E5%A4%8Dmark-duplicates"><span class="nav-number">3.</span> <span class="nav-text">3. 去重复mark duplicates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-GATK-snp-calling"><span class="nav-number">4.</span> <span class="nav-text">4-1. GATK snp calling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SplitNCigarReads"><span class="nav-number">4.1.</span> <span class="nav-text">1. SplitNCigarReads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GATK-snp-calling"><span class="nav-number">4.2.</span> <span class="nav-text">2. GATK snp calling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-bcftools-snp-calling"><span class="nav-number">5.</span> <span class="nav-text">4-2. bcftools snp calling</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
