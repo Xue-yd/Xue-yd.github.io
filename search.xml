@@ -334,7 +334,7 @@
   <entry>
     <title>Linux常用命令总结-sed、awk、grep、cut</title>
     <url>/2022/08/30/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93-sed%E3%80%81awk%E3%80%81grep%E3%80%81cut/</url>
-    <content><![CDATA[<p>这里总结一些自己常用的命令，会持续更新：</p>
+    <content><![CDATA[<p>记性不好，这里总结一些自己常用的命令，会持续更新，以后用到的会再添加上：</p>
 <ul>
 <li>sed</li>
 <li>awk</li>
@@ -435,7 +435,10 @@
 <h3 id="2-2-awk-if条件语句"><a href="#2-2-awk-if条件语句" class="headerlink" title="2.2 awk if条件语句"></a>2.2 awk if条件语句</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">awk <span class="string">&#x27;BEGIN &#123;</span></span><br><span class="line"><span class="string">a=20;</span></span><br><span class="line"><span class="string">if (a==10)</span></span><br><span class="line"><span class="string">  print &quot;a = 10&quot;;</span></span><br><span class="line"><span class="string">else</span></span><br><span class="line"><span class="string">  print &quot;a = 20&quot;;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">awk -F, <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">	if($2~/sa59.*/)</span></span><br><span class="line"><span class="string">		print &quot;s1_&quot;$1; </span></span><br><span class="line"><span class="string">	else if($2~/sa60.*/)</span></span><br><span class="line"><span class="string">		print &quot;s2_&quot;$1; </span></span><br><span class="line"><span class="string">	else print &quot;s3_&quot;$1&#125;&#x27;</span> </span><br></pre></td></tr></table></figure>
-<h2 id="3-grep"><a href="#3-grep" class="headerlink" title="3.grep"></a>3.grep</h2><h2 id="4-cut"><a href="#4-cut" class="headerlink" title="4.cut"></a>4.cut</h2>]]></content>
+<h2 id="3-grep"><a href="#3-grep" class="headerlink" title="3.grep"></a>3.grep</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -v <span class="string">&quot;aaa&quot;</span> <span class="comment"># -v 反向匹配</span></span><br><span class="line"><span class="comment"># -F Interpret PATTERN as a list of fixed strings, separated by newlines, any of which is to be matched. 将样式视为固定字符串的列表。</span></span><br><span class="line"><span class="comment"># -f后面加文件，文件中每一行为一个pattern</span></span><br><span class="line"><span class="built_in">cat</span> test.txt | grep -F -f file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># -i 忽略字符大小写</span></span><br><span class="line">grep -i <span class="string">&quot;aaa&quot;</span> <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-cut"><a href="#4-cut" class="headerlink" title="4.cut"></a>4.cut</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cut</span> -b 2 file.txt   <span class="comment"># 以字节为单位分隔</span></span><br><span class="line"><span class="built_in">cut</span> -c 2- file.txt  <span class="comment"># 以字符为单位分隔，提取第二到最后一个字符</span></span><br><span class="line"><span class="built_in">cut</span> -c 2,4 file.txt <span class="comment"># 以字符为单位分隔，提取第2、4个字符</span></span><br><span class="line"><span class="built_in">cut</span> -c 2-7 file.txt <span class="comment"># 以字符为单位分隔，提取第2至7个字符</span></span><br><span class="line"><span class="built_in">cut</span> -d <span class="string">&quot;,&quot;</span> -f 2 file.txt <span class="comment">#以逗号为分隔符，提取第二个字段</span></span><br><span class="line"><span class="built_in">cut</span> -d <span class="string">&quot;,&quot;</span> -f 2- file.txt</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>Linux</category>
       </categories>
