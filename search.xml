@@ -420,7 +420,7 @@
 <td align="center">逻辑或、与</td>
 </tr>
 <tr>
-<td align="center"><del>;!</del></td>
+<td align="center">~;!~</td>
 <td align="center">正则表达式匹配与不匹配</td>
 </tr>
 <tr>
