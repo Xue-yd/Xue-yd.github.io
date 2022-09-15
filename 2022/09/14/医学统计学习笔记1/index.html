@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。">
+  <meta name="description" content="医学统计方法基础。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Seurat包合并多个sample datasets">
-<meta property="og:url" content="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/index.html">
+<meta property="og:title" content="医学统计基础学习笔记1">
+<meta property="og:url" content="http://example.com/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。">
+<meta property="og:description" content="医学统计方法基础。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-17T08:44:57.000Z">
-<meta property="article:modified_time" content="2022-08-20T03:37:48.546Z">
+<meta property="article:published_time" content="2022-09-14T10:46:35.000Z">
+<meta property="article:modified_time" content="2022-09-15T08:08:22.259Z">
 <meta property="article:author" content="Xue Yingdi">
-<meta property="article:tag" content="scRNA-seq">
-<meta property="article:tag" content="Seurat">
+<meta property="article:tag" content="统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/">
+<link rel="canonical" href="http://example.com/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>Seurat包合并多个sample datasets | Xueyd's Blog</title>
+  <title>医学统计基础学习笔记1 | Xueyd's Blog</title>
   
 
 
@@ -196,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Seurat包合并多个sample datasets
+          医学统计基础学习笔记1
         </h1>
 
         <div class="post-meta">
@@ -219,14 +218,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-08-17 16:44:57" itemprop="dateCreated datePublished" datetime="2022-08-17T16:44:57+08:00">2022-08-17</time>
+              <time title="创建时间：2022-09-14 18:46:35" itemprop="dateCreated datePublished" datetime="2022-09-14T18:46:35+08:00">2022-09-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-20 11:37:48" itemprop="dateModified" datetime="2022-08-20T11:37:48+08:00">2022-08-20</time>
+                <time title="修改时间：2022-09-15 16:08:22" itemprop="dateModified" datetime="2022-09-15T16:08:22+08:00">2022-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,11 +233,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/Seurat/" itemprop="url" rel="index"><span itemprop="name">Seurat</span></a>
+                  <a href="/categories/%E7%BB%9F%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">统计</span></a>
                 </span>
             </span>
 
@@ -255,14 +250,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>521</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -274,23 +269,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。</p>
+        <p>医学统计方法基础。</p>
 <span id="more"></span>
 
-<h2 id="1-导入数据，设置SeuratObject"><a href="#1-导入数据，设置SeuratObject" class="headerlink" title="1.导入数据，设置SeuratObject"></a>1.导入数据，设置SeuratObject</h2><p>首先读入数据，然后创建SeuratObject对象。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>Seurat<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data1<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data2<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>接下来分别对两个数据各自进行Normalize，并鉴定variable features,最后选择两个datasets中repeatedly variable features进行integration。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data.list <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>data1<span class="punctuation">,</span>data2<span class="punctuation">)</span></span><br><span class="line">data.list <span class="operator">&lt;-</span> lapply<span class="punctuation">(</span>X <span class="operator">=</span> data.list<span class="punctuation">,</span> FUN <span class="operator">=</span> <span class="keyword">function</span><span class="punctuation">(</span>x<span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">	x <span class="operator">&lt;-</span> NormalizeData<span class="punctuation">(</span>x<span class="punctuation">)</span></span><br><span class="line">	x <span class="operator">&lt;-</span> FindVariableFeatures<span class="punctuation">(</span>x<span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;vst&quot;</span><span class="punctuation">,</span> nfeatures <span class="operator">=</span> <span class="number">2000</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">features <span class="operator">&lt;-</span> SelectIntegrationFeatures<span class="punctuation">(</span>object.list <span class="operator">=</span> data.list<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-进行整合"><a href="#2-进行整合" class="headerlink" title="2.进行整合"></a>2.进行整合</h2><p>然后，使用FindIntegrationAnchors()函数确定Anchor，这个函数以SeuratObject函数作为输入，然后再利用IntegrateData()函数进行整合。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.anchors <span class="operator">&lt;-</span> FindIntegrationAnchors<span class="punctuation">(</span>object.list <span class="operator">=</span> data.list<span class="punctuation">,</span></span><br><span class="line">anchor.features <span class="operator">=</span> features<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data.combined <span class="operator">&lt;-</span> IntegrateData<span class="punctuation">(</span>anchorset <span class="operator">=</span> data.anchors<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>这样整合之后的数据只包括了前面鉴定到的features信息，后续的scale等等分析都仅基于这些features，默认是2000个，因此数据会小很多。</p>
-<h2 id="3-整合后的分析"><a href="#3-整合后的分析" class="headerlink" title="3.整合后的分析"></a>3.整合后的分析</h2><p>接下来就可以进行后续的分析了。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DefaultAssay<span class="punctuation">(</span>data.combined<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&quot;integrated&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run the standard workflow for visualization and clustering</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> ScaleData<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunPCA<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> npcs <span class="operator">=</span> <span class="number">30</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindNeighbors<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindClusters<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> resolution <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunUMAP<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualization</span></span><br><span class="line">p1 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">)</span></span><br><span class="line">p2 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">,</span> label <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> repel <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">p1</span><br><span class="line">p2</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://satijalab.org/seurat/articles/integration_introduction.html">https://satijalab.org/seurat/articles/integration_introduction.html</a></p>
+<h3 id="1-统计学概念"><a href="#1-统计学概念" class="headerlink" title="1 统计学概念"></a>1 统计学概念</h3><p>样本之间的变异（variation）使得实验或观察的结果具有不确定性，统计学的目的就是采用统计学方法，发现不确定现象背后隐藏的规律。</p>
+<h4 id="1-1-数据类型"><a href="#1-1-数据类型" class="headerlink" title="1.1 数据类型"></a>1.1 数据类型</h4><p>定性&#x2F;分类数据：又分为有序数据（如肿瘤分级、I级、II级等）和无序数据（如血型、性别）；<br>    分类数据的分层大于2时，为多分类数据。<br>定量&#x2F;计量数据：连续型数据（如身高、体重）和不连续型数据（如疾病复发次数）。</p>
+<h4 id="1-2-总体与样本"><a href="#1-2-总体与样本" class="headerlink" title="1.2 总体与样本"></a>1.2 总体与样本</h4><p>总体：研究对象全体；<br>样本：样本要有随机性，并且具有总体的特征。<br>从总体到样本：sampling；取样中的问题：取多少？采样部位（均匀的或不均匀的，这与样本分布有关）？如何保证抽样的随机性？<br>从样本到总体：inference。推断不是百分百正确的，是有误差在的，怎样使误差最小？</p>
+<h4 id="1-3-参数与统计量"><a href="#1-3-参数与统计量" class="headerlink" title="1.3 参数与统计量"></a>1.3 参数与统计量</h4><p>参数：总体的统计指标，如均值、标准差，固定的常数；<br>统计量：样本的统计指标，如样本均值、样本标准差，是在参数附近随机波动的随机变量。</p>
+<blockquote>
+<p>一些常用的统计量：<br>方差：变异度分析<br>标准差：变量分布的离散程度，结合均数描述正态分布特征<br>标准误：样本统计量的标准差（描述抽样误差的大小）<br>极差：<br>四分位数间距：与中位数一起描述数据的集中和离散程度<br>变异系数：标准差&#x2F;均值，代表数据沿着平均值波动的幅度比例，值越大意味着波动性越大，且该种波动性是以平均值作为标准。</p>
+</blockquote>
+<h4 id="1-4-统计推断"><a href="#1-4-统计推断" class="headerlink" title="1.4 统计推断"></a>1.4 统计推断</h4><p><strong>参数估计</strong>：用样本指标(即统计量)估计总体指标(称为参数)<br>    点估计：直接估计，没有考虑抽样误差的情况<br>    区间估计：以一定的可信度下（置信区间：1-α），同时考虑抽样误差，来估计总体</p>
+<p><strong>假设检验</strong>：假设检验是先对总体参数提出一个假设值，然后利用样本信息判断这一假设是否成立。<br>    一种叫原假设，也叫零假设，用H0表示。原假设一般是统计者想要拒绝的假设。原假设的设置一般为：等于&#x3D;、大于等于&gt;&#x3D;、小于等于&lt;&#x3D;。另外一种叫备择假设，用H1表示。备则假设是统计者想要接受的假设。备择假设的设置一般为：不等于、大于&gt;、小于&lt;。</p>
+<p><strong>抽样误差</strong>：样本统计量与总体参数之间的差异（由于个体差异导致的）。<br><strong>标准误</strong>：<br>    均数的标准误<br>    率的标准误<br><strong>标准误与标准差</strong></p>
+<blockquote>
+<p>例如我们要调查地区A中10岁男孩的身高。如果全部都统计下来，直接测是最准确的数据。但是成本高，不现实。因此需要进行采样，一次测量100个男孩的身高，求这一次的均值M1与标准差S1，如果采样10次，每次都取100人，我们会得到10个均值，分别记为M1，M2，M3…M10，对这10个均值再求一个均值M以及标准差S，其中这个标准差S就是标准误(standard error)，即均值的标准误差(standard error of mean)。<br>第一，标准差是对一次抽样的原始数据进行计算的，而标准误则是对多次抽样的样本统计量进行计算的（这个统计量可以是均值，可以是率）；第二，标准差只是一个描述性指标，只是描述原始数据的波动情况，而标准误是跟统计推断有关的指标，大多数的统计量计算都需要用到标准误。</p>
+</blockquote>
+<p><strong>置信区间</strong>：按照预先给定的概率1-α，确定一个包含未知总体参数的范围，这一范围为参数的置信区间。<br>    95%置信区间：从样本中作随机抽样，作100次，每个样本可算得一个置信区间，这100个可信区间中，平均有95个置信区间包含μ（估计正确），5个不包含μ（估计错误）。<br><strong>p值的含义</strong>：p值并不代表差异显著性的大小，而是说明两组之间的差异具有统计学意义。同时，p值越小，实验结果重现性越好。<br>注：有统计学差异，不代表就具有生物学意义。</p>
+<p><strong>一型错误α：假阳性错误，弃真错误</strong><br>    I类错误，也称为假阳性错误，就是说实际上总体并无差异，原假设H0是成立的，但是通过假设检验P≤α，在设定α的检验水准下，拒绝了H0，认为有差异，出现了假阳性的现象。<br><strong>二型错误β：假阴性错误，纳伪错误</strong><br>    II类错误，也称为假阴性错误，就是说实际上原假设H0不成立，但是通过假设检验P＞α，在设定α的检验水准下，不拒绝H0，得出了阴性的结论，此时犯II类错误的概率为β。</p>
+<table>
+<thead>
+<tr>
+<th align="center">基于样本的决定</th>
+<th align="center">H0为真</th>
+<th align="center">H0为假</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">接受H1</td>
+<td align="center">I类错误</td>
+<td align="center">正确</td>
+</tr>
+<tr>
+<td align="center">接受H0</td>
+<td align="center">正确</td>
+<td align="center">II类错误</td>
+</tr>
+</tbody></table>
+<p>检验效能：1-β，即1-第二类错误的概率，表示在一定的检验水准下，当H1为真时，意味着H0为假，假设检验能够拒绝H0的概率。</p>
+<h3 id="2-假设检验方法的选择"><a href="#2-假设检验方法的选择" class="headerlink" title="2. 假设检验方法的选择"></a>2. 假设检验方法的选择</h3><p><strong>1）、单组资料的分析</strong><br>如果数据呈正态分布，则采用单样本t检验(One-Sample Test)；如果数据呈非正态分布，可以采用相应的非参数统计方法Wilcoxon符号等级检验(Wilcoxon Signed-Rank Test)。 </p>
+<p><strong>2）、两组资料的分析</strong><br>首先，需要判别数据为定量数据还是分类数据。如果是定量数据，数据的分布特征呈正态，则选择两样本t检验(Two-Sample Test)；如果定量数据呈非正态分布，则选择Wilcoxon等级和检验(Wileoxon Rank Sum Test)。对于分类数据，卡方检验(Chi-Square Test)被广泛运用。但值得注意的是，如果行列表中有1&#x2F;5以上的格子理论频数小于5，或有一个格子理论频数小于1，卡方检验将导致分析的偏性。此时，可以采用 Fishe‘s 精确概率法(Fishe’s Exact Test)计算P值。</p>
+<p> <strong>3）、三组或以上资料的分析</strong><br>与两组资料分析类似，如果数据为定量资料呈正态分布，则采用单因素方差分析 (One way ANOVA)；如果定量数据，呈非正态分布，则选择Kruskal一Wallis检验 (Kruskal一Wallis Test)。对于分类数据，多分类无序数据采用卡方检验(Chi-Square Test)或Fish‘s精确概率法；多分类有序数据可采用Cochran-Mantel-Haenszel 检验(Cochran-Mantel -Haenszel Test)。</p>
+<p><strong>4）、 等效性检验</strong><br>等效性检验中无效假设H0指治疗间有差异（至少为Δ），Δ为临床无差异之和，拒绝H0意味着治疗之间差异没有显著意义。在双单侧检验（TOST）中，σ值是A药和B药的理论差异，Δ为无差异之和。在差异性检验中，无效假设H0居中，备择假设H1在左侧或右侧；在等效性检验中，备则假设H1居中，H0滑向两侧，那么研究者需设两个H0，即H01（σ≤Δ）和H02 （σ≥Δ），然后进行2次非劣效性检验（Δ－σ和σ－Δ）。在等效性检验中，通常只检验均值或率比。部分研究者倾向于找到σ的可信区间（CI），如果CI不能括入Δ，研究者有证据拒绝H0，并得出等效性结论。 </p>
+<p><strong>5）、把握度分析</strong><br>把握度分析可在设计试验阶段进行, 来阐明各试验设计参数之间的互变关系, 尤其是在不同的显著性水平下,研究者进行样本量与把握度关系间的分析，对设计试验时选择合适的样本量大小具有极为重要的作用。 </p>
+<p><strong>6）、多因素方差分析（Multi-way ANOVA）</strong><br>t检验是对一个变量的1或2个均值进行检验；方差分析又称F检验，单因素方差分析是对1个变量的≥3个均值进行检验；多因素方差分析是对2个或2个以上变量的多个均值进行检验。</p>
+<p><strong>7）、相关性分析(Researeh Question Sabout Relationships among Variables)</strong><br>许多临床研究涉及对一组研究对象2个连续性变量的相互关系的研究。如用2个不同的指标测定心功能，拟评价这2个指标是否一致，这就需要涉及相关(Correlation)和一致性(Agreement)的评价。当数据为正态分布时，Pearson相关系数(Pearson‘s relation Coefficient)可以评价2个指标的相关性。当数据分布非正态，相应的非参数统计量为Spearman’s 等级相关系数(Spearman‘s Rank Correlation Coeffielent)以及Kendall’s Tau-b等级相关系数(Kendall‘s Tau-b Rank Correlation Coeffielent)，两者类似，但更多的统计学家推荐使用后者。 对一致性的评价，定量数据可以采用Concordance相关系数(Concordance Correlation Coeffieient)，分类数据采用 Kappa分析 (Cohen‘s Kappa statistic)。 值得注意的是，相关性与一致性的区别。如在临床研究中，希望评价一个新的方法是否等同于原来的方法，需要使用一致性分析。</p>
+<p>一些其他重要的：<br>一般情况下，大于两倍标准差（μ+2δ&#x2F;μ-2δ），可以判断是奇异值。<br>一旦定下统计规则，就不能更改。<br>先把简单问题复杂化（选择统计方法），再把复杂问题简单化（描述统计结果）。<br>variation。<br>检验效能 power&#x3D;1-β，β：二型错误；<br>样本量和检验效能。样本量很大时，做卡方检验，卡方值很大，没有意义?</p>
 
     </div>
 
@@ -306,7 +330,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/" title="Seurat包合并多个sample datasets">http://example.com/2022/08/17/Seurat包合并多个sample-datasets/</a>
+    <a href="http://example.com/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" title="医学统计基础学习笔记1">http://example.com/2022/09/14/医学统计学习笔记1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -317,8 +341,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/scRNA-seq/" rel="tag"># scRNA-seq</a>
-              <a href="/tags/Seurat/" rel="tag"># Seurat</a>
+              <a href="/tags/%E7%BB%9F%E8%AE%A1/" rel="tag"># 统计</a>
           </div>
 
         
@@ -327,13 +350,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/08/15/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8Bcellranger-count/" rel="prev" title="scRNA-seq分析之cellranger count">
-      <i class="fa fa-chevron-left"></i> scRNA-seq分析之cellranger count
+    <a href="/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/" rel="prev" title="python学习之1">
+      <i class="fa fa-chevron-left"></i> python学习之1
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/08/17/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8BHisat2+FeatureCounts/" rel="next" title="RNA-seq分析(2)之Hisat2+FeatureCounts+DEseq2">
-      RNA-seq分析(2)之Hisat2+FeatureCounts+DEseq2 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -392,7 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E8%AE%BE%E7%BD%AESeuratObject"><span class="nav-number">1.</span> <span class="nav-text">1.导入数据，设置SeuratObject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9B%E8%A1%8C%E6%95%B4%E5%90%88"><span class="nav-number">2.</span> <span class="nav-text">2.进行整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%95%B4%E5%90%88%E5%90%8E%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">3.整合后的分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1 统计学概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E6%80%BB%E4%BD%93%E4%B8%8E%E6%A0%B7%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 总体与样本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E5%8F%82%E6%95%B0%E4%B8%8E%E7%BB%9F%E8%AE%A1%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 参数与统计量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 统计推断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">2.</span> <span class="nav-text">2. 假设检验方法的选择</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

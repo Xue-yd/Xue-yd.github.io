@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。">
+  <meta name="description" content="这个category记录了自己重新学习python的过程(Python 3),这篇是一些基础过程。 1.Python数据类型python有6个数据类型：不可变数据：数字、字符串、元组；可变数据：列表、集合、字典。type()函数可以查看变量的类型。类型转换函数：int()、float()、str()、tuple()、list()、set()、frozenset()等等。 1.1 python推导式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Seurat包合并多个sample datasets">
-<meta property="og:url" content="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/index.html">
+<meta property="og:title" content="python学习之1">
+<meta property="og:url" content="http://example.com/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。">
+<meta property="og:description" content="这个category记录了自己重新学习python的过程(Python 3),这篇是一些基础过程。 1.Python数据类型python有6个数据类型：不可变数据：数字、字符串、元组；可变数据：列表、集合、字典。type()函数可以查看变量的类型。类型转换函数：int()、float()、str()、tuple()、list()、set()、frozenset()等等。 1.1 python推导式">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-17T08:44:57.000Z">
-<meta property="article:modified_time" content="2022-08-20T03:37:48.546Z">
+<meta property="article:published_time" content="2022-09-13T12:45:34.000Z">
+<meta property="article:modified_time" content="2022-09-13T15:28:13.613Z">
 <meta property="article:author" content="Xue Yingdi">
-<meta property="article:tag" content="scRNA-seq">
-<meta property="article:tag" content="Seurat">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/">
+<link rel="canonical" href="http://example.com/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>Seurat包合并多个sample datasets | Xueyd's Blog</title>
+  <title>python学习之1 | Xueyd's Blog</title>
   
 
 
@@ -196,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Seurat包合并多个sample datasets
+          python学习之1
         </h1>
 
         <div class="post-meta">
@@ -218,27 +217,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-08-17 16:44:57" itemprop="dateCreated datePublished" datetime="2022-08-17T16:44:57+08:00">2022-08-17</time>
+              <time title="创建时间：2022-09-13 20:45:34 / 修改时间：23:28:13" itemprop="dateCreated datePublished" datetime="2022-09-13T20:45:34+08:00">2022-09-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-20 11:37:48" itemprop="dateModified" datetime="2022-08-20T11:37:48+08:00">2022-08-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/Seurat/" itemprop="url" rel="index"><span itemprop="name">Seurat</span></a>
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -255,7 +244,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>521</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -274,23 +263,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。</p>
-<span id="more"></span>
+        <p>这个category记录了自己重新学习python的过程(Python 3),这篇是一些基础过程。</p>
+<h2 id="1-Python数据类型"><a href="#1-Python数据类型" class="headerlink" title="1.Python数据类型"></a>1.Python数据类型</h2><p>python有6个数据类型：不可变数据：数字、字符串、元组；可变数据：列表、集合、字典。type()函数可以查看变量的类型。类型转换函数：int()、float()、str()、tuple()、list()、set()、frozenset()等等。</p>
+<h3 id="1-1-python推导式"><a href="#1-1-python推导式" class="headerlink" title="1.1 python推导式"></a>1.1 python推导式</h3><h4 id="1-列表推导式："><a href="#1-列表推导式：" class="headerlink" title="(1).列表推导式："></a>(1).列表推导式：</h4><p>[表达式 for 变量 in 列表]<br>[out_exp_res for out_exp in input_list]</p>
+<p>或者 </p>
+<p>[表达式 for 变量 in 列表 if 条件]<br>[out_exp_res for out_exp in input_list if condition]</p>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>names = [<span class="string">&#x27;Bob&#x27;</span>,<span class="string">&#x27;Tom&#x27;</span>,<span class="string">&#x27;alice&#x27;</span>,<span class="string">&#x27;Jerry&#x27;</span>,<span class="string">&#x27;Wendy&#x27;</span>,<span class="string">&#x27;Smith&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>new_names = [name.upper()<span class="keyword">for</span> name <span class="keyword">in</span> names <span class="keyword">if</span> <span class="built_in">len</span>(name)&gt;<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(new_names)</span><br><span class="line">[<span class="string">&#x27;ALICE&#x27;</span>, <span class="string">&#x27;JERRY&#x27;</span>, <span class="string">&#x27;WENDY&#x27;</span>, <span class="string">&#x27;SMITH&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>multiples = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>) <span class="keyword">if</span> i % <span class="number">3</span> == <span class="number">0</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(multiples)</span><br><span class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">24</span>, <span class="number">27</span>]</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-导入数据，设置SeuratObject"><a href="#1-导入数据，设置SeuratObject" class="headerlink" title="1.导入数据，设置SeuratObject"></a>1.导入数据，设置SeuratObject</h2><p>首先读入数据，然后创建SeuratObject对象。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>Seurat<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data1<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data2<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-字典推导式"><a href="#2-字典推导式" class="headerlink" title="(2).字典推导式"></a>(2).字典推导式</h4><p>{ key_expr: value_expr for value in collection }</p>
+<p>或</p>
+<p>{ key_expr: value_expr for value in collection if condition }</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">listdemo = [<span class="string">&#x27;Google&#x27;</span>,<span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>]</span><br><span class="line"><span class="comment"># 将列表中各字符串值为键，各字符串的长度为值，组成键值对</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>newdict = &#123;key:<span class="built_in">len</span>(key) <span class="keyword">for</span> key <span class="keyword">in</span> listdemo&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>newdict</span><br><span class="line">&#123;<span class="string">&#x27;Google&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;Runoob&#x27;</span>: <span class="number">6</span>, <span class="string">&#x27;Taobao&#x27;</span>: <span class="number">6</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dic = &#123;x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> (<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dic</span><br><span class="line">&#123;<span class="number">2</span>: <span class="number">4</span>, <span class="number">4</span>: <span class="number">16</span>, <span class="number">6</span>: <span class="number">36</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(dic)</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;dict&#x27;</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>集合推导式、元组推导式也类似。</p>
+<p>python注释：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#单行注释</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">多行</span></span><br><span class="line"><span class="string">注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">多行</span></span><br><span class="line"><span class="string">注释</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>接下来分别对两个数据各自进行Normalize，并鉴定variable features,最后选择两个datasets中repeatedly variable features进行integration。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data.list <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>data1<span class="punctuation">,</span>data2<span class="punctuation">)</span></span><br><span class="line">data.list <span class="operator">&lt;-</span> lapply<span class="punctuation">(</span>X <span class="operator">=</span> data.list<span class="punctuation">,</span> FUN <span class="operator">=</span> <span class="keyword">function</span><span class="punctuation">(</span>x<span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">	x <span class="operator">&lt;-</span> NormalizeData<span class="punctuation">(</span>x<span class="punctuation">)</span></span><br><span class="line">	x <span class="operator">&lt;-</span> FindVariableFeatures<span class="punctuation">(</span>x<span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;vst&quot;</span><span class="punctuation">,</span> nfeatures <span class="operator">=</span> <span class="number">2000</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">features <span class="operator">&lt;-</span> SelectIntegrationFeatures<span class="punctuation">(</span>object.list <span class="operator">=</span> data.list<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-进行整合"><a href="#2-进行整合" class="headerlink" title="2.进行整合"></a>2.进行整合</h2><p>然后，使用FindIntegrationAnchors()函数确定Anchor，这个函数以SeuratObject函数作为输入，然后再利用IntegrateData()函数进行整合。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.anchors <span class="operator">&lt;-</span> FindIntegrationAnchors<span class="punctuation">(</span>object.list <span class="operator">=</span> data.list<span class="punctuation">,</span></span><br><span class="line">anchor.features <span class="operator">=</span> features<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data.combined <span class="operator">&lt;-</span> IntegrateData<span class="punctuation">(</span>anchorset <span class="operator">=</span> data.anchors<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>这样整合之后的数据只包括了前面鉴定到的features信息，后续的scale等等分析都仅基于这些features，默认是2000个，因此数据会小很多。</p>
-<h2 id="3-整合后的分析"><a href="#3-整合后的分析" class="headerlink" title="3.整合后的分析"></a>3.整合后的分析</h2><p>接下来就可以进行后续的分析了。</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DefaultAssay<span class="punctuation">(</span>data.combined<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&quot;integrated&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run the standard workflow for visualization and clustering</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> ScaleData<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunPCA<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> npcs <span class="operator">=</span> <span class="number">30</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindNeighbors<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindClusters<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> resolution <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunUMAP<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualization</span></span><br><span class="line">p1 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">)</span></span><br><span class="line">p2 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">,</span> label <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> repel <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">p1</span><br><span class="line">p2</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://satijalab.org/seurat/articles/integration_introduction.html">https://satijalab.org/seurat/articles/integration_introduction.html</a></p>
+<h3 id="2-一些有用的函数"><a href="#2-一些有用的函数" class="headerlink" title="2. 一些有用的函数"></a>2. 一些有用的函数</h3><h4 id="2-1-随机数函数"><a href="#2-1-随机数函数" class="headerlink" title="2.1 随机数函数"></a>2.1 随机数函数</h4><p>choice(seq)	从序列的元素中随机挑选一个元素，比如random.choice(range(10))，从0到9中随机挑选一个整数。<br>randrange ([start,] stop [,step]) 	从指定范围内，按指定基数递增的集合中获取一个随机数，基数默认值为 1<br>random() 	随机生成下一个实数，它在[0,1)范围内。<br>seed([x]) 	改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed。<br>shuffle(lst) 	将序列的所有元素随机排序<br>uniform(x, y)	随机生成下一个实数，它在[x,y]范围内。</p>
+<h4 id="2-2-字符串函数"><a href="#2-2-字符串函数" class="headerlink" title="2.2 字符串函数"></a>2.2 字符串函数</h4><p>join(seq)	<br>    以指定字符串作为分隔符，将 seq 中所有的元素(的字符串表示)合并为一个新的字符串。<br>len(string)	<br>    返回字符串长度<br>lower()	<br>    转换字符串中所有大写字符为小写。<br>lstrip()	<br>    截掉字符串左边的空格或指定字符。<br>split(str&#x3D;””, num&#x3D;string.count(str))<br>    以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num+1 个子字符串<br>upper()<br>    转换字符串中的小写字母为大写<br>find(str, beg&#x3D;0, end&#x3D;len(string))<br>    检测 str 是否包含在字符串中，如果指定范围 beg 和 end ，则检查是否包含在指定范围内，如果包含返回开始的索引值，否则返回-1<br>count(str, beg&#x3D; 0,end&#x3D;len(string))<br>    返回 str 在 string 里面出现的次数，如果 beg 或者 end 指定则返回指定范围内 str 出现的次数</p>
+<h4 id="2-3-列表函数"><a href="#2-3-列表函数" class="headerlink" title="2.3 列表函数"></a>2.3 列表函数</h4><h3 id="3-索引"><a href="#3-索引" class="headerlink" title="3. 索引"></a>3. 索引</h3><p>python索引：从前到后的索引从0开始，从后往前的索引：最后一项是-1。切片时是[2:5]即取索引为2到4的值，相当于前闭后开区间。</p>
 
     </div>
 
@@ -306,7 +297,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/08/17/Seurat%E5%8C%85%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAsample-datasets/" title="Seurat包合并多个sample datasets">http://example.com/2022/08/17/Seurat包合并多个sample-datasets/</a>
+    <a href="http://example.com/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/" title="python学习之1">http://example.com/2022/09/13/python学习之1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -317,8 +308,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/scRNA-seq/" rel="tag"># scRNA-seq</a>
-              <a href="/tags/Seurat/" rel="tag"># Seurat</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
@@ -327,12 +317,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/08/15/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8Bcellranger-count/" rel="prev" title="scRNA-seq分析之cellranger count">
-      <i class="fa fa-chevron-left"></i> scRNA-seq分析之cellranger count
+    <a href="/2022/09/08/%E4%B8%89%E4%BB%A3hifi%E6%B5%8B%E5%BA%8F%E4%B9%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85/" rel="prev" title="三代hifi测序之基因组组装">
+      <i class="fa fa-chevron-left"></i> 三代hifi测序之基因组组装
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/08/17/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8BHisat2+FeatureCounts/" rel="next" title="RNA-seq分析(2)之Hisat2+FeatureCounts+DEseq2">
-      RNA-seq分析(2)之Hisat2+FeatureCounts+DEseq2 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" rel="next" title="医学统计基础学习笔记1">
+      医学统计基础学习笔记1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -392,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E8%AE%BE%E7%BD%AESeuratObject"><span class="nav-number">1.</span> <span class="nav-text">1.导入数据，设置SeuratObject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9B%E8%A1%8C%E6%95%B4%E5%90%88"><span class="nav-number">2.</span> <span class="nav-text">2.进行整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%95%B4%E5%90%88%E5%90%8E%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">3.整合后的分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Python%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">1.Python数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-python%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 python推导式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">(1).列表推导式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">(2).字典推导式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%80%E4%BA%9B%E6%9C%89%E7%94%A8%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">2. 一些有用的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 随机数函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 字符串函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%88%97%E8%A1%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 列表函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%B4%A2%E5%BC%95"><span class="nav-number">1.3.</span> <span class="nav-text">3. 索引</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
