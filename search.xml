@@ -506,6 +506,8 @@
     <title>python学习之1</title>
     <url>/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/</url>
     <content><![CDATA[<p>这个category记录了自己重新学习python的过程(Python 3),这篇是一些基础过程。</p>
+<span id="more"></span>
+
 <h2 id="1-Python数据类型"><a href="#1-Python数据类型" class="headerlink" title="1.Python数据类型"></a>1.Python数据类型</h2><p>python有6个数据类型：不可变数据：数字、字符串、元组；可变数据：列表、集合、字典。type()函数可以查看变量的类型。类型转换函数：int()、float()、str()、tuple()、list()、set()、frozenset()等等。</p>
 <h3 id="1-1-python推导式"><a href="#1-1-python推导式" class="headerlink" title="1.1 python推导式"></a>1.1 python推导式</h3><h4 id="1-列表推导式："><a href="#1-列表推导式：" class="headerlink" title="(1).列表推导式："></a>(1).列表推导式：</h4><p>[表达式 for 变量 in 列表]<br>[out_exp_res for out_exp in input_list]<br>或者<br>[表达式 for 变量 in 列表 if 条件]<br>[out_exp_res for out_exp in input_list if condition]</p>
 <p>例如：</p>
