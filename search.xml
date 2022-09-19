@@ -754,6 +754,8 @@
     <title>python习题练习1</title>
     <url>/2022/09/19/python%E4%B9%A0%E9%A2%98%E7%BB%83%E4%B9%A01/</url>
     <content><![CDATA[<p>生物信息学Python习题来自<a href="https://rosalind.info/problems/list-view/">ROSALIND</a>。</p>
+<span id="more"></span>
+
 <h4 id="1-Counting-DNA-Nucleotides"><a href="#1-Counting-DNA-Nucleotides" class="headerlink" title="1. Counting DNA Nucleotides"></a>1. Counting DNA Nucleotides</h4><p>给定一个DNA序列s&#x3D;’AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC’，计算这一序列s中四个碱基A、T、C、G的碱基数。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s1 =<span class="string">&#x27;AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC&#x27;</span></span><br><span class="line"></span><br><span class="line">A = s1.count(<span class="string">&#x27;A&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">T = s1.count(<span class="string">&#x27;T&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">C = s1.count(<span class="string">&#x27;C&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">G = s1.count(<span class="string">&#x27;G&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span> = [A,T,C,G]</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    <span class="built_in">print</span>(l)</span><br></pre></td></tr></table></figure>
 <p>封装在函数中。</p>

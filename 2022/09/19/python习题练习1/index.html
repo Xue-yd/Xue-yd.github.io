@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="生物信息学Python习题来自ROSALIND。 1. Counting DNA Nucleotides给定一个DNA序列s&#x3D;’AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC’，计算这一序列s中四个碱基A、T、C、G的碱基数。 12345678910s1 &#x3D;&amp;#x27;AGCTTTTCATTCT">
+  <meta name="description" content="生物信息学Python习题来自ROSALIND。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python习题练习1">
 <meta property="og:url" content="http://example.com/2022/09/19/python%E4%B9%A0%E9%A2%98%E7%BB%83%E4%B9%A01/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="生物信息学Python习题来自ROSALIND。 1. Counting DNA Nucleotides给定一个DNA序列s&#x3D;’AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC’，计算这一序列s中四个碱基A、T、C、G的碱基数。 12345678910s1 &#x3D;&amp;#x27;AGCTTTTCATTCT">
+<meta property="og:description" content="生物信息学Python习题来自ROSALIND。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-19T13:07:45.000Z">
-<meta property="article:modified_time" content="2022-09-19T15:09:48.727Z">
+<meta property="article:modified_time" content="2022-09-19T15:27:15.937Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-09-19 21:07:45 / 修改时间：23:09:48" itemprop="dateCreated datePublished" datetime="2022-09-19T21:07:45+08:00">2022-09-19</time>
+              <time title="创建时间：2022-09-19 21:07:45 / 修改时间：23:27:15" itemprop="dateCreated datePublished" datetime="2022-09-19T21:07:45+08:00">2022-09-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,6 +264,8 @@
 
       
         <p>生物信息学Python习题来自<a target="_blank" rel="noopener" href="https://rosalind.info/problems/list-view/">ROSALIND</a>。</p>
+<span id="more"></span>
+
 <h4 id="1-Counting-DNA-Nucleotides"><a href="#1-Counting-DNA-Nucleotides" class="headerlink" title="1. Counting DNA Nucleotides"></a>1. Counting DNA Nucleotides</h4><p>给定一个DNA序列s&#x3D;’AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC’，计算这一序列s中四个碱基A、T、C、G的碱基数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s1 =<span class="string">&#x27;AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC&#x27;</span></span><br><span class="line"></span><br><span class="line">A = s1.count(<span class="string">&#x27;A&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">T = s1.count(<span class="string">&#x27;T&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">C = s1.count(<span class="string">&#x27;C&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">G = s1.count(<span class="string">&#x27;G&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span> = [A,T,C,G]</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    <span class="built_in">print</span>(l)</span><br></pre></td></tr></table></figure>
 <p>封装在函数中。</p>
