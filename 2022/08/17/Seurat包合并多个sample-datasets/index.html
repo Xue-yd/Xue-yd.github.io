@@ -28,7 +28,7 @@
 <meta property="og:description" content="很多情况下，我们需要将多个sample dataset合并在一起，然后进行接下来的分析。Seurat v4官方提供了可以用于整合数据集的函数：FindIntegrationAnchors()和IntegrateData()。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-17T08:44:57.000Z">
-<meta property="article:modified_time" content="2022-08-20T03:37:48.546Z">
+<meta property="article:modified_time" content="2022-09-19T11:40:37.711Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="scRNA-seq">
 <meta property="article:tag" content="Seurat">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-20 11:37:48" itemprop="dateModified" datetime="2022-08-20T11:37:48+08:00">2022-08-20</time>
+                <time title="修改时间：2022-09-19 19:40:37" itemprop="dateModified" datetime="2022-09-19T19:40:37+08:00">2022-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>521</span>
+              <span>592</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
 <h2 id="1-导入数据，设置SeuratObject"><a href="#1-导入数据，设置SeuratObject" class="headerlink" title="1.导入数据，设置SeuratObject"></a>1.导入数据，设置SeuratObject</h2><p>首先读入数据，然后创建SeuratObject对象。</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>Seurat<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span>data.dir <span class="operator">=</span> <span class="string">&quot;D:/000 MyWork/000 MyProject/000 scVariants/sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	gene.column <span class="operator">=</span> <span class="number">1</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">data1 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data1<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample1&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br><span class="line">data2 <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> data2<span class="punctuation">,</span>project <span class="operator">=</span> <span class="string">&quot;sample2&quot;</span><span class="punctuation">,</span></span><br><span class="line">	min.cells <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span>min.features <span class="operator">=</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">	assay <span class="operator">=</span> <span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
-<p>接下来分别对两个数据各自进行Normalize，并鉴定variable features,最后选择两个datasets中repeatedly variable features进行integration。</p>
+<p>接下来分别对两个数据各自进行Normalize（每个都要各自进行normalize），并鉴定variable features,最后选择两个datasets中repeatedly variable features进行integration。</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data.list <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>data1<span class="punctuation">,</span>data2<span class="punctuation">)</span></span><br><span class="line">data.list <span class="operator">&lt;-</span> lapply<span class="punctuation">(</span>X <span class="operator">=</span> data.list<span class="punctuation">,</span> FUN <span class="operator">=</span> <span class="keyword">function</span><span class="punctuation">(</span>x<span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">	x <span class="operator">&lt;-</span> NormalizeData<span class="punctuation">(</span>x<span class="punctuation">)</span></span><br><span class="line">	x <span class="operator">&lt;-</span> FindVariableFeatures<span class="punctuation">(</span>x<span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;vst&quot;</span><span class="punctuation">,</span> nfeatures <span class="operator">=</span> <span class="number">2000</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">features <span class="operator">&lt;-</span> SelectIntegrationFeatures<span class="punctuation">(</span>object.list <span class="operator">=</span> data.list<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="2-进行整合"><a href="#2-进行整合" class="headerlink" title="2.进行整合"></a>2.进行整合</h2><p>然后，使用FindIntegrationAnchors()函数确定Anchor，这个函数以SeuratObject函数作为输入，然后再利用IntegrateData()函数进行整合。</p>
@@ -290,6 +290,7 @@
 <h2 id="3-整合后的分析"><a href="#3-整合后的分析" class="headerlink" title="3.整合后的分析"></a>3.整合后的分析</h2><p>接下来就可以进行后续的分析了。</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DefaultAssay<span class="punctuation">(</span>data.combined<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&quot;integrated&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run the standard workflow for visualization and clustering</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> ScaleData<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunPCA<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> npcs <span class="operator">=</span> <span class="number">30</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindNeighbors<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> FindClusters<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> resolution <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">)</span></span><br><span class="line">data.combined <span class="operator">&lt;-</span> RunUMAP<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">20</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualization</span></span><br><span class="line">p1 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">)</span></span><br><span class="line">p2 <span class="operator">&lt;-</span> DimPlot<span class="punctuation">(</span>data.combined<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;umap&quot;</span><span class="punctuation">,</span> label <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> repel <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">p1</span><br><span class="line">p2</span><br></pre></td></tr></table></figure>
 
+<p>这种整合方法对于较大的数据集，比较消耗内存和时间，了解到还有另外一种整合方法：Harmony，之后再说。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://satijalab.org/seurat/articles/integration_introduction.html">https://satijalab.org/seurat/articles/integration_introduction.html</a></p>
 
     </div>
@@ -408,20 +409,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
