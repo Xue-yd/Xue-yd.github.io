@@ -757,7 +757,7 @@
 <span id="more"></span>
 
 <h4 id="1-Counting-DNA-Nucleotides"><a href="#1-Counting-DNA-Nucleotides" class="headerlink" title="1. Counting DNA Nucleotides"></a>1. Counting DNA Nucleotides</h4><p>给定一个DNA序列s&#x3D;’AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC’，计算这一序列s中四个碱基A、T、C、G的碱基数。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s1 =<span class="string">&#x27;AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC&#x27;</span></span><br><span class="line"></span><br><span class="line">A = s1.count(<span class="string">&#x27;A&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">T = s1.count(<span class="string">&#x27;T&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">C = s1.count(<span class="string">&#x27;C&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">G = s1.count(<span class="string">&#x27;G&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span> = [A,T,C,G]</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    <span class="built_in">print</span>(l)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s1 =<span class="string">&#x27;AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC&#x27;</span></span><br><span class="line"></span><br><span class="line">A = s1.count(<span class="string">&#x27;A&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">T = s1.count(<span class="string">&#x27;T&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">C = s1.count(<span class="string">&#x27;C&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">G = s1.count(<span class="string">&#x27;G&#x27;</span>,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span> = [A,T,C,G]</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    <span class="built_in">print</span>(l,end=<span class="string">&#x27; &#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>封装在函数中。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">count</span>(<span class="params">string,substring</span>):</span><br><span class="line">	num = string.count(substring,<span class="number">0</span>,<span class="built_in">len</span>(s1))</span><br><span class="line">	<span class="keyword">return</span> num</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(count(s1,<span class="string">&#x27;A&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(count(s1,<span class="string">&#x27;T&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(count(s1,<span class="string">&#x27;C&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(count(s1,<span class="string">&#x27;G&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
@@ -774,6 +774,131 @@
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ribo-seq分析1</title>
+    <url>/2022/10/23/Ribo-seq%E5%88%86%E6%9E%901/</url>
+    <content><![CDATA[<p>本文介绍了Ribo-seq的技术原理和上游的数据处理。</p>
+<ul>
+<li>技术原理</li>
+<li>数据质控</li>
+<li>比对<span id="more"></span></li>
+</ul>
+<h2 id="1-Ribo-seq技术原理"><a href="#1-Ribo-seq技术原理" class="headerlink" title="1. Ribo-seq技术原理"></a>1. Ribo-seq技术原理</h2><p>Ribo-seq建库测序的原理主要是通过对细胞使用翻译抑制剂CHX，使正在翻译的核糖体固定在mRNA序列或者起始位点上。裂解细胞后在细胞裂解液中加入RNase，正在翻译的mRNA片段由于核糖体的保护而保留下来，消化不受核糖体保护的mRNA，分离单一核糖体并提取纯化核糖体上未被消化的短片段mRNA，进行建库测序和相应的数据分析。Ribo-seq测序得到的片段大小在28-32nt左右。<br><img src="/pics/2022-10-23-Ribo-seq.png" alt="alt 图标"></p>
+<h2 id="2-Ribo-seq数据质控"><a href="#2-Ribo-seq数据质控" class="headerlink" title="2. Ribo-seq数据质控"></a>2. Ribo-seq数据质控</h2><p>Ribo-seq的下机数据处理部分和RNA-seq的基本流程是一样的，但是Ribo-seq多了去除rRNA这一步，RNA-seq一般情况下是不需要去除rRNA，但是Ribo-seq测序的结果中会有很大含量的rRNA，如果不去除，会对后续的结果造成很大影响，必须要去除。</p>
+<h3 id="2-1-去接头"><a href="#2-1-去接头" class="headerlink" title="2.1 去接头"></a>2.1 去接头</h3><p>trim_galore软件封装了fastqc和cutadapt，可以进行质控也可以去接头，如果不知道接头序列，也可以不指定序列，软件可以检测接头序列（但是我试了一下自动检测没有成功，检测不到）。<br>参数解释：<br>-j：线程数。<br>–quality&#x2F;-q：设定Phred quality score阈值，默认为20。<br>–phred33：：选择-phred33或者-phred64，表示测序平台使用的Phred quality score。<br>–adapter&#x2F;-a：输入adapter序列。也可以不输入，Trim Galore!会自动寻找可能性最高的平台对应的adapter。自动搜选的平台三个，也直接显式输入这三种平台，即–illumina、–nextera和–small_rna。<br>–stringency：设定可以忍受的前后adapter重叠的碱基数，默认为1（非常苛刻）。可以适度放宽，因为后一个adapter几乎不可能被测序仪读到。<br>–length：设定输出reads长度阈值，小于设定值会被抛弃。<br>–paired：对于双端测序结果，一对reads中，如果有一个被剔除，那么另一个会被同样抛弃，而不管是否达到标准。<br>–gzip和–dont_gzip：清洗后的数据gzip压缩或者不压缩。<br>–fastqc：trim之后，自动进行fastqc质控。</p>
+<p>单端测序：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	trim_galore -j 4 -q 20 --phred33 --stringency 3 -a TCGTATGCCGTCTTCTGCTTG --length 15 -e 0.1 01.fastq/<span class="variable">$i</span>.fastq.gz --gzip -o 02.clean<span class="string">&quot;</span></span><br><span class="line"><span class="string">done</span></span><br></pre></td></tr></table></figure>
+
+<p>双端测序：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	trim_galore -j 4 -q 20 --phred33 --stringency 3 -a TCGTATGCCGTCTTCTGCTTG --length 15 -e 0.1 --pairded 01.fastq/<span class="variable">$&#123;i&#125;</span>_1.fastq.gz 01.fastq/<span class="variable">$&#123;i&#125;</span>_2.fastq.gz --gzip -o 02.clean<span class="string">&quot;</span></span><br><span class="line"><span class="string">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-去除rRNA和tRNA"><a href="#2-2-去除rRNA和tRNA" class="headerlink" title="2.2 去除rRNA和tRNA"></a>2.2 去除rRNA和tRNA</h3><p>核糖体保护的片段很短，因此在提取过程中会有许多其他序列的污染，rRNA和tRNA是细胞中占比很大的部分，因此拿到测序数据后需要将数据比对到rRNA&#x2F;tRNA上去除这些无用的数据。在比对的时候，我们可以不用选择很严格的标准，我们的目的是为了尽可能多的去除rRNA，因此我们可以使用bowtie2的局部比对，只要一部分片段比对上，我们就认为是rRNA或tRNA，从而将其去除。<br>首先，建立索引：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bowtie2-build 02.remove_rRNA_tRNA/rRNA.fasta 02.remove_rRNA_tRNA/rRNA-index/rRNA</span><br><span class="line">bowtie2-build 02.remove_rRNA_tRNA/tRNA.fasta 02.remove_rRNA_tRNA/tRNA-index/tRNA</span><br></pre></td></tr></table></figure>
+<p>然后进行比对:<br>参数解释：<br>–local：用局部比对<br>–end-to-end：全局比对<br>-x:索引文件所在位置的名字前缀<br>-p：线程数<br>-U：单端测序<br>–un：单端测序比对不上的片段输出<br>-S：比对情况输出sam<br>–un-conc：双端测序中比对不上的片段</p>
+<p>单端测序比对命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	bowtie2 --<span class="built_in">local</span> -x 02.remove_rRNA_tRNA/rRNA-index/rRNA -p 10 -U 02.clean/<span class="variable">$&#123;i&#125;</span>_trimmed.fq --un 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>.fq  -S 02.remove_rRNA_tRNA/rRNA-sam/<span class="variable">$&#123;i&#125;</span>.rRNA.sam</span><br><span class="line">	bowtie2 --<span class="built_in">local</span> -x 02.remove_rRNA_tRNA/tRNA-index/tRNA -p 10 -U 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>.fq --un 02.remove_rRNA_tRNA/fastq_removed_tRNA/<span class="variable">$&#123;i&#125;</span>.fq -S 02.remove_rRNA_tRNA/tRNA-sam/<span class="variable">$&#123;i&#125;</span>.tRNA.sam</span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>双端测序比对命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	bowtie2 --<span class="built_in">local</span> -x 02.remove_rRNA_tRNA/rRNA-index/rRNA -p 10 -1 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>_rmr_1.fq -2 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>_rmr_2.fq --un-conc 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>_rmr_%.fq  -S 02.remove_rRNA_tRNA/rRNA-sam/<span class="variable">$&#123;i&#125;</span>.rRNA.sam</span><br><span class="line">	bowtie2 --<span class="built_in">local</span> -x 02.remove_rRNA_tRNA/tRNA-index/tRNA -p 10 -1 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>_rmr_1.fq -2 02.remove_rRNA_tRNA/fastq_removed_rRNA/<span class="variable">$&#123;i&#125;</span>_rmr_2.fq --un-conc 02.remove_rRNA_tRNA/fastq_removed_tRNA/<span class="variable">$&#123;i&#125;</span>_rmr_%.fq -S 02.remove_rRNA_tRNA/tRNA-sam/<span class="variable">$&#123;i&#125;</span>.tRNA.sam</span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-Ribo-seq比对"><a href="#3-Ribo-seq比对" class="headerlink" title="3 Ribo-seq比对"></a>3 Ribo-seq比对</h2><p>去除rRNA、tRNA之后，就可以进行比对了。由于Ribo-seq测序得到的是正在翻译的片段，就表明这些序列是具有编码能力的mRNA，因此，比对到全基因组上一般是不准确的，所以一般要比对到转录本序列，一般选择CDS最长的转录本序列进行比对。</p>
+<h3 id="3-1-比对"><a href="#3-1-比对" class="headerlink" title="3.1 比对"></a>3.1 比对</h3><p>由于Ribo-seq测序得到的序列比较短，因此我们可以选择bowtie进行比对。<br><strong>参数解释：</strong><br>-v模式参数：-v V其中V为整数。-v V代表全长错配不能超过Ｖ个，可以是0-3。这时，不考虑是否高保真区，也不考虑Phred quality值。<br><strong>–best与–strata</strong><br>–best参数代表报告文件中，每个短序列的匹配结果将按匹配质量由高到低排序。–strata参数必须与–best参数一起使用，其作用是只报告质量最高的那部分。所谓质量高低，其实就是指错配的碱基数，如果指定了-l L参数，那就是在高保真区内的错配数，否则就是全序列的错配数。如果你还指定了 -M X的话，那就会在质量最高的当中，随机选择X个来报告。也就是说，当我们指定了-M 1 –best –strata的话，那就只报告1个最好的。<br>-m：指定同一个序列允许最多比对到基因组上几次。</p>
+<p>这里用的参数：最多允许两次错配，一个序列只能在基因组上比对一次。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bowtie-build 05.transcript_index/longest_cds_trans.fa 05.transcript_index/longest_trans</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        </span><br><span class="line">        bowtie -p 10 05.transcript_index/longest_trans 03.removed_fastq/<span class="variable">$i</span>.fq -v 2 -m 1 -a --best --strata --al 06.mapping/mapped_fastq/<span class="variable">$i</span>.mapped.fq -S 06.mapping/<span class="variable">$i</span>.sam</span><br><span class="line">        samtools view 06.mapping/<span class="variable">$i</span>.sam -bS -o 06.mapping/<span class="variable">$i</span>.bam</span><br><span class="line">        samtools <span class="built_in">sort</span> -l 9 06.mapping/<span class="variable">$i</span>.bam -o 06.mapping/<span class="variable">$i</span>.sorted.bam</span><br><span class="line">        <span class="built_in">rm</span> 06.mapping/<span class="variable">$i</span>.bam 06.mapping/<span class="variable">$i</span>.sam</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-定量"><a href="#3-2-定量" class="headerlink" title="3.2 定量"></a>3.2 定量</h3><p>htseq-count进行定量，bam文件中包含了比对上的reads和没有比对上的reads, 只有比对上的reads 会用来计数，htseq-count默认会根据mapping的质量值对BAM文件进行过滤，默认值为10, 意味着只有mapping quality &gt; 10的reads才会用来计数，当然可以通过-a参数来修改这个阈值。</p>
+<p>。<br>参数解释：<br>-f：输入文件格式，<br>-s：链特异性<br>-i：设置feature ID是由gtf&#x2F;gff文件第9列那个标签决定的；若gtf&#x2F;gff文件多行具有相同的feature ID，则它们来自同一个feature，程序会计算这些features的表达量之和赋给相应的feature ID。<br>-t：程序会对该指定的feature（gtf&#x2F;gff文件第三列）进行表达量计算，而gtf&#x2F;gff文件中其它的feature都会被忽略，一般为exon&#x2F;CDS。<br>-m：设置表达量计算模式。该参数的值可以有union, intersection-strict and intersection-nonempty。这三种模式的选择请见上面对这3种模式的示意图。从图中可知，对于原核生物，推荐使用intersection-strict模式；对于真核生物，推荐使用union模式。<br><img src="/pics/2022-10-23-htseq.png" alt="alt 图标"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> acc_list.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        htseq-count -f bam -s no -i gene_id -t CDS -m union 06.mapping/<span class="variable">$i</span>.sorted.bam 04.extract_transcript/Drosophila_melanogaster.BDGP6.32.107.gtf &gt; 07.count/<span class="variable">$i</span>.read_count.HTSeq.txt</span><br><span class="line">        grep __ ~/*.read_count.HTSeq.txt &gt; ~/*.read_count.HTSeq.txt.summary</span><br><span class="line">        sed -i <span class="string">&#x27;/^__/d&#x27;</span> ~/*.read_count.HTSeq.txt</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Ribo-seq</category>
+      </categories>
+      <tags>
+        <tag>Ribo-seq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>医学统计学习笔记2</title>
+    <url>/2022/09/21/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B02/</url>
+    <content><![CDATA[<p>临床实验设计与分析</p>
+<span id="more"></span>
+
+<h3 id="1-临床试验概述"><a href="#1-临床试验概述" class="headerlink" title="1. 临床试验概述"></a>1. 临床试验概述</h3><p>研究设计的就基本原则：随机、对照、重复（临床试验结果的可重复性）、均衡（控制其他混杂因素的偏倚或非处理因素的影响，如性别、年龄等）<br>统计设计：无偏性（减少非必要的偏倚）、最小变异性（各种因素对变异的贡献程度：把非观察效应去掉，留下处理效应）</p>
+<h3 id="2-单因素方差分析"><a href="#2-单因素方差分析" class="headerlink" title="2. 单因素方差分析"></a>2. 单因素方差分析</h3><h4 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h4><p>方差分析（analysis of variance,ANNOVA）&#x2F;F检验&#x2F;变异数分析：比较不同组别的均数是否有统计学的差异，必须符合正态分布</p>
+<blockquote>
+<p>注：单因素方差分析：要探讨的只有一个因素，不代表数据只有一处理个因素</p>
+</blockquote>
+<h4 id="2-2-计算"><a href="#2-2-计算" class="headerlink" title="2.2 计算"></a>2.2 计算</h4><p>总变异 &#x3D; 组间变异 + 组内变异（误差）<br>观察值效应 &#x3D; 总平均效应 + 处理效应 + 随机误差效应</p>
+<p>总变异：离均差平方和<br>组间变异：每一组平均值到总平均值的变异。包括处理因素的变异以及随机误差<br>组内变异：每个值到组内平均值的变异。</p>
+<p>变异的分解：均方MS&#x3D;离均差平方和&#x2F;自由度<br>总自由度 &#x3D; 组间自由度+组内自由度</p>
+<p>F&#x3D;MS组间&#x2F;MS组内，F越大，表示组间差异贡献越大</p>
+<h4 id="2-3-应用条件"><a href="#2-3-应用条件" class="headerlink" title="2.3 应用条件"></a>2.3 应用条件</h4><p><strong>方差分析应用条件：</strong><br>独立性：相互独立的随机样本，若不独立，某些因素可能在两个组别之间有一些共有的效应<br>正态性：符合正态分布<br>方差齐性：两个组别的离散程度变异程度是一样的，否则比较均值没有意义</p>
+<p>检验方差齐性方法：</p>
+<ul>
+<li>bartlett检验</li>
+<li>levene检验 ：用于对多总体方差进行齐性检验时，所分析的资料可以不具有正态性。</li>
+</ul>
+<blockquote>
+<p>如果方差不齐，可以采用数据变换：</p>
+</blockquote>
+<ul>
+<li>平方根反正弦变换</li>
+<li>平方根变换（服从泊松分布）</li>
+<li>对数变换（服从对数正态分布：抗体滴度、传染病潜伏期）</li>
+</ul>
+<h4 id="2-4-完全随机设计资料的方差分析"><a href="#2-4-完全随机设计资料的方差分析" class="headerlink" title="2.4 完全随机设计资料的方差分析"></a>2.4 完全随机设计资料的方差分析</h4><p>研究中只安排一个研究因素，同质的受试对象随机分配到各个处理组中。</p>
+<ul>
+<li>随机分组</li>
+<li>随机安排处理因素</li>
+</ul>
+<p>满足独立性、正态性、方差齐性的，采用单因素方差分析one-way ANNOVA；<br>对两组情况也可以采用成对t检验；<br>对于非正态或&#x2F;和方差不齐数据，可先进性变量变换，然后采用单向分类方差分析或采用Kruskal-Wills H检验。</p>
+<h4 id="2-5-多个样本均数间的多重比较"><a href="#2-5-多个样本均数间的多重比较" class="headerlink" title="2.5 多个样本均数间的多重比较"></a>2.5 多个样本均数间的多重比较</h4><p><strong>多重比较</strong><br>H0:μ1&#x3D;μ2&#x3D;μ3<br>H1:μ1、μ2、μ3不全相等<br>如果方差分析结果拒绝H0，接受H1，则三个数不全相等，比较哪两个总体均数不等，要进行多个样本间两两比较，即多重比较。</p>
+<blockquote>
+<p>两两t检验（做三组）在统计学上是不妥的，统计学结论都是概率性的，有犯错误的可能。<br>若进行6次t检验来检验4组数据平均值是否相同，每次犯I类错误的概率是α，则进行6次比较，犯I类错误概率为1-(1-α)^6，概率将上升。</p>
+</blockquote>
+<p><strong>多重比较方法</strong></p>
+<ul>
+<li>LSD-t检验</li>
+<li>Dunnett-t检验</li>
+<li>SNK检验&#x2F;q检验</li>
+</ul>
+<h3 id="3-多因素方差分析"><a href="#3-多因素方差分析" class="headerlink" title="3. 多因素方差分析"></a>3. 多因素方差分析</h3><p>处理因素不止一个。<br>**析因分析:**不止包含两个因素单独的处理效应，还包括交互作用（一阶交互作用AB、BC、AC、二阶交互作用ABC）</p>
+<ul>
+<li>单独效应:A因素固定时，B因素两个水平取值的差异；如图<br><img src="/pics/2022-09-22-%E5%8D%95%E7%8B%AC%E6%95%88%E5%BA%94.jpg" alt="alt 图标">：</li>
+<li>主效应：不管A的水平，探讨B的效应，某一个因素各水平之间的差别；如图<br><img src="/pics/2022-09-22-%E4%B8%BB%E6%95%88%E5%BA%94.jpg" alt="alt 图标"></li>
+<li>交互作用：不平行&#x2F;交叉，可能有交互作用；如图<br><img src="/pics/2022-09-22-%E4%BA%A4%E4%BA%92%E4%BD%9C%E7%94%A81.jpg" alt="alt 图标"><br><img src="/pics/2022-09-22-%E4%BA%A4%E4%BA%92%E4%BD%9C%E7%94%A82.jpg" alt="alt 图标"></li>
+</ul>
+<p>总变异SS总 &#x3D; SS处理 + SS误差 &#x3D; SSA + SSB + SSAB + SS误差<br>自由度V总 &#x3D; V处理 + V误差 &#x3D; VA + VB + VAB + V误差</p>
+<p><strong>嵌套设计</strong><br>各因素按隶属关系系统分组，各因素水平没有交叉。A、B因素分别为一级、二级处理因素，例如一级实验因素为饲料的种类，二级实验因素为饲料的喂养量。计算方法如图：<br><img src="/pics/2022-09-22-%E5%B5%8C%E5%A5%97%E8%AE%BE%E8%AE%A1.jpg" alt="alt 图标"></p>
+<p>还有正交设计、裂区设计等。<br><img src="/pics/2022-09-22-%E8%A3%82%E5%8C%BA-%E5%B5%8C%E5%A5%97.jpg" alt="alt 图标"></p>
+<h3 id="4-协方差分析ANCOVA"><a href="#4-协方差分析ANCOVA" class="headerlink" title="4. 协方差分析ANCOVA"></a>4. 协方差分析ANCOVA</h3><h4 id="4-1-协方差分析"><a href="#4-1-协方差分析" class="headerlink" title="4.1 协方差分析"></a>4.1 协方差分析</h4><p><strong>协方差分析</strong>是将线性回归和方差分析结合起来。<br><strong>协变量co-variant：</strong><br>除处理因素外，与结局有关对观察指标有影响的变量，如性别、年龄、病情严重程度等。<br>例如观察降压药物对血压的影响时，患者的初始血压水平也对血压有影响，但患者血压的初始水平难以控制、但又会对结果造成影响，这样来说初始水平就是一个协变量。</p>
+<blockquote>
+<p>协变量在组间分布不均衡，可能导致分析结果的偏倚。<br>使协变量组间均衡的方法：<br>    随机分组；按协变量取值进行分层随机化(如40岁的人各个组都放几个)；<br>    在纳入标准中限定个体协变量取值，使所有受试者具有相同的协变量值。<br>    注：即使组间均衡，若个体协变量差异较大，也会影响实验结果。</p>
+</blockquote>
+<p>协变量分析、多重回归分析、分层分析</p>
+<h4 id="4-2-协方差分析的应用条件"><a href="#4-2-协方差分析的应用条件" class="headerlink" title="4.2 协方差分析的应用条件"></a>4.2 协方差分析的应用条件</h4><ul>
+<li>方差分析的三个条件<ul>
+<li>独立性、正态分布、方差齐性</li>
+</ul>
+</li>
+<li>平行性：存在应变量对协变量的线性回归关系且斜率相同。</li>
+<li>协变量的要求<ul>
+<li>连续变量</li>
+<li>影响观察结局，但不能影响处理因素；</li>
+<li>取值应在研究前被观察，或研究中观察，但不受处理的影响。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-协方差分析模型"><a href="#4-2-协方差分析模型" class="headerlink" title="4.2 协方差分析模型"></a>4.2 协方差分析模型</h4><p>例如，研究体重正常或超重对胆固醇含量的影响：<br>    自变量：正常&#x2F;超重，二分类变量<br>    协变量:年龄，难以控制的定量因素<br>    应变量：胆固醇含量<br>应变量与协变量的关系：胆固醇含量与年龄的关系，如果与体重正常&#x2F;超重有关，则不满足条件，不能做协方差分析。<br>    协变量年龄与应变量的关系，在两组之间是一样的（斜率相同）。</p>
+<p><strong>分析模型</strong><br><img src="/pics/2022-09-22-%E5%8D%8F%E6%96%B9%E5%B7%AE1.jpg" alt="alt 图标"><br>因此要研究体重正常者和超重者的血清胆固醇是否不同，即检验𝛽1是否为0。<br>协方差分析所需要进行的检验包含两步：<br>    ①对不同组别中应变量对协变量的回归系数是否相同进行检验，即平行性检验；<br>    ②若满足平行性假定，则进一步检验两组间应变量总体均数是否存在差异。</p>
+<p>假设检验：<br>    1.先检验应变量和协变量的关系 在自变量两个不同组之间是一样的（斜率一样）<br>    2. 应变量和自变量的关系：两样本组总体均值差异检验</p>
+<p>Fisher<br>karl pearson<br>student</p>
+]]></content>
+      <categories>
+        <category>统计</category>
+      </categories>
+      <tags>
+        <tag>统计</tag>
       </tags>
   </entry>
 </search>
