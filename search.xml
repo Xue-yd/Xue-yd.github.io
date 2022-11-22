@@ -1093,4 +1093,34 @@
         <tag>linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>R中从命令行传入参数CommandArgs()用法</title>
+    <url>/2022/11/22/R%E4%B8%AD%E4%BB%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0CommandArgv-%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<p>commandArgs()是R自带的参数传递函数，本文总结其用法。</p>
+<span id="more"></span>
+
+<p>与perl的@ARGV和python的 sys.argv 类似，将来自于命令行的参数存入向量&#x2F;数组中。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> args <span class="operator">&lt;-</span> commandArgs<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> print<span class="punctuation">(</span>args<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>命令行如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Rscript test.R arg1 arg2</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;C:....&quot;</span>	<span class="comment"># R所在路径</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">2</span><span class="punctuation">]</span> <span class="string">&quot;--slave&quot;</span>	<span class="comment"># Rscript参数</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">3</span><span class="punctuation">]</span> <span class="string">&quot;--no-restore&quot;</span>	<span class="comment"># Rscript参数</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">4</span><span class="punctuation">]</span> <span class="string">&quot;--file=test.R&quot;</span>	<span class="comment"># 脚本路径</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">5</span><span class="punctuation">]</span> <span class="string">&quot;--args&quot;</span>	<span class="comment"># 脚本参数</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">6</span><span class="punctuation">]</span> <span class="string">&quot;arg1&quot;</span>	<span class="comment">#参数1</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">7</span><span class="punctuation">]</span> <span class="string">&quot;args2&quot;</span>	<span class="comment">#参数2</span></span><br></pre></td></tr></table></figure>
+<p>即R输入的参数并不像python、perl一样是从第一个开始的。</p>
+<p>如下命令可以让其从1开始：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> args <span class="operator">&lt;-</span> commandArgs<span class="punctuation">(</span>trailingOnly<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> print<span class="punctuation">(</span>args<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span>	<span class="string">&quot;args1&quot;</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">2</span><span class="punctuation">]</span>	<span class="string">&quot;args2&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>读入文件：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> args <span class="operator">&lt;-</span> commandArgs<span class="punctuation">(</span>trailingOnly<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> file1 <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span>argv<span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span><span class="punctuation">,</span>header <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>命令行：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">Rscript test.R file1.csv</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>R</category>
+      </categories>
+      <tags>
+        <tag>R</tag>
+      </tags>
+  </entry>
 </search>
