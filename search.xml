@@ -1075,4 +1075,22 @@
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Shell中同时遍历两个变量</title>
+    <url>/2022/11/22/Shell%E4%B8%AD%E5%90%8C%E6%97%B6%E9%81%8D%E5%8E%86%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F/</url>
+    <content><![CDATA[<p>在bash脚本中同时遍历两个变量。</p>
+<span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="built_in">cat</span> file1.txt</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">&gt; <span class="built_in">cat</span> file2.txt</span><br><span class="line">a </span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+<p>脚本内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">num=(`<span class="built_in">cat</span> file1.txt`)</span><br><span class="line"><span class="comment">#等价于定义数组 num=(1 2 3 4) </span></span><br><span class="line">char=(`<span class="built_in">cat</span> file2.txt`)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ((i=0;i&lt;4;i++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="comment">#调用数组的第i个变量</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$&#123;num[$i]&#125;</span> <span class="variable">$&#123;char[$i]&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1 a </span><br><span class="line">2 b</span><br><span class="line">3 c</span><br><span class="line">4 d</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
