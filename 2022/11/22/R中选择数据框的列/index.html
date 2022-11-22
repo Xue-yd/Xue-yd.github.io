@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="人不能飞于是努力走">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xueyd&#39;s Blog">
-<meta property="og:url" content="http://example.com/categories/%E5%9F%BA%E5%9B%A0%E7%BB%84/index.html">
+  <meta name="description" content="本文介绍利用tidyverse包的select()函数和sqldf包的sqldf()选择数据框的列。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R中选择数据框的列">
+<meta property="og:url" content="http://example.com/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="人不能飞于是努力走">
+<meta property="og:description" content="本文介绍利用tidyverse包的select()函数和sqldf包的sqldf()选择数据框的列。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-22T14:05:50.000Z">
+<meta property="article:modified_time" content="2022-11-22T14:13:05.722Z">
 <meta property="article:author" content="Xue Yingdi">
+<meta property="article:tag" content="R">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/categories/%E5%9F%BA%E5%9B%A0%E7%BB%84/">
+<link rel="canonical" href="http://example.com/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 基因组 | Xueyd's Blog</title>
+  <title>R中选择数据框的列 | Xueyd's Blog</title>
   
 
 
@@ -185,51 +188,129 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">基因组
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          R中选择数据框的列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-22 22:05:50 / 修改时间：22:13:05" itemprop="dateCreated datePublished" datetime="2022-11-22T22:05:50+08:00">2022-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>70</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <p>本文介绍利用tidyverse包的select()函数和sqldf包的sqldf()选择数据框的列。</p>
+<span id="more"></span>
+
+<h4 id="1-tidyverse包select"><a href="#1-tidyverse包select" class="headerlink" title="1. tidyverse包select()"></a>1. tidyverse包select()</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#按位置选择</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="number">3</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#按名字选择</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="string">&#x27;col1&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;col2&#x27;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="string">&#x27;col1&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;col3&#x27;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#名字以col开头的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>starts_with<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#名字以col结尾的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>ends_with<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#名字包含有col的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>contains<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-08T19:53:56+08:00"
-              content="2022-09-08">
-          09-08
-        </time>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Xue Yingdi
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/" title="R中选择数据框的列">http://example.com/2022/11/22/R中选择数据框的列/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/08/%E4%B8%89%E4%BB%A3hifi%E6%B5%8B%E5%BA%8F%E4%B9%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85/" itemprop="url">
-            <span itemprop="name">三代hifi测序之基因组组装</span>
-          </a>
-      </div>
 
-    </header>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/R/" rel="tag"># R</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/22/R%E4%B8%AD%E4%BB%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0CommandArgv-%E7%94%A8%E6%B3%95/" rel="prev" title="R中从命令行传入参数CommandArgs()用法">
+      <i class="fa fa-chevron-left"></i> R中从命令行传入参数CommandArgs()用法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -282,6 +363,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-tidyverse%E5%8C%85select"><span class="nav-number">1.</span> <span class="nav-text">1. tidyverse包select()</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

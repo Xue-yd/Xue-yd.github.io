@@ -1123,4 +1123,18 @@
         <tag>R</tag>
       </tags>
   </entry>
+  <entry>
+    <title>R中选择数据框的列</title>
+    <url>/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/</url>
+    <content><![CDATA[<p>本文介绍利用tidyverse包的select()函数和sqldf包的sqldf()选择数据框的列。</p>
+<span id="more"></span>
+
+<h4 id="1-tidyverse包select"><a href="#1-tidyverse包select" class="headerlink" title="1. tidyverse包select()"></a>1. tidyverse包select()</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="comment">#按位置选择</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="number">3</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#按名字选择</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="string">&#x27;col1&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;col2&#x27;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span><span class="string">&#x27;col1&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;col3&#x27;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#名字以col开头的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>starts_with<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#名字以col结尾的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>ends_with<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment">#名字包含有col的列</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> mydata <span class="operator">%&gt;%</span> select<span class="punctuation">(</span>contains<span class="punctuation">(</span><span class="string">&quot;col&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>R</category>
+      </categories>
+      <tags>
+        <tag>R</tag>
+      </tags>
+  </entry>
 </search>
