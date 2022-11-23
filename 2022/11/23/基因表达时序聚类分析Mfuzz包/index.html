@@ -20,16 +20,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="人不能飞于是努力走">
+  <meta name="description" content="Mfuzz能够识别表达谱潜在的时间序列模式，并将具有相似表达模式的基因进行聚类。本文介绍Mfuzz包的使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基因表达时序聚类分析Mfuzz包">
 <meta property="og:url" content="http://example.com/2022/11/23/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%97%B6%E5%BA%8F%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90Mfuzz%E5%8C%85/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="人不能飞于是努力走">
+<meta property="og:description" content="Mfuzz能够识别表达谱潜在的时间序列模式，并将具有相似表达模式的基因进行聚类。本文介绍Mfuzz包的使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-23T05:32:14.000Z">
-<meta property="article:modified_time" content="2022-11-23T05:32:14.523Z">
+<meta property="article:modified_time" content="2022-11-23T06:43:18.543Z">
 <meta property="article:author" content="Xue Yingdi">
+<meta property="article:tag" content="R">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2022/11/23/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%97%B6%E5%BA%8F%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90Mfuzz%E5%8C%85/">
@@ -216,8 +217,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-11-23 13:32:14" itemprop="dateCreated datePublished" datetime="2022-11-23T13:32:14+08:00">2022-11-23</time>
+              <time title="创建时间：2022-11-23 13:32:14 / 修改时间：14:43:18" itemprop="dateCreated datePublished" datetime="2022-11-23T13:32:14+08:00">2022-11-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
+                </span>
             </span>
 
           
@@ -233,7 +244,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>108</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -252,7 +263,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>Mfuzz能够识别表达谱潜在的时间序列模式，并将具有相似表达模式的基因进行聚类。<br>本文介绍Mfuzz包的使用。</p>
+<span id="more"></span>
+
+<h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> BiocManager<span class="operator">::</span>install<span class="punctuation">(</span><span class="string">&quot;Mfuzz&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> library<span class="punctuation">(</span>Mfuzz<span class="punctuation">)</span></span><br><span class="line"><span class="comment">#载入数据，行为基因，列为样本</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span>file	<span class="operator">=</span> <span class="string">&quot;data.csv&quot;</span><span class="punctuation">,</span>header <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-Mfuzz使用"><a href="#2-Mfuzz使用" class="headerlink" title="2.Mfuzz使用"></a>2.Mfuzz使用</h4><p>构建对象，并对表达矩阵进行标准化，进行聚类分析。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建对象</span></span><br><span class="line"><span class="operator">&gt;</span> dat <span class="operator">&lt;-</span> new<span class="punctuation">(</span><span class="string">&#x27;ExpressionSet&#x27;</span><span class="punctuation">,</span>exprs <span class="operator">=</span> data<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># 处理NA,如果缺失值的比例超过thres，则会被过滤掉</span></span><br><span class="line"><span class="operator">&gt;</span> dat <span class="operator">&lt;-</span> filter.NA<span class="punctuation">(</span>dat<span class="punctuation">,</span>thres<span class="operator">=</span><span class="number">0.1</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment"># 将缺失值替换，可选：mean、median等</span></span><br><span class="line"><span class="operator">&gt;</span> dat <span class="operator">&lt;-</span> fill.NA<span class="punctuation">(</span>dat<span class="punctuation">,</span>mode <span class="operator">=</span> mean<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># 标准化</span></span><br><span class="line"><span class="operator">&gt;</span> dat <span class="operator">&lt;-</span> standardise<span class="punctuation">(</span>dat<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 评估最佳的m值</span></span><br><span class="line"><span class="operator">&gt;</span> m <span class="operator">&lt;-</span> mestimate<span class="punctuation">(</span>dat<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># mfuzz聚类，聚类的个数c需要自己定义</span></span><br><span class="line"><span class="operator">&gt;</span> cl <span class="operator">&lt;-</span> mfuzz<span class="punctuation">(</span>dat<span class="punctuation">,</span><span class="built_in">c</span><span class="operator">=</span><span class="number">8</span><span class="punctuation">,</span>m<span class="operator">=</span>m<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># time.labels参数设置时间轴label</span></span><br><span class="line"><span class="operator">&gt;</span> mfuzz.plot<span class="punctuation">(</span>dat<span class="punctuation">,</span>cl<span class="operator">=</span>cl<span class="punctuation">,</span>mfrow<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">4</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">)</span><span class="punctuation">,</span>time.labels<span class="operator">=</span>seq<span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span><span class="number">160</span><span class="punctuation">,</span><span class="number">10</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-获取各个cluster中的基因"><a href="#3-获取各个cluster中的基因" class="headerlink" title="3. 获取各个cluster中的基因"></a>3. 获取各个cluster中的基因</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个cluster的基因数目</span></span><br><span class="line"><span class="operator">&gt;</span> cl<span class="operator">$</span>size</span><br><span class="line"><span class="comment"># 每个基因所属的cluster</span></span><br><span class="line"><span class="operator">&gt;</span> head<span class="punctuation">(</span>cl<span class="operator">$</span>cluster<span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> head<span class="punctuation">(</span>cl<span class="operator">$</span>membership<span class="punctuation">)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -277,6 +296,9 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/R/" rel="tag"># R</a>
+          </div>
 
         
 
@@ -287,7 +309,10 @@
     <a href="/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/" rel="prev" title="R中选择数据框的列">
       <i class="fa fa-chevron-left"></i> R中选择数据框的列
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/23/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%840%E5%80%BC/" rel="next" title="R语言数据处理中的0值和NA值">
+      R语言数据处理中的0值和NA值 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -346,6 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Mfuzz%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">2.Mfuzz使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%8E%B7%E5%8F%96%E5%90%84%E4%B8%AAcluster%E4%B8%AD%E7%9A%84%E5%9F%BA%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">3. 获取各个cluster中的基因</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -361,7 +387,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -416,7 +442,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">26k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
