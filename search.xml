@@ -902,7 +902,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Pandas包学习笔记1</title>
+    <title>Pandas包学习(1)之Series/DataFrame数据结构</title>
     <url>/2022/11/19/Pandas%E5%8C%85%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</url>
     <content><![CDATA[<p>Pandas 是一个开源的第三方 Python 库，从 Numpy 和 Matplotlib 的基础上构建而来。Pandas 这个名字来源于面板数据（Panel Data）与数据分析（data analysis）这两个名词的组合，Pandas可以提供一个简单、高效、带有默认标签（也可以自定义标签）的 DataFrame 对象。本文总结了Pandas学习笔记。</p>
 <span id="more"></span>
