@@ -1259,12 +1259,19 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">macs2 callpeak -t treatment.highQ.sorted.bam -c control.highQ.sorted.bam -B --SPMR --keep-dup all -n outname --outdir out_peak -f BAM -g mm --nomodel --extsize 150 -q 0.05 --fe-cutoff 2</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-peak-calling结果文件"><a href="#3-peak-calling结果文件" class="headerlink" title="3. peak calling结果文件"></a>3. peak calling结果文件</h4><ol>
-<li>__control_lambda.bdg&#x2F;__treat_pileup.bdg<br>Input和IP样本的bedgraph格式数据，可以载入IGV可视化。</li>
-<li>__peak.narrowPeak<br>每一列信息如下：<br>chrom	start	end	peak_name	peak_length	+&#x2F;-strand	Foldchange	-log10pvalue	-log10qvalue	peak_start位置距离summit的距离<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr1    3682490 3682640 MII-m6A-1_peak_50       212     .       6.90033 24.1656 21.2778 127</span><br><span class="line">chr1    3683230 3684604 MII-m6A-1_peak_51       9634    .       19.4958 967.498 963.478 454</span><br><span class="line">chr1    3741597 3741747 MII-m6A-1_peak_52       122     .       7.52285 15.0429 12.2639 48</span><br></pre></td></tr></table></figure></li>
-<li>__peak.xls<br>xls格式的peak数据。abs_summit为顶峰的位置，pileup为顶峰的值。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr     start   end     length  abs_summit      pileup  -log10(pvalue)  fold_enrichment -log10(qvalue)  name</span><br><span class="line">chr1	3682491 3682640 150     3682618 43.89   24.1656 6.90033 21.2778 MII-m6A-1_peak_50</span><br><span class="line">chr1    3683231 3684604 1374    3683685 1090.77 967.498 19.4958 963.478 MII-m6A-1_peak_51</span><br><span class="line">chr1    3741598 3741747 150     3741646 21.94   15.0429 7.52285 12.2639 MII-m6A-1_peak_52</span><br></pre></td></tr></table></figure></li>
-<li>__summits.bed<br>每个peak顶峰的位置，最后一列为-log10qvalue。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr1    3682617 3682618 MII-m6A-1_peak_50       21.2778</span><br><span class="line">chr1    3683684 3683685 MII-m6A-1_peak_51       963.478</span><br><span class="line">chr1    3741645 3741646 MII-m6A-1_peak_52       12.2639</span><br></pre></td></tr></table></figure></li>
+<li><p>__control_lambda.bdg&#x2F;__treat_pileup.bdg<br>Input和IP样本的bedgraph格式数据，可以载入IGV可视化。</p>
+</li>
+<li><p>__peak.narrowPeak<br>每一列信息如下：<br>chrom	start	end	peak_name	peak_length	+&#x2F;-strand	Foldchange	-log10pvalue	-log10qvalue	peak_start位置距离summit的距离</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr1    3682490 3682640 MII-m6A-1_peak_50       212     .       6.90033 24.1656 21.2778 127</span><br><span class="line">chr1    3683230 3684604 MII-m6A-1_peak_51       9634    .       19.4958 967.498 963.478 454</span><br><span class="line">chr1    3741597 3741747 MII-m6A-1_peak_52       122     .       7.52285 15.0429 12.2639 48</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>__peak.xls<br>xls格式的peak数据。abs_summit为顶峰的位置，pileup为顶峰的值。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr     start   end     length  abs_summit      pileup  -log10(pvalue)  fold_enrichment -log10(qvalue)  name</span><br><span class="line">chr1	3682491 3682640 150     3682618 43.89   24.1656 6.90033 21.2778 MII-m6A-1_peak_50</span><br><span class="line">chr1    3683231 3684604 1374    3683685 1090.77 967.498 19.4958 963.478 MII-m6A-1_peak_51</span><br><span class="line">chr1    3741598 3741747 150     3741646 21.94   15.0429 7.52285 12.2639 MII-m6A-1_peak_52</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>__summits.bed<br>每个peak顶峰的位置，最后一列为-log10qvalue。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chr1    3682617 3682618 MII-m6A-1_peak_50       21.2778</span><br><span class="line">chr1    3683684 3683685 MII-m6A-1_peak_51       963.478</span><br><span class="line">chr1    3741645 3741646 MII-m6A-1_peak_52       12.2639</span><br></pre></td></tr></table></figure></li>
 </ol>
-]]></content>
+<h4 id="4-生物学重复replicates样本的peaks取交集"><a href="#4-生物学重复replicates样本的peaks取交集" class="headerlink" title="4. 生物学重复replicates样本的peaks取交集"></a>4. 生物学重复replicates样本的peaks取交集</h4><p>取交集用bedtools intersect,取至少有50%区域overlsap的peak。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bedtools intersect -a rep1_peaks.narrowPeak -b rep2_peaks.narrowPeak -f 0.5 -F 0.5 -e &gt; overlap.peak</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>m6A-seq</category>
       </categories>
