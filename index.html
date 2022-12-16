@@ -191,6 +191,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/16/exomePeak2%E5%8C%85%E8%BF%9B%E8%A1%8Cm6A-peak-calling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/16/exomePeak2%E5%8C%85%E8%BF%9B%E8%A1%8Cm6A-peak-calling/" class="post-title-link" itemprop="url">exomePeak2包进行m6A peak calling</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-16 21:39:47 / 修改时间：22:17:16" itemprop="dateCreated datePublished" datetime="2022-12-16T21:39:47+08:00">2022-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/m6A-seq/" itemprop="url" rel="index"><span itemprop="name">m6A-seq</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>441</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本来使用的是MACS2进行peak calling，但是后来发现有专门针对m6A开发的call peaks的R包，而且相比较于MACS2，exomePeak2还能够直接输出peak的count数等等信息，从而后续可以用部分结果进行差异peak分析，所以就采用这个包啦。由于bam文件比较大，所以文章最后会写成需要传参的脚本，这里就用R自带的传参函数。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/12/16/exomePeak2%E5%8C%85%E8%BF%9B%E8%A1%8Cm6A-peak-calling/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/28/MeRIp-seq%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B9%8Bpeak-calling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,101 +638,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Xue Yingdi">
-      <meta itemprop="description" content="人不能飞于是努力走">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xueyd's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/" class="post-title-link" itemprop="url">R中选择数据框的列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-22 22:05:50" itemprop="dateCreated datePublished" datetime="2022-11-22T22:05:50+08:00">2022-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-23 13:36:59" itemprop="dateModified" datetime="2022-11-23T13:36:59+08:00">2022-11-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>147</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文介绍利用tidyverse包的select()函数和sqldf包的sqldf()选择数据框的列。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/11/22/R%E4%B8%AD%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E6%A1%86%E7%9A%84%E5%88%97/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -715,7 +709,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -776,7 +770,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">25 分钟</span>
+    <span title="站点阅读时长">26 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
