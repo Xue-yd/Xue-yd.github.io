@@ -1473,8 +1473,9 @@
 <p>简而言之，0-based与1-based的区别如下图：</p>
 <ul>
 <li>数字直接代表一个碱基</li>
-<li>两个数字之间才代表一个碱基<br><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%87.jpg" alt="alt 图标"></li>
+<li>两个数字之间才代表一个碱基</li>
 </ul>
+<p><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%87.jpg" alt="alt 图标"></p>
 <h4 id="2-0-based与1-based坐标转换"><a href="#2-0-based与1-based坐标转换" class="headerlink" title="2. 0-based与1-based坐标转换"></a>2. 0-based与1-based坐标转换</h4><ul>
 <li>0-based转1-based<ul>
 <li>Start(1-based) &#x3D; Start(0-based) + 1</li>
@@ -1496,11 +1497,11 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">BED</td>
+<td align="center"><strong>BED</strong></td>
 <td align="center">0-based</td>
 </tr>
 <tr>
-<td align="center">BAM</td>
+<td align="center"><strong>BAM</strong></td>
 <td align="center">0-based</td>
 </tr>
 <tr>
@@ -1533,19 +1534,19 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">GTF</td>
+<td align="center"><strong>GTF</strong></td>
 <td align="center">1-based</td>
 </tr>
 <tr>
-<td align="center">GFF</td>
+<td align="center"><strong>GFF</strong></td>
 <td align="center">1-based</td>
 </tr>
 <tr>
-<td align="center">SAM</td>
+<td align="center"><strong>SAM</strong></td>
 <td align="center">1-based</td>
 </tr>
 <tr>
-<td align="center">VCF</td>
+<td align="center"><strong>VCF</strong></td>
 <td align="center">1-based</td>
 </tr>
 <tr>
