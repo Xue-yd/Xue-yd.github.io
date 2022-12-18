@@ -1439,4 +1439,140 @@
         <tag>R</tag>
       </tags>
   </entry>
+  <entry>
+    <title>生信文件中的染色体坐标：0-based与1-based</title>
+    <url>/2022/12/18/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%EF%BC%9A0-based%E4%B8%8E1-based/</url>
+    <content><![CDATA[<p>生物信息学有许多文件格式，不同的文件格式的染色体坐标方法并不一样，在文件处理中很容易混淆，因此记录一下。</p>
+<span id="more"></span>
+
+<h4 id="1-0-based与1-based"><a href="#1-0-based与1-based" class="headerlink" title="1. 0-based与1-based"></a>1. 0-based与1-based</h4><p>0-based即文件第一个碱基坐标以0开始，1-based即文件中第一个碱基坐标以1开始。<br><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%871.png" alt="alt 图标"></p>
+<table>
+<thead>
+<tr>
+<th align="center">特征</th>
+<th align="center">0-based</th>
+<th align="center">1-based</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个碱基坐标</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">区间</td>
+<td align="center">前闭后开[start,end)</td>
+<td align="center">闭区间[start,end]</td>
+</tr>
+<tr>
+<td align="center">区间长度</td>
+<td align="center">end-start</td>
+<td align="center">end-start+1</td>
+</tr>
+</tbody></table>
+<p>简而言之，0-based与1-based的区别如下图：</p>
+<ul>
+<li>数字直接代表一个碱基</li>
+<li>两个数字之间才代表一个碱基<br><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%87.jpg" alt="alt 图标"></li>
+</ul>
+<h4 id="2-0-based与1-based坐标转换"><a href="#2-0-based与1-based坐标转换" class="headerlink" title="2. 0-based与1-based坐标转换"></a>2. 0-based与1-based坐标转换</h4><ul>
+<li>0-based转1-based<ul>
+<li>Start(1-based) &#x3D; Start(0-based) + 1</li>
+<li>End(1-based) &#x3D; End(0-based)</li>
+</ul>
+</li>
+<li>1-based转1-based<ul>
+<li>Start(0-based) &#x3D; Start(1-based) - 1</li>
+<li>End(0-based) &#x3D; End(1-based)</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-文件格式所用的坐标系统总结"><a href="#3-文件格式所用的坐标系统总结" class="headerlink" title="3. 文件格式所用的坐标系统总结"></a>3. 文件格式所用的坐标系统总结</h4><p>0-based有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Format</th>
+<th align="center">Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">BED</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">BAM</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">BCF</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">narrowPeak(MACS2)</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">SAF(FeatureCount)</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">bedGraph</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UCSC Genome Browser tables</td>
+<td align="center">0-based</td>
+</tr>
+</tbody></table>
+<p>1-based有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Format</th>
+<th align="center">Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GTF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GFF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">SAM</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">VCF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">Wiggle</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GenomicRanges</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">IGV</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">BLAST</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GenBank&#x2F;EMBL Feature Table</td>
+<td align="center">1-based</td>
+</tr>
+</tbody></table>
+<p>参考链接：<br>1.<a href="https://www.jianshu.com/p/f8dd323d3c2c">https://www.jianshu.com/p/f8dd323d3c2c</a></p>
+]]></content>
+      <categories>
+        <category>Bioinformatics</category>
+      </categories>
+  </entry>
 </search>

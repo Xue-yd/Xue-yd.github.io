@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="R语言处理数据中的0值和NA值。">
+  <meta name="description" content="生物信息学有许多文件格式，不同的文件格式的染色体坐标方法并不一样，在文件处理中很容易混淆，因此记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R语言数据处理中的0值和NA值">
-<meta property="og:url" content="http://example.com/2022/11/23/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%840%E5%80%BC/index.html">
+<meta property="og:title" content="生信文件中的染色体坐标：0-based与1-based">
+<meta property="og:url" content="http://example.com/2022/12/18/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%EF%BC%9A0-based%E4%B8%8E1-based/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="R语言处理数据中的0值和NA值。">
+<meta property="og:description" content="生物信息学有许多文件格式，不同的文件格式的染色体坐标方法并不一样，在文件处理中很容易混淆，因此记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-23T13:50:08.000Z">
-<meta property="article:modified_time" content="2022-11-23T14:00:03.812Z">
+<meta property="og:image" content="http://example.com/pics/2022-12-18-%E5%9D%90%E6%A0%871.png">
+<meta property="og:image" content="http://example.com/pics/2022-12-18-%E5%9D%90%E6%A0%87.jpg">
+<meta property="article:published_time" content="2022-12-18T08:10:52.000Z">
+<meta property="article:modified_time" content="2022-12-18T08:40:58.464Z">
 <meta property="article:author" content="Xue Yingdi">
-<meta property="article:tag" content="R">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/pics/2022-12-18-%E5%9D%90%E6%A0%871.png">
 
-<link rel="canonical" href="http://example.com/2022/11/23/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%840%E5%80%BC/">
+<link rel="canonical" href="http://example.com/2022/12/18/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%EF%BC%9A0-based%E4%B8%8E1-based/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>R语言数据处理中的0值和NA值 | Xueyd's Blog</title>
+  <title>生信文件中的染色体坐标：0-based与1-based | Xueyd's Blog</title>
   
 
 
@@ -195,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/23/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%840%E5%80%BC/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/18/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%EF%BC%9A0-based%E4%B8%8E1-based/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -208,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          R语言数据处理中的0值和NA值
+          生信文件中的染色体坐标：0-based与1-based
         </h1>
 
         <div class="post-meta">
@@ -219,7 +221,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-11-23 21:50:08 / 修改时间：22:00:03" itemprop="dateCreated datePublished" datetime="2022-11-23T21:50:08+08:00">2022-11-23</time>
+              <time title="创建时间：2022-12-18 16:10:52 / 修改时间：16:40:58" itemprop="dateCreated datePublished" datetime="2022-12-18T16:10:52+08:00">2022-12-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,7 +229,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/R/" itemprop="url" rel="index"><span itemprop="name">R</span></a>
+                  <a href="/categories/Bioinformatics/" itemprop="url" rel="index"><span itemprop="name">Bioinformatics</span></a>
                 </span>
             </span>
 
@@ -244,7 +246,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>70</span>
+              <span>772</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -263,18 +265,135 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>R语言处理数据中的0值和NA值。</p>
+        <p>生物信息学有许多文件格式，不同的文件格式的染色体坐标方法并不一样，在文件处理中很容易混淆，因此记录一下。</p>
 <span id="more"></span>
 
-<h4 id="1-去除每个值都是0的行"><a href="#1-去除每个值都是0的行" class="headerlink" title="1. 去除每个值都是0的行"></a>1. 去除每个值都是0的行</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读入数据</span></span><br><span class="line"><span class="operator">&gt;</span> data <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span>file<span class="operator">=</span> <span class="string">&quot;data.csv&quot;</span><span class="punctuation">,</span>header<span class="operator">=</span><span class="built_in">T</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 去除整个数据中每行都是0值的行</span></span><br><span class="line"><span class="operator">&gt;</span> data1 <span class="operator">&lt;-</span> data<span class="punctuation">[</span>which<span class="punctuation">(</span>rowSums<span class="punctuation">(</span>data<span class="punctuation">)</span><span class="operator">&gt;</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br><span class="line"><span class="comment"># 去除数据框3至7列中都是0值的行</span></span><br><span class="line"><span class="operator">&gt;</span> data1 <span class="operator">&lt;-</span> data<span class="punctuation">[</span>which<span class="punctuation">(</span>rowSums<span class="punctuation">(</span>data<span class="punctuation">[</span><span class="number">3</span><span class="operator">:</span><span class="number">7</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="operator">&gt;</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-0-based与1-based"><a href="#1-0-based与1-based" class="headerlink" title="1. 0-based与1-based"></a>1. 0-based与1-based</h4><p>0-based即文件第一个碱基坐标以0开始，1-based即文件中第一个碱基坐标以1开始。<br><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%871.png" alt="alt 图标"></p>
+<table>
+<thead>
+<tr>
+<th align="center">特征</th>
+<th align="center">0-based</th>
+<th align="center">1-based</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个碱基坐标</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">区间</td>
+<td align="center">前闭后开[start,end)</td>
+<td align="center">闭区间[start,end]</td>
+</tr>
+<tr>
+<td align="center">区间长度</td>
+<td align="center">end-start</td>
+<td align="center">end-start+1</td>
+</tr>
+</tbody></table>
+<p>简而言之，0-based与1-based的区别如下图：</p>
+<ul>
+<li>数字直接代表一个碱基</li>
+<li>两个数字之间才代表一个碱基<br><img src="/pics/2022-12-18-%E5%9D%90%E6%A0%87.jpg" alt="alt 图标"></li>
+</ul>
+<h4 id="2-0-based与1-based坐标转换"><a href="#2-0-based与1-based坐标转换" class="headerlink" title="2. 0-based与1-based坐标转换"></a>2. 0-based与1-based坐标转换</h4><ul>
+<li>0-based转1-based<ul>
+<li>Start(1-based) &#x3D; Start(0-based) + 1</li>
+<li>End(1-based) &#x3D; End(0-based)</li>
+</ul>
+</li>
+<li>1-based转1-based<ul>
+<li>Start(0-based) &#x3D; Start(1-based) - 1</li>
+<li>End(0-based) &#x3D; End(1-based)</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-文件格式所用的坐标系统总结"><a href="#3-文件格式所用的坐标系统总结" class="headerlink" title="3. 文件格式所用的坐标系统总结"></a>3. 文件格式所用的坐标系统总结</h4><p>0-based有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Format</th>
+<th align="center">Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">BED</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">BAM</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">BCF</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">narrowPeak(MACS2)</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">SAF(FeatureCount)</td>
+<td align="center">0-based</td>
+</tr>
+<tr>
+<td align="center">bedGraph</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UCSC Genome Browser tables</td>
+<td align="center">0-based</td>
+</tr>
+</tbody></table>
+<p>1-based有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Format</th>
+<th align="center">Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GTF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GFF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">SAM</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">VCF</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">Wiggle</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GenomicRanges</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">IGV</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">BLAST</td>
+<td align="center">1-based</td>
+</tr>
+<tr>
+<td align="center">GenBank&#x2F;EMBL Feature Table</td>
+<td align="center">1-based</td>
+</tr>
+</tbody></table>
+<p>参考链接：<br>1.<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f8dd323d3c2c">https://www.jianshu.com/p/f8dd323d3c2c</a></p>
 
-<h4 id="2-去除存在值为0的行"><a href="#2-去除存在值为0的行" class="headerlink" title="2. 去除存在值为0的行"></a>2. 去除存在值为0的行</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data2 <span class="operator">&lt;-</span> data<span class="punctuation">[</span>which<span class="punctuation">(</span>rowSums<span class="punctuation">(</span>data<span class="punctuation">)</span><span class="operator">&gt;</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-将0值替换为其他值"><a href="#3-将0值替换为其他值" class="headerlink" title="3. 将0值替换为其他值"></a>3. 将0值替换为其他值</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data<span class="punctuation">[</span>data<span class="operator">==</span><span class="number">0</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="literal">NA</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="4-去除含有NA的行"><a href="#4-去除含有NA的行" class="headerlink" title="4. 去除含有NA的行"></a>4. 去除含有NA的行</h4> <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data3 <span class="operator">&lt;-</span> na.omit<span class="punctuation">(</span>data<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="5-将NA值替换为0"><a href="#5-将NA值替换为0" class="headerlink" title="5. 将NA值替换为0"></a>5. 将NA值替换为0</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data<span class="punctuation">[</span><span class="built_in">is.na</span><span class="punctuation">(</span>data<span class="punctuation">)</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -289,7 +408,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2022/11/23/R%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%840%E5%80%BC/" title="R语言数据处理中的0值和NA值">http://example.com/2022/11/23/R语言数据处理中的0值/</a>
+    <a href="http://example.com/2022/12/18/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9D%90%E6%A0%87%EF%BC%9A0-based%E4%B8%8E1-based/" title="生信文件中的染色体坐标：0-based与1-based">http://example.com/2022/12/18/文件中的坐标：0-based与1-based/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -299,9 +418,6 @@
 
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/R/" rel="tag"># R</a>
-          </div>
 
         
 
@@ -309,13 +425,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/11/23/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%97%B6%E5%BA%8F%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90Mfuzz%E5%8C%85/" rel="prev" title="基因表达时序聚类分析Mfuzz包">
-      <i class="fa fa-chevron-left"></i> 基因表达时序聚类分析Mfuzz包
+    <a href="/2022/12/17/R%E8%AF%AD%E8%A8%80%E4%BC%A0%E5%8F%82%E4%B9%8Bgetopt/" rel="prev" title="R语言传参之getopt">
+      <i class="fa fa-chevron-left"></i> R语言传参之getopt
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/11/25/Pandas%E5%8C%85%E5%AD%A6%E4%B9%A0-2-%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E5%87%BD%E6%95%B0/" rel="next" title="Pandas包学习(2)之数据统计函数">
-      Pandas包学习(2)之数据统计函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -374,7 +487,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%BB%E9%99%A4%E6%AF%8F%E4%B8%AA%E5%80%BC%E9%83%BD%E6%98%AF0%E7%9A%84%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">1. 去除每个值都是0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8E%BB%E9%99%A4%E5%AD%98%E5%9C%A8%E5%80%BC%E4%B8%BA0%E7%9A%84%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">2. 去除存在值为0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%B0%860%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA%E5%85%B6%E4%BB%96%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">3. 将0值替换为其他值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8E%BB%E9%99%A4%E5%90%AB%E6%9C%89NA%E7%9A%84%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">4. 去除含有NA的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%B0%86NA%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA0"><span class="nav-number">5.</span> <span class="nav-text">5. 将NA值替换为0</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-0-based%E4%B8%8E1-based"><span class="nav-number">1.</span> <span class="nav-text">1. 0-based与1-based</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-0-based%E4%B8%8E1-based%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">2. 0-based与1-based坐标转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%89%80%E7%94%A8%E7%9A%84%E5%9D%90%E6%A0%87%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">3. 文件格式所用的坐标系统总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
