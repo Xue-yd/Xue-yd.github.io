@@ -1576,4 +1576,95 @@
         <category>Bioinformatics</category>
       </categories>
   </entry>
+  <entry>
+    <title>R语言中的各种apply函数</title>
+    <url>/2022/12/21/R%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Dapply%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>用R语言在写函数的时候，会经常用到apply函数，从而避免在R中使用循环，R语言中的apply函数主要有apply()、tapply()、lapply()、tapply()。各种apply函数很容易搞混淆，因此在这里记录一下。</p>
+<span id="more"></span>
+
+<h4 id="1-apply-函数"><a href="#1-apply-函数" class="headerlink" title="1. apply()函数"></a>1. apply()函数</h4><p>apply(X,MARGIN,FUN),输入为dataframe或matrix，以矢量、列表、数组形式输出，参数解释：</p>
+<ul>
+<li>X：dataframe或matrix</li>
+<li>MARGIN：dataframe&#x2F;matrix的行或列，<ul>
+<li>MARGIN&#x3D;1：对行进行操作</li>
+<li>MARGIN&#x3D;2：对列执行操作</li>
+</ul>
+</li>
+<li>FUN：对数据框、矩阵执行的操作</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> m1 <span class="operator">&lt;-</span> matrix<span class="punctuation">(</span><span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="number">10</span><span class="punctuation">)</span><span class="punctuation">,</span>nrow<span class="operator">=</span><span class="number">4</span><span class="punctuation">,</span> ncol<span class="operator">=</span><span class="number">5</span><span class="punctuation">,</span>byrow<span class="operator">=</span><span class="built_in">F</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> m1</span><br><span class="line">     <span class="punctuation">[</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">[</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">]</span> <span class="punctuation">[</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">]</span> <span class="punctuation">[</span><span class="punctuation">,</span><span class="number">4</span><span class="punctuation">]</span> <span class="punctuation">[</span><span class="punctuation">,</span><span class="number">5</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span><span class="punctuation">]</span>    <span class="number">1</span>    <span class="number">5</span>    <span class="number">9</span>    <span class="number">3</span>    <span class="number">7</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">2</span><span class="punctuation">,</span><span class="punctuation">]</span>    <span class="number">2</span>    <span class="number">6</span>   <span class="number">10</span>    <span class="number">4</span>    <span class="number">8</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">3</span><span class="punctuation">,</span><span class="punctuation">]</span>    <span class="number">3</span>    <span class="number">7</span>    <span class="number">1</span>    <span class="number">5</span>    <span class="number">9</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">4</span><span class="punctuation">,</span><span class="punctuation">]</span>    <span class="number">4</span>    <span class="number">8</span>    <span class="number">2</span>    <span class="number">6</span>   <span class="number">10</span></span><br><span class="line"><span class="comment"># 对行进行操作，计算每行的和</span></span><br><span class="line"><span class="operator">&gt;</span> apply<span class="punctuation">(</span>m1<span class="punctuation">,</span><span class="number">1</span><span class="punctuation">,</span><span class="built_in">sum</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="number">25</span> <span class="number">30</span> <span class="number">25</span> <span class="number">30</span></span><br><span class="line"><span class="comment"># 对列进行操作，计算每列的和</span></span><br><span class="line"><span class="operator">&gt;</span> apply<span class="punctuation">(</span>m1<span class="punctuation">,</span><span class="number">2</span><span class="punctuation">,</span><span class="built_in">sum</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="number">10</span> <span class="number">26</span> <span class="number">22</span> <span class="number">18</span> <span class="number">34</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-lapply-函数"><a href="#2-lapply-函数" class="headerlink" title="2. lapply()函数"></a>2. lapply()函数</h4><p>lapply(X,FUN)，输入为list、vector或data.frame，并返回与原始集合长度相同的列表list，lapply不需要MARGIN。</p>
+<ul>
+<li>X：向量vector或者object</li>
+<li>FUN：对X的每个元素执行的操作</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> m2 <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;A&quot;</span><span class="punctuation">,</span><span class="string">&quot;B&quot;</span><span class="punctuation">,</span><span class="string">&quot;C&quot;</span><span class="punctuation">,</span><span class="string">&quot;D&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> m2_lower <span class="operator">&lt;-</span>lapply<span class="punctuation">(</span>m2<span class="punctuation">,</span> tolower<span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> str<span class="punctuation">(</span>m2_lower<span class="punctuation">)</span></span><br><span class="line"><span class="comment">## List of 4</span></span><br><span class="line"><span class="comment">## $:chr&quot;a&quot;</span></span><br><span class="line"><span class="comment">## $:chr&quot;b&quot;</span></span><br><span class="line"><span class="comment">## $:chr&quot;c&quot;</span></span><br><span class="line"><span class="comment">## $:chr&quot;d&quot;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用unlist()将列表转换为向量。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> m2_lower2 <span class="operator">&lt;-</span> unlist<span class="punctuation">(</span>lapply<span class="punctuation">(</span>m2<span class="punctuation">,</span>tolower<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> str<span class="punctuation">(</span>m2_lower2<span class="punctuation">)</span></span><br><span class="line"><span class="comment">##  chr [1:4] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-sapply-函数"><a href="#3-sapply-函数" class="headerlink" title="3.sapply()函数"></a>3.sapply()函数</h4><p>sapply()函数将列表、向量、数据框等作为输入，以向量或矩阵的形式输出。<br>sapply(X,FUN)</p>
+<ul>
+<li>X:vector or object</li>
+<li>FUN:执行的操作函数</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> m3 <span class="operator">&lt;-</span> cars</span><br><span class="line"><span class="operator">&gt;</span> head<span class="punctuation">(</span>m3<span class="punctuation">)</span></span><br><span class="line">  speed dist</span><br><span class="line"><span class="number">1</span>     <span class="number">4</span>    <span class="number">2</span></span><br><span class="line"><span class="number">2</span>     <span class="number">4</span>   <span class="number">10</span></span><br><span class="line"><span class="number">3</span>     <span class="number">7</span>    <span class="number">4</span></span><br><span class="line"><span class="number">4</span>     <span class="number">7</span>   <span class="number">22</span></span><br><span class="line"><span class="number">5</span>     <span class="number">8</span>   <span class="number">16</span></span><br><span class="line"><span class="number">6</span>     <span class="number">9</span>   <span class="number">10</span></span><br><span class="line"><span class="operator">&gt;</span> m3_lmin <span class="operator">&lt;-</span> lapply<span class="punctuation">(</span>m3<span class="punctuation">,</span><span class="built_in">min</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> m3_smin <span class="operator">&lt;-</span> sapply<span class="punctuation">(</span>m3<span class="punctuation">,</span><span class="built_in">min</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> m3_lmin</span><br><span class="line"><span class="operator">$</span>speed</span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="operator">$</span>dist</span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> m3_smin</span><br><span class="line">speed  dist </span><br><span class="line">    <span class="number">4</span>     <span class="number">2</span> </span><br></pre></td></tr></table></figure>
+<p>sapply()函数执行的功能与lapply()函数相同,sapply()函数返回一个向量,lapply()函数返回一个向量。</p>
+<p>apply()、sapply()、lapply()之间的区别：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Function</th>
+<th align="center">Arguments</th>
+<th align="center">Objective</th>
+<th align="center">Input</th>
+<th align="center">Output</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">apply</td>
+<td align="center">apply(x, MARGIN, FUN)</td>
+<td align="center">Apply a function to the rows or columns or both</td>
+<td align="center">Data.frame or matrix</td>
+<td align="center">vector, list, array</td>
+</tr>
+<tr>
+<td align="center">lapply</td>
+<td align="center">lapply(X, FUN)</td>
+<td align="center">Apply a function to all the elements of the input</td>
+<td align="center">List, vector or data.frame</td>
+<td align="center">list</td>
+</tr>
+<tr>
+<td align="center">sapply</td>
+<td align="center">sappy(X FUN)</td>
+<td align="center">Apply a function to all the elements of the input</td>
+<td align="center">List, vector or data.frame</td>
+<td align="center">vector or matrix</td>
+</tr>
+</tbody></table>
+<h4 id="4-tapply-函数"><a href="#4-tapply-函数" class="headerlink" title="4.tapply()函数"></a>4.tapply()函数</h4><p>tapply()计算向量中每个因子变量的度量（均值、中位数、最小值、最大值等）或函数，即对数据分组进行运算。也可以创建向量的子集，然后将FUN函数应用于每个子集。<br>tapply(X,INDEX,FUN&#x3D;NULL,simplify&#x3D;TRUE)</p>
+<ul>
+<li>X:object,通常是vector</li>
+<li>INDEX:一个list对象，且该list中的每一个元素都是与X有同样长度的因子</li>
+<li>FUN:是需要计算的函数</li>
+<li>simplify是逻辑变量，若取值为TRUE（默认值），且函数FUN的计算结果总是为一个标量值，那么函数tapply返回一个数组；若取值为FALSE，则函数tapply的返回值为一个list对象。</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> iris</span><br><span class="line">    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species</span><br><span class="line"><span class="number">1</span>            <span class="number">5.1</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa</span><br><span class="line"><span class="number">2</span>            <span class="number">4.9</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>     setosa</span><br><span class="line">......</span><br><span class="line"><span class="number">51</span>           <span class="number">7.0</span>         <span class="number">3.2</span>          <span class="number">4.7</span>         <span class="number">1.4</span> versicolor</span><br><span class="line"><span class="number">52</span>           <span class="number">6.4</span>         <span class="number">3.2</span>          <span class="number">4.5</span>         <span class="number">1.5</span> versicolor</span><br><span class="line">......	</span><br><span class="line"><span class="number">149</span>          <span class="number">6.2</span>         <span class="number">3.4</span>          <span class="number">5.4</span>         <span class="number">2.3</span>  virginica</span><br><span class="line"><span class="number">150</span>          <span class="number">5.9</span>         <span class="number">3.0</span>          <span class="number">5.1</span>         <span class="number">1.8</span>  virginica</span><br><span class="line"><span class="operator">&gt;</span> tapply<span class="punctuation">(</span>iris<span class="operator">$</span>Sepal.Length<span class="punctuation">,</span>iris<span class="operator">$</span>Species<span class="punctuation">,</span>median<span class="punctuation">)</span></span><br><span class="line">    setosa versicolor  virginica </span><br><span class="line">       <span class="number">5.0</span>        <span class="number">5.9</span>        <span class="number">6.5</span> </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>参考资料：<br>1.<a href="https://zhuanlan.zhihu.com/p/26029242">https://zhuanlan.zhihu.com/p/26029242</a> 这个里面有更多关于apply函数的详细解释，非常有帮助！</p>
+]]></content>
+      <categories>
+        <category>R</category>
+      </categories>
+      <tags>
+        <tag>R</tag>
+      </tags>
+  </entry>
 </search>
