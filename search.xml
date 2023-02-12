@@ -1878,4 +1878,58 @@
         <tag>ggplot2</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ggplot2集锦之三坐标系相关设置coord</title>
+    <url>/2023/02/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%89%E7%BB%9F%E8%AE%A1%E5%8F%98%E6%8D%A2stat/</url>
+    <content><![CDATA[<p>这一篇介绍ggplot2中与坐标相关的设置。</p>
+<span id="more"></span>
+
+<h3 id="1-coord-catesian"><a href="#1-coord-catesian" class="headerlink" title="1. coord_catesian()"></a>1. coord_catesian()</h3><p>默认情况下使用scoord_cartesian这个坐标系。以下两个等价：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p</span><br><span class="line">p <span class="operator">+</span> coord_cartesian<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord.png" alt="alt 图标"><br>参数：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_cartesian<span class="punctuation">(</span></span><br><span class="line">  xlim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span></span><br><span class="line">  ylim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span></span><br><span class="line">  expand <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span></span><br><span class="line">  default <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span></span><br><span class="line">  clip <span class="operator">=</span> <span class="string">&quot;on&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>xlim和ylim控制图片显示的区域范围，加上xlim和ylim之后,图如下：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p<span class="operator">+</span>coord_cartesian<span class="punctuation">(</span>xlim <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">100</span><span class="punctuation">,</span><span class="number">150</span><span class="punctuation">)</span><span class="punctuation">,</span>ylim <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">20</span><span class="punctuation">,</span><span class="number">25</span><span class="punctuation">)</span><span class="punctuation">,</span>expand <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord1.png" alt="alt 图标"></p>
+<p>expand 为T则默认指定xlim轴两端还留一些空隙，F则控制范围即为图形的边缘。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p<span class="operator">+</span>coord_cartesian<span class="punctuation">(</span>xlim <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">100</span><span class="punctuation">,</span><span class="number">150</span><span class="punctuation">)</span><span class="punctuation">,</span>ylim <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">20</span><span class="punctuation">,</span><span class="number">25</span><span class="punctuation">)</span><span class="punctuation">,</span>expand <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord2.png" alt="alt 图标"></p>
+<h3 id="2-coord-fixed"><a href="#2-coord-fixed" class="headerlink" title="2. coord_fixed()"></a>2. coord_fixed()</h3><p>coord_fixed()图形伸缩变换。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_fixed<span class="punctuation">(</span>ratio <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> xlim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> ylim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> expand <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span> clip <span class="operator">=</span> <span class="string">&quot;on&quot;</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<p>ratio值表示y&#x2F;x,即y周1单位是x周一单位的几倍，ratio越小，图形越扁。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p<span class="operator">+</span>coord_fixed<span class="punctuation">(</span>ratio<span class="operator">=</span><span class="number">1</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord3.jpg" alt="alt 图标"></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p<span class="operator">+</span>coord_fixed<span class="punctuation">(</span>ratio<span class="operator">=</span><span class="number">10</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord4.png" alt="alt 图标"></p>
+<h3 id="3-coord-flip"><a href="#3-coord-flip" class="headerlink" title="3.coord_flip()"></a>3.coord_flip()</h3><p>横纵轴位置互换。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_flip<span class="punctuation">(</span>xlim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> ylim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> expand <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_flip<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord5.png" alt="alt 图标"></p>
+<h3 id="4-coord-trans"><a href="#4-coord-trans" class="headerlink" title="4. coord_trans()"></a>4. coord_trans()</h3><p>坐标形式转换：例如对数转换，平方根转换等等log10、log2、squal。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_trans<span class="punctuation">(</span></span><br><span class="line">  x <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">,</span>y <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">,</span></span><br><span class="line">  xlim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span>ylim <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span></span><br><span class="line">  limx <span class="operator">=</span> deprecated<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span>limy <span class="operator">=</span> deprecated<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  clip <span class="operator">=</span> <span class="string">&quot;on&quot;</span><span class="punctuation">,</span>expand <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>转换前：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p</span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord.png" alt="alt 图标"></p>
+<p>转换后：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_trans<span class="punctuation">(</span>x<span class="operator">=</span><span class="string">&quot;log2&quot;</span><span class="punctuation">,</span>y<span class="operator">=</span><span class="string">&quot;log2&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord6.png" alt="alt 图标"></p>
+<h3 id="5-coord-equal"><a href="#5-coord-equal" class="headerlink" title="5. coord_equal()"></a>5. coord_equal()</h3><p>等坐标转换：使用这个函数后，x轴和y轴坐标会被转换成相等形式，此时图形会产生较大的缩放，radio可以进一步调整缩放比例（x和y的比值）。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p</span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord.png" alt="alt 图标"></p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_equal<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord3.jpg" alt="alt 图标"></p>
+<h3 id="6-coord-polar"><a href="#6-coord-polar" class="headerlink" title="6. coord_polar()"></a>6. coord_polar()</h3><p>进行极坐标转换，可以绘制饼图，参数方面theta可以选择x或y，表示外延的坐标，start是坐标开始的角度，默认其实位置是12点钟。direction 表示数据的方向，1是顺时针，-1为逆时针。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_polar<span class="punctuation">(</span>theta <span class="operator">=</span> <span class="string">&quot;x&quot;</span><span class="punctuation">,</span> start <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line"> direction <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> clip <span class="operator">=</span> <span class="string">&quot;on&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>theta&#x3D;”x”：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_polar<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord8.jpg" alt="alt 图标"><br>theta&#x3D;”y”：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_polar<span class="punctuation">(</span>theta<span class="operator">=</span><span class="string">&quot;y&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-02-12-coord7.jpg" alt="alt 图标"></p>
+<p>饼图用theta&#x3D;”y”。</p>
+]]></content>
+      <tags>
+        <tag>R</tag>
+        <tag>ggplot2</tag>
+      </tags>
+  </entry>
 </search>
