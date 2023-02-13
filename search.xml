@@ -1672,7 +1672,7 @@
     <content><![CDATA[<p>本文总结了ggplot2包绘图时scale_相关设置。</p>
 <span id="more"></span>
 
-<p>scale_主要用于在ggplot画图之后对各个图层进行调整。</p>
+<p>scale_主要用于在ggplot画图之后对各个图层进行调整。常用的有：<br><img src="/pics/2023-02-13-scale_table.jpg" alt="alt 图标"></p>
 <h3 id="1-1-属性相关的scale设置"><a href="#1-1-属性相关的scale设置" class="headerlink" title="1.1 属性相关的scale设置"></a>1.1 属性相关的scale设置</h3><p>包括scale_size()、scale_alpha()、scale_shape()。这三个设置主要对ggplot的图层属性进行相关设置，包括尺寸、透明度和形状。<br>以下列出该设置的主要参数：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">scale_xxx<span class="punctuation">(</span>name <span class="operator">=</span> waiver<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> breaks <span class="operator">=</span> waiver<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> labels <span class="operator">=</span> waiver<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> limits <span class="operator">=</span> <span class="literal">NULL</span><span class="punctuation">,</span> <span class="built_in">range</span> <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">)</span><span class="punctuation">,</span>.....<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 <p>由上面参数可以看出，我们可以对该属性进行，name命名，breaks设置组别，labels组别标签，limits限定坐标轴范围或组别排序，这几个参数在大多数scale设置中基本上都会用到。range设置尺寸大小范围（如点图的点），这个参数在其他设置中相对少见。</p>
