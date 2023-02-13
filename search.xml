@@ -1922,9 +1922,9 @@
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">coord_polar<span class="punctuation">(</span>theta <span class="operator">=</span> <span class="string">&quot;x&quot;</span><span class="punctuation">,</span> start <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line"> direction <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> clip <span class="operator">=</span> <span class="string">&quot;on&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 <p>theta&#x3D;”x”：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_polar<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-<p><img src="/pics/2023-02-12-coord8.jpg" alt="alt 图标"><br>theta&#x3D;”y”：</p>
+<p><img src="/pics/2023-02-12-coord8.png" alt="alt 图标"><br>theta&#x3D;”y”：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> coord_polar<span class="punctuation">(</span>theta<span class="operator">=</span><span class="string">&quot;y&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-<p><img src="/pics/2023-02-12-coord7.jpg" alt="alt 图标"></p>
+<p><img src="/pics/2023-02-12-coord7.png" alt="alt 图标"></p>
 <p>饼图用theta&#x3D;”y”，两张图最外圈坐标的变化，是由theta参数的选择来决定的。</p>
 ]]></content>
       <tags>
