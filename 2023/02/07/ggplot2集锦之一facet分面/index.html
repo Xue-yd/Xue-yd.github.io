@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://example.com/pics/2023-02-08-ggplot-scale5.png">
 <meta property="og:image" content="http://example.com/pics/2023-02-08-ggplot-scale6.png">
 <meta property="article:published_time" content="2023-02-07T13:20:20.000Z">
-<meta property="article:modified_time" content="2023-02-13T12:35:33.409Z">
+<meta property="article:modified_time" content="2023-02-27T11:08:06.526Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="R">
 <meta property="article:tag" content="ggplot2">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-13 20:35:33" itemprop="dateModified" datetime="2023-02-13T20:35:33+08:00">2023-02-13</time>
+                <time title="修改时间：2023-02-27 19:08:06" itemprop="dateModified" datetime="2023-02-27T19:08:06+08:00">2023-02-27</time>
               </span>
 
           
@@ -253,7 +253,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,12 +281,24 @@
 <p>基本元素：</p>
 <ul>
 <li>数据：作图用的数据集</li>
-<li>几何图形 geom_:表示数据的几何形状：点图、折线图、箱线图、小提琴图等等</li>
-<li>映射 aes(): 几何或者统计对象的映射，比如位置，颜色，大小，形状等</li>
+<li>几何图形 geom_:表示数据的几何形状，更多形状推荐<a target="_blank" rel="noopener" href="https://ggplot2.tidyverse.org/reference/">这里</a><ul>
+<li>点图、折线图、箱线图、小提琴图等等</li>
+</ul>
+</li>
+<li>映射 aes(): 几何或者统计对象的映射<ul>
+<li>x（x轴方向的位置）</li>
+<li>y（y轴方向的位置）</li>
+<li>color（点或者线等元素的颜色</li>
+<li>size（点或者线等元素的大小）</li>
+<li>shape（点或者线等元素的形状）</li>
+<li>alpha（点或者线等元素的透明度）</li>
+</ul>
+</li>
 <li>面 facet_: 数据图表的排列</li>
-<li>刻度 scale_(): 数据与美学维度之间的映射，比如图形宽度的数据范围</li>
+<li>标度 scale_(): 数据与美学维度之间的映射，比如图形宽度的数据范围</li>
 <li>统计转换 stat_: 数据的统计，比如百分位，拟合曲线</li>
 <li>坐标系统 coord_: 数据的转换</li>
+<li>图层 layer：增加图层</li>
 <li>主题 theme(): 图形的整体视觉默认值，如背景、网格、轴、默认字体、大小和颜色<br>ggplot默认至少需要前三样：数据、数据如何映射到美学aes()、几何图形geom_。</li>
 </ul>
 <h3 id="2-aes"><a href="#2-aes" class="headerlink" title="2. aes()"></a>2. aes()</h3><p>aes()函数是ggplot2中的映射函数, 所谓的映射即为数据集中的数据关联到相应的图形属性过程中一种对应关系。每个点都有自己图像上的属性，比如x坐标，y坐标，点的大小、颜色和形状，这些都叫做aesthetics，即图像上可观测到的属性，通过aes函数来赋值。</p>
@@ -522,13 +534,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">37k</span>
+    <span title="站点总字数">38k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34 分钟</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
