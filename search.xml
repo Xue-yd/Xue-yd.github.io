@@ -2042,7 +2042,7 @@
 </tr>
 </tbody></table>
 <p>plot.background&#x3D;element_rect(fill &#x3D; NA)可以将背景矩形设为透明。</p>
-<h4 id="2-1-标题组件"><a href="#2-1-标题组件" class="headerlink" title="2.1 标题组件"></a>2.1 标题组件</h4><table>
+<h4 id="2-2-标题组件"><a href="#2-2-标题组件" class="headerlink" title="2.2 标题组件"></a>2.2 标题组件</h4><table>
 <thead>
 <tr>
 <th align="center">组件</th>
@@ -2066,7 +2066,7 @@
 <td align="center">图片caption</td>
 </tr>
 </tbody></table>
-<h4 id="2-2-坐标轴组件"><a href="#2-2-坐标轴组件" class="headerlink" title="2.2 坐标轴组件"></a>2.2 坐标轴组件</h4><table>
+<h4 id="2-3-坐标轴组件"><a href="#2-3-坐标轴组件" class="headerlink" title="2.3 坐标轴组件"></a>2.3 坐标轴组件</h4><table>
 <thead>
 <tr>
 <th align="center">组件</th>
