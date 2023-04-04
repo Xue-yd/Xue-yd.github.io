@@ -2040,12 +2040,8 @@
 <td align="center">margin()</td>
 <td align="center">图像边距</td>
 </tr>
-<tr>
-<td align="center">plot.background&#x3D;element_rect(fill &#x3D; NA)可以将背景矩形设为透明。</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<p>plot.background&#x3D;element_rect(fill &#x3D; NA)可以将背景矩形设为透明。</p>
 <h4 id="2-1-标题组件"><a href="#2-1-标题组件" class="headerlink" title="2.1 标题组件"></a>2.1 标题组件</h4><table>
 <thead>
 <tr>
@@ -2128,12 +2124,8 @@
 <td align="center">element_line()</td>
 <td align="center">轴线</td>
 </tr>
-<tr>
-<td align="center">axis.line轴线处理，默认是隐藏的。</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<p>axis.line轴线处理，默认是隐藏的。</p>
 <p>例子：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>plot.title<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">20</span><span class="punctuation">,</span> face<span class="operator">=</span><span class="string">&quot;bold&quot;</span><span class="punctuation">,</span> <span class="comment">#字体</span></span><br><span class="line">                                  color<span class="operator">=</span><span class="string">&quot;skyblue&quot;</span><span class="punctuation">,</span> <span class="comment">#颜色</span></span><br><span class="line">                                  hjust<span class="operator">=</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="comment">#调整位置，正中间（水平）</span></span><br><span class="line">                                  lineheight<span class="operator">=</span><span class="number">1.2</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">          plot.subtitle<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">15</span><span class="punctuation">,</span>face<span class="operator">=</span><span class="string">&quot;bold&quot;</span><span class="punctuation">,</span></span><br><span class="line">									 color <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span>hjust<span class="operator">=</span><span class="number">0.5</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># subtitle</span></span><br><span class="line">          plot.caption<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">15</span><span class="punctuation">)</span><span class="punctuation">,</span>   <span class="comment"># caption</span></span><br><span class="line">          axis.title.x<span class="operator">=</span>element_text<span class="punctuation">(</span>vjust<span class="operator">=</span><span class="number">1</span><span class="punctuation">,</span> size<span class="operator">=</span><span class="number">20</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># X axis title</span></span><br><span class="line">          axis.title.y<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&quot;blue&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># Y axis title</span></span><br><span class="line">          axis.text.x<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">45</span><span class="punctuation">,</span></span><br><span class="line">                                   color <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span> vjust<span class="operator">=</span><span class="number">.5</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># X axis text</span></span><br><span class="line">          axis.text.y<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="comment"># Y axis text</span></span><br></pre></td></tr></table></figure>
 
@@ -2292,7 +2284,7 @@
 <p><img src="/pics/2023-04-03-theme8.png" alt="alt 图标"></p>
 <h4 id="3-3-删除主次网格线"><a href="#3-3-删除主次网格线" class="headerlink" title="3.3 删除主次网格线"></a>3.3 删除主次网格线</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>panel.grid.major <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#主网格线</span></span><br><span class="line">          panel.grid.minor <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#次网格线</span></span><br><span class="line">          panel.border <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#边框</span></span><br><span class="line">          axis.title <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment">#轴标题</span></span><br><span class="line">          axis.text <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 文本</span></span><br><span class="line">          axis.ticks <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>title<span class="operator">=</span><span class="string">&quot;Modified Background&quot;</span><span class="punctuation">,</span> subtitle<span class="operator">=</span><span class="string">&quot;Remove major and minor axis grid, border, axis title, text and ticks&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 <p><img src="/pics/2023-04-03-theme9.png" alt="alt 图标"></p>
-<h3 id="4-分面组件"><a href="#4-分面组件" class="headerlink" title="4. 分面组件"></a>4. 分面组件</h3><p>绘制多个图像时使用，简单整理。</p>
+<h3 id="4-分面组件"><a href="#4-分面组件" class="headerlink" title="4. 分面组件"></a>4. 分面组件</h3><p>利用facet绘制多个图像时使用。</p>
 <table>
 <thead>
 <tr>
@@ -2337,6 +2329,14 @@
 <td align="center">水平分面间边距</td>
 </tr>
 </tbody></table>
+<p>参考资料：</p>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/79968177">https://zhuanlan.zhihu.com/p/79968177</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/463041897">https://zhuanlan.zhihu.com/p/463041897</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/370223674">https://zhuanlan.zhihu.com/p/370223674</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/374283162">https://zhuanlan.zhihu.com/p/374283162</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/460976888">https://zhuanlan.zhihu.com/p/460976888</a></li>
+</ol>
 ]]></content>
       <tags>
         <tag>R</tag>
