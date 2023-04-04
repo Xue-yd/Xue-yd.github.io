@@ -1885,7 +1885,7 @@
 <p><strong>scale_shape</strong><br>scale_shape只能用于离散型变量，例如：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>data<span class="operator">=</span>mtcars<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>hp<span class="punctuation">,</span> y<span class="operator">=</span>mpg<span class="punctuation">,</span>size<span class="operator">=</span>mpg<span class="punctuation">,</span>alpha<span class="operator">=</span>am<span class="punctuation">,</span>shape<span class="operator">=</span>am<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">     geom_point<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">     scale_size<span class="punctuation">(</span><span class="string">&quot;size name&quot;</span><span class="punctuation">,</span>limits <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">15</span><span class="punctuation">,</span><span class="number">30</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">     scale_alpha_discrete<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">     scale_shape<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 <p><img src="/pics/2023-02-08-ggplot-scale6.png" alt="alt 图标"></p>
-<h4 id="4-2-scale-坐标转换"><a href="#4-2-scale-坐标转换" class="headerlink" title="4.2 scale-坐标转换"></a>4.2 scale-坐标转换</h4><h4 id="4-3-scale-时间设置"><a href="#4-3-scale-时间设置" class="headerlink" title="4.3 scale-时间设置"></a>4.3 scale-时间设置</h4><h4 id="4-4-scale-手动设置"><a href="#4-4-scale-手动设置" class="headerlink" title="4.4 scale-手动设置"></a>4.4 scale-手动设置</h4><h4 id="4-5-scale-颜色设置"><a href="#4-5-scale-颜色设置" class="headerlink" title="4.5 scale-颜色设置"></a>4.5 scale-颜色设置</h4><h3 id="5-统计变换stat"><a href="#5-统计变换stat" class="headerlink" title="5. 统计变换stat"></a>5. 统计变换stat</h3><h3 id="6-坐标系统coord"><a href="#6-坐标系统coord" class="headerlink" title="6. 坐标系统coord"></a>6. 坐标系统coord</h3>]]></content>
+]]></content>
       <tags>
         <tag>R</tag>
         <tag>ggplot2</tag>
@@ -2004,7 +2004,339 @@
     <content><![CDATA[<p>本文总结一下ggplot2包绘图时主题的美化。</p>
 <span id="more"></span>
 
-<h3 id="1-theme主题"><a href="#1-theme主题" class="headerlink" title="1.theme主题"></a>1.theme主题</h3><p>ggplot2有一些自带的常用的主题，如图：<br><img src="/pics/2023-04-03-theme.jpg" alt="alt 图标"></p>
+<h3 id="1-theme主题"><a href="#1-theme主题" class="headerlink" title="1.theme主题"></a>1.theme主题</h3><p>ggplot2有一些自带的常用的主题，如图：theme_bw()、默认背景theme_grey()、theme_linedraw()、theme_light()、theme_mininal()、theme_classic()、theme_void()。<br><img src="/pics/2023-04-03-theme.jpg" alt="alt 图标"></p>
+<p>theme也可以自定义。可以将自己喜欢的theme()部分保存为变量，重复调用。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">mytheme <span class="operator">&lt;-</span> theme<span class="punctuation">(</span>...<span class="punctuation">)</span></span><br><span class="line">ggplot<span class="punctuation">(</span>...<span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line"> mytheme</span><br></pre></td></tr></table></figure>
+
+<p>常见的四种类型：<br>element_text()，对文本进行设置，如title、subtitle等。<br>element_line()，对线进行设置，如轴线、主网格线、次网格线等等。<br>element_rect()，修改基于矩形的组件，如绘图区域和面板区域的背景。<br>element_blank()，不绘制任何东西，并关闭相关的内容设置。</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">ggplot变量<span class="operator">+</span>theme<span class="punctuation">(</span>组件<span class="operator">=</span>element_功能<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">data<span class="punctuation">(</span>diamonds<span class="punctuation">)</span></span><br><span class="line">set.seed<span class="punctuation">(</span><span class="number">1234</span><span class="punctuation">)</span></span><br><span class="line">diamond <span class="operator">&lt;-</span> diamonds<span class="punctuation">[</span>sample<span class="punctuation">(</span>nrow<span class="punctuation">(</span>diamonds<span class="punctuation">)</span><span class="punctuation">,</span> <span class="number">2000</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="punctuation">]</span></span><br><span class="line">p <span class="operator">&lt;-</span> ggplot<span class="punctuation">(</span>data <span class="operator">=</span> diamond<span class="punctuation">)</span> <span class="operator">+</span>geom_point<span class="punctuation">(</span>aes<span class="punctuation">(</span>x<span class="operator">=</span>carat<span class="punctuation">,</span> y<span class="operator">=</span>price<span class="punctuation">,</span> colour<span class="operator">=</span>color<span class="punctuation">,</span>shape<span class="operator">=</span>cut<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> labs<span class="punctuation">(</span>title<span class="operator">=</span><span class="string">&quot;TITLE&quot;</span><span class="punctuation">,</span>subtitle <span class="operator">=</span> <span class="string">&quot;SUBTITLE&quot;</span><span class="punctuation">,</span>caption <span class="operator">=</span> <span class="string">&quot;CAPTION&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme1.png" alt="alt 图标"></p>
+<p>theme()函数内容：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">theme<span class="punctuation">(</span></span><br><span class="line">  line<span class="punctuation">,</span>rect<span class="punctuation">,</span>text<span class="punctuation">,</span>title<span class="punctuation">,</span></span><br><span class="line">  aspect.ratio<span class="punctuation">,</span></span><br><span class="line">  axis.title<span class="punctuation">,</span>axis.title.x<span class="punctuation">,</span>axis.title.x.top<span class="punctuation">,</span>axis.title.x.bottom<span class="punctuation">,</span></span><br><span class="line">  axis.title.y<span class="punctuation">,</span>axis.title.y.left<span class="punctuation">,</span>axis.title.y.right<span class="punctuation">,</span></span><br><span class="line">  axis.text<span class="punctuation">,</span>axis.text.x<span class="punctuation">,</span>axis.text.x.top<span class="punctuation">,</span>axis.text.x.bottom<span class="punctuation">,</span></span><br><span class="line">  axis.text.y<span class="punctuation">,</span>axis.text.y.left<span class="punctuation">,</span>axis.text.y.right<span class="punctuation">,</span></span><br><span class="line">  axis.ticks<span class="punctuation">,</span></span><br><span class="line">  axis.ticks.x<span class="punctuation">,</span>axis.ticks.x.top<span class="punctuation">,</span>axis.ticks.x.bottom<span class="punctuation">,</span></span><br><span class="line">  axis.ticks.y<span class="punctuation">,</span>axis.ticks.y.left<span class="punctuation">,</span>axis.ticks.y.right<span class="punctuation">,</span></span><br><span class="line">  axis.ticks.length<span class="punctuation">,</span></span><br><span class="line">  axis.ticks.length.x<span class="punctuation">,</span>axis.ticks.length.x.top<span class="punctuation">,</span>axis.ticks.length.x.bottom<span class="punctuation">,</span></span><br><span class="line">  axis.ticks.length.y<span class="punctuation">,</span>axis.ticks.length.y.left<span class="punctuation">,</span>axis.ticks.length.y.right<span class="punctuation">,</span></span><br><span class="line">  axis.line<span class="punctuation">,</span></span><br><span class="line">  axis.line.x<span class="punctuation">,</span>axis.line.x.top<span class="punctuation">,</span>axis.line.x.bottom<span class="punctuation">,</span></span><br><span class="line">  axis.line.y<span class="punctuation">,</span>axis.line.y.left<span class="punctuation">,</span>axis.line.y.right<span class="punctuation">,</span></span><br><span class="line">  legend.background<span class="punctuation">,</span></span><br><span class="line">  legend.margin<span class="punctuation">,</span></span><br><span class="line">  legend.spacing<span class="punctuation">,</span>legend.spacing.x<span class="punctuation">,</span>legend.spacing.y<span class="punctuation">,</span></span><br><span class="line">  legend.key<span class="punctuation">,</span>legend.key.size<span class="punctuation">,</span>legend.key.height<span class="punctuation">,</span>legend.key.width<span class="punctuation">,</span></span><br><span class="line">  legend.text<span class="punctuation">,</span>legend.text.align<span class="punctuation">,</span></span><br><span class="line">  legend.title<span class="punctuation">,</span>legend.title.align<span class="punctuation">,</span></span><br><span class="line">  legend.position<span class="punctuation">,</span></span><br><span class="line">  legend.direction<span class="punctuation">,</span></span><br><span class="line">  legend.justification<span class="punctuation">,</span></span><br><span class="line">  legend.box<span class="punctuation">,</span></span><br><span class="line">  legend.box.just<span class="punctuation">,</span>legend.box.margin<span class="punctuation">,</span>legend.box.background<span class="punctuation">,</span>legend.box.spacing<span class="punctuation">,</span></span><br><span class="line">  panel.background<span class="punctuation">,</span>panel.border<span class="punctuation">,</span></span><br><span class="line">  panel.spacing<span class="punctuation">,</span>panel.spacing.x<span class="punctuation">,</span>panel.spacing.y<span class="punctuation">,</span></span><br><span class="line">  panel.grid<span class="punctuation">,</span></span><br><span class="line">  panel.grid.major<span class="punctuation">,</span>panel.grid.major.x<span class="punctuation">,</span>panel.grid.major.y<span class="punctuation">,</span></span><br><span class="line">  panel.grid.minor<span class="punctuation">,</span>panel.grid.minor.x<span class="punctuation">,</span>panel.grid.minor.y<span class="punctuation">,</span></span><br><span class="line">  panel.ontop<span class="punctuation">,</span></span><br><span class="line">  plot.background<span class="punctuation">,</span></span><br><span class="line">  plot.title<span class="punctuation">,</span>plot.title.position<span class="punctuation">,</span></span><br><span class="line">  plot.subtitle<span class="punctuation">,</span></span><br><span class="line">  plot.caption<span class="punctuation">,</span>plot.caption.position<span class="punctuation">,</span></span><br><span class="line">  plot.tag<span class="punctuation">,</span></span><br><span class="line">  plot.tag.position<span class="punctuation">,</span></span><br><span class="line">  plot.margin<span class="punctuation">,</span></span><br><span class="line">  strip.background<span class="punctuation">,</span>strip.background.x<span class="punctuation">,</span>strip.background.y<span class="punctuation">,</span></span><br><span class="line">  strip.clip<span class="punctuation">,</span></span><br><span class="line">  strip.placement<span class="punctuation">,</span></span><br><span class="line">  strip.text<span class="punctuation">,</span>strip.text.x<span class="punctuation">,</span>strip.text.y<span class="punctuation">,</span></span><br><span class="line">  strip.switch.pad.grid<span class="punctuation">,</span></span><br><span class="line">  strip.switch.pad.wrap<span class="punctuation">,</span></span><br><span class="line">  ...<span class="punctuation">,</span></span><br><span class="line">  complete <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span></span><br><span class="line">  validate <span class="operator">=</span> <span class="literal">TRUE</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-修改背景、标题，坐标轴"><a href="#2-修改背景、标题，坐标轴" class="headerlink" title="2. 修改背景、标题，坐标轴"></a>2. 修改背景、标题，坐标轴</h3><h4 id="2-1-图像组件"><a href="#2-1-图像组件" class="headerlink" title="2.1 图像组件"></a>2.1 图像组件</h4><table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element功能</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">plot.title</td>
+<td align="center">element_rect()</td>
+<td align="center">图像标题</td>
+</tr>
+<tr>
+<td align="center">plot.background</td>
+<td align="center">element_text()</td>
+<td align="center">图像背景</td>
+</tr>
+<tr>
+<td align="center">plot.margin</td>
+<td align="center">margin()</td>
+<td align="center">图像边距</td>
+</tr>
+<tr>
+<td align="center">plot.background&#x3D;element_rect(fill &#x3D; NA)可以将背景矩形设为透明。</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="2-1-标题组件"><a href="#2-1-标题组件" class="headerlink" title="2.1 标题组件"></a>2.1 标题组件</h4><table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element功能</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">plot.title</td>
+<td align="center">element_text()</td>
+<td align="center">图片标题</td>
+</tr>
+<tr>
+<td align="center">plot.subtitle</td>
+<td align="center">element_text()</td>
+<td align="center">图片副标题</td>
+</tr>
+<tr>
+<td align="center">plot.caption</td>
+<td align="center">elemnet_text()</td>
+<td align="center">图片caption</td>
+</tr>
+</tbody></table>
+<h4 id="2-2-坐标轴组件"><a href="#2-2-坐标轴组件" class="headerlink" title="2.2 坐标轴组件"></a>2.2 坐标轴组件</h4><table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element功能</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">axis.title</td>
+<td align="center">element_text()</td>
+<td align="center">坐标轴标题</td>
+</tr>
+<tr>
+<td align="center">axis.title.x</td>
+<td align="center">element_text()</td>
+<td align="center">x轴标题</td>
+</tr>
+<tr>
+<td align="center">axis.title.y</td>
+<td align="center">element_text()</td>
+<td align="center">y轴标题</td>
+</tr>
+<tr>
+<td align="center">axis.text</td>
+<td align="center">element_text()</td>
+<td align="center">坐标轴文本</td>
+</tr>
+<tr>
+<td align="center">axis.text.x</td>
+<td align="center">element_text()</td>
+<td align="center">x轴文本</td>
+</tr>
+<tr>
+<td align="center">axis.text.y</td>
+<td align="center">element_text()</td>
+<td align="center">y轴文本</td>
+</tr>
+<tr>
+<td align="center">axis.ticks</td>
+<td align="center">element_text()</td>
+<td align="center">轴须</td>
+</tr>
+<tr>
+<td align="center">axis.ticks.x</td>
+<td align="center">element_text()</td>
+<td align="center">x轴轴须</td>
+</tr>
+<tr>
+<td align="center">axis.ticks.y</td>
+<td align="center">element_text()</td>
+<td align="center">y轴轴须</td>
+</tr>
+<tr>
+<td align="center">axis.line</td>
+<td align="center">element_line()</td>
+<td align="center">轴线</td>
+</tr>
+<tr>
+<td align="center">axis.line轴线处理，默认是隐藏的。</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>例子：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>plot.title<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">20</span><span class="punctuation">,</span> face<span class="operator">=</span><span class="string">&quot;bold&quot;</span><span class="punctuation">,</span> <span class="comment">#字体</span></span><br><span class="line">                                  color<span class="operator">=</span><span class="string">&quot;skyblue&quot;</span><span class="punctuation">,</span> <span class="comment">#颜色</span></span><br><span class="line">                                  hjust<span class="operator">=</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="comment">#调整位置，正中间（水平）</span></span><br><span class="line">                                  lineheight<span class="operator">=</span><span class="number">1.2</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">          plot.subtitle<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">15</span><span class="punctuation">,</span>face<span class="operator">=</span><span class="string">&quot;bold&quot;</span><span class="punctuation">,</span></span><br><span class="line">									 color <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span>hjust<span class="operator">=</span><span class="number">0.5</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># subtitle</span></span><br><span class="line">          plot.caption<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">15</span><span class="punctuation">)</span><span class="punctuation">,</span>   <span class="comment"># caption</span></span><br><span class="line">          axis.title.x<span class="operator">=</span>element_text<span class="punctuation">(</span>vjust<span class="operator">=</span><span class="number">1</span><span class="punctuation">,</span> size<span class="operator">=</span><span class="number">20</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># X axis title</span></span><br><span class="line">          axis.title.y<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&quot;blue&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># Y axis title</span></span><br><span class="line">          axis.text.x<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">45</span><span class="punctuation">,</span></span><br><span class="line">                                   color <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span> vjust<span class="operator">=</span><span class="number">.5</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># X axis text</span></span><br><span class="line">          axis.text.y<span class="operator">=</span>element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="comment"># Y axis text</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/pics/2023-04-03-theme2.png" alt="alt 图标"></p>
+<blockquote>
+<p>一些其他参数、函数：<br>vjust，控制标题(或标签)和绘图之间的垂直间距。<br>hjust，控制水平间距。将其设置为0.5将标题居中。<br>face，设置字体(“plain”，“italic”，“bold”，“bold.italic”)<br>unit()，用于设定网格单位，如unit(1,”cm”)或unit(0.25,”in”)</p>
+</blockquote>
+<h3 id="2-修改图例"><a href="#2-修改图例" class="headerlink" title="2. 修改图例"></a>2. 修改图例</h3><p>图例组件：</p>
+<table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element功能</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">legend.background</td>
+<td align="center">element_rect()</td>
+<td align="center">图例背景</td>
+</tr>
+<tr>
+<td align="center">legend.key</td>
+<td align="center">element_rect()</td>
+<td align="center">图例符号背景</td>
+</tr>
+<tr>
+<td align="center">legend.key.size</td>
+<td align="center">unit()</td>
+<td align="center">图例符号大小</td>
+</tr>
+<tr>
+<td align="center">legend.key.height</td>
+<td align="center">unit()</td>
+<td align="center">图例符号高度</td>
+</tr>
+<tr>
+<td align="center">legend.key.width</td>
+<td align="center">unit()</td>
+<td align="center">图例符号宽度</td>
+</tr>
+<tr>
+<td align="center">legend.margin</td>
+<td align="center">unit()</td>
+<td align="center">图例边距</td>
+</tr>
+<tr>
+<td align="center">legend.text</td>
+<td align="center">element_text()</td>
+<td align="center">图例标签</td>
+</tr>
+<tr>
+<td align="center">legend.text.align</td>
+<td align="center">0-1</td>
+<td align="center">图例标签对齐(0&#x3D;右，1&#x3D;左)</td>
+</tr>
+<tr>
+<td align="center">legend.title</td>
+<td align="center">element_text()</td>
+<td align="center">图例名</td>
+</tr>
+<tr>
+<td align="center">legend.title.align</td>
+<td align="center">0-1</td>
+<td align="center">图例名对齐(0&#x3D;右，1&#x3D;左)</td>
+</tr>
+<tr>
+<td align="center">legend.justification</td>
+<td align="center">c(x,y)图例的x和y的坐标</td>
+<td align="center">将图例设置在图内部</td>
+</tr>
+<tr>
+<td align="center">legend.position</td>
+<td align="center">“none”, “left”, “right”, “bottom”, “top”,or two-element numeric vector</td>
+<td align="center">图例位置</td>
+</tr>
+</tbody></table>
+<h4 id="2-1-设置图例标题，文本和键的样式"><a href="#2-1-设置图例标题，文本和键的样式" class="headerlink" title="2.1 设置图例标题，文本和键的样式"></a>2.1 设置图例标题，文本和键的样式</h4><p>例如：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>legend.title <span class="operator">=</span> element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">15</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&quot;firebrick&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 图例名字</span></span><br><span class="line">          legend.text <span class="operator">=</span> element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment"># 图例文本</span></span><br><span class="line">          legend.key<span class="operator">=</span>element_rect<span class="punctuation">(</span>fill<span class="operator">=</span><span class="string">&#x27;green&#x27;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 图例符号背景</span></span><br><span class="line">          legend.background <span class="operator">=</span> element_rect<span class="punctuation">(</span>fill <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#图例背景</span></span><br><span class="line">          legend.key.size<span class="operator">=</span>unit<span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span><span class="string">&quot;cm&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 图例符号大小</span></span><br><span class="line">          legned.text.align<span class="operator">=</span><span class="number">1</span><span class="punctuation">)</span>  <span class="comment"># 图例文本右对齐</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/pics/2023-04-03-theme3.png" alt="alt 图标"></p>
+<h4 id="2-2-删除图例和修改图例位置"><a href="#2-2-删除图例和修改图例位置" class="headerlink" title="2.2 删除图例和修改图例位置"></a>2.2 删除图例和修改图例位置</h4><p>删掉图例：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>legend.position<span class="operator">=</span><span class="string">&quot;None&quot;</span><span class="punctuation">)</span> <span class="operator">+</span> labs<span class="punctuation">(</span>subtitle<span class="operator">=</span><span class="string">&quot;No Legend&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme4.png" alt="alt 图标"></p>
+<p>修改图例位置：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>legend.position<span class="operator">=</span><span class="string">&quot;bottom&quot;</span><span class="punctuation">,</span> legend.box <span class="operator">=</span> <span class="string">&quot;horizontal&quot;</span><span class="punctuation">)</span> <span class="operator">+</span> labs<span class="punctuation">(</span>subtitle<span class="operator">=</span><span class="string">&quot;Legend bottom&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme5.png" alt="alt 图标"></p>
+<p>修改图例到图片内部：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>legend.title <span class="operator">=</span> element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">12</span><span class="punctuation">,</span> color <span class="operator">=</span> <span class="string">&quot;salmon&quot;</span><span class="punctuation">,</span> face<span class="operator">=</span><span class="string">&quot;bold&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">           legend.justification<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">,</span> </span><br><span class="line">           legend.position<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">0.95</span><span class="punctuation">,</span> <span class="number">0.05</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment">#c(0, 1)为面板左上角，c(1, 0)为面板右下角，c(0.5, 0，5)为面板中间</span></span><br><span class="line">           legend.background <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">           legend.key <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">  labs<span class="punctuation">(</span>subtitle<span class="operator">=</span><span class="string">&quot;Legend: Bottom-Right Inside the Plot&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme6.png" alt="alt 图标"></p>
+<blockquote>
+<p>legend.position也可以用两个元素构成的数值向量来控制，主要是设置图例在图片中间所在具体位置，而不是图片的外围。数值大小一般在0-1之间，超出数值往往导致图例隐藏。<br>其他诸如guide_legend()或guide_colourbar()等函数也可以用来修改图例。以及向legend.position\legend.direction\legend.justification\legend.box等属性控制图例在图像中的布局。</p>
+</blockquote>
+<h3 id="3-修改面板"><a href="#3-修改面板" class="headerlink" title="3. 修改面板"></a>3. 修改面板</h3><table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element_功能()</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">panel.background</td>
+<td align="center">element_rect()</td>
+<td align="center">面板背景（数据下面）</td>
+</tr>
+<tr>
+<td align="center">panel.border</td>
+<td align="center">element_rect()</td>
+<td align="center">面板边界（数据上面）</td>
+</tr>
+<tr>
+<td align="center">panel.grid</td>
+<td align="center">element_line()</td>
+<td align="center">网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.major</td>
+<td align="center">element_line()</td>
+<td align="center">主网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.major.x</td>
+<td align="center">element_line()</td>
+<td align="center">竖直主网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.major.y</td>
+<td align="center">element_line()</td>
+<td align="center">水平主网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.minor</td>
+<td align="center">element_line()</td>
+<td align="center">次网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.minor.x</td>
+<td align="center">element_line()</td>
+<td align="center">竖直次网格线</td>
+</tr>
+<tr>
+<td align="center">panel.grid.minor.y</td>
+<td align="center">element_line()</td>
+<td align="center">水平次网格线</td>
+</tr>
+<tr>
+<td align="center">aspect.ratio</td>
+<td align="center">数值(m&#x2F;n,两个整数)</td>
+<td align="center">图像宽高比</td>
+</tr>
+</tbody></table>
+<h4 id="3-1-更改绘图背景"><a href="#3-1-更改绘图背景" class="headerlink" title="3.1 更改绘图背景"></a>3.1 更改绘图背景</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>panel.background <span class="operator">=</span> element_rect<span class="punctuation">(</span>fill <span class="operator">=</span> <span class="string">&#x27;grey80&#x27;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">          plot.background<span class="operator">=</span>element_rect<span class="punctuation">(</span>fill<span class="operator">=</span><span class="string">&quot;lightblue&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> </span><br><span class="line">          plot.margin <span class="operator">=</span> unit<span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="number">3</span><span class="punctuation">,</span> <span class="number">2</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&quot;cm&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span>  <span class="comment">#设置绘图区域距离边的据类，上，右，下，左</span></span><br><span class="line">    labs<span class="punctuation">(</span>title<span class="operator">=</span><span class="string">&quot;Modified Background&quot;</span><span class="punctuation">,</span> subtitle<span class="operator">=</span><span class="string">&quot;Change Plot Margin&quot;</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme7.png" alt="alt 图标"></p>
+<h4 id="3-2-更改主次网格线以及X、Y坐标轴"><a href="#3-2-更改主次网格线以及X、Y坐标轴" class="headerlink" title="3.2 更改主次网格线以及X、Y坐标轴"></a>3.2 更改主次网格线以及X、Y坐标轴</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>panel.grid.major <span class="operator">=</span> element_line<span class="punctuation">(</span>colour <span class="operator">=</span> <span class="string">&quot;blue&quot;</span><span class="punctuation">,</span> linewidth<span class="operator">=</span><span class="number">1.5</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#主网格线 蓝色</span></span><br><span class="line">          panel.grid.minor <span class="operator">=</span> element_line<span class="punctuation">(</span>colour <span class="operator">=</span> <span class="string">&quot;red&quot;</span><span class="punctuation">,</span> linewidth<span class="operator">=</span><span class="number">0.25</span><span class="punctuation">,</span> </span><br><span class="line">                                          linetype <span class="operator">=</span> <span class="string">&quot;dashed&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="comment"># 次网格线 红色</span></span><br><span class="line">          panel.border <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">          axis.line.x <span class="operator">=</span> element_line<span class="punctuation">(</span>colour <span class="operator">=</span> <span class="string">&quot;yellow&quot;</span><span class="punctuation">,</span> linewidth<span class="operator">=</span><span class="number">1.5</span><span class="punctuation">,</span> </span><br><span class="line">                                     lineend <span class="operator">=</span> <span class="string">&quot;butt&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># x轴 黄色，y轴 绿色</span></span><br><span class="line">          axis.line.y <span class="operator">=</span> element_line<span class="punctuation">(</span>colour <span class="operator">=</span> <span class="string">&quot;green&quot;</span><span class="punctuation">,</span>linewidth<span class="operator">=</span><span class="number">1.5</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">    labs<span class="punctuation">(</span>subtitle<span class="operator">=</span><span class="string">&quot;Change Major and Minor grid, Axis Lines&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme8.png" alt="alt 图标"></p>
+<h4 id="3-3-删除主次网格线"><a href="#3-3-删除主次网格线" class="headerlink" title="3.3 删除主次网格线"></a>3.3 删除主次网格线</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">p <span class="operator">+</span> theme<span class="punctuation">(</span>panel.grid.major <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#主网格线</span></span><br><span class="line">          panel.grid.minor <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#次网格线</span></span><br><span class="line">          panel.border <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment">#边框</span></span><br><span class="line">          axis.title <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span>  <span class="comment">#轴标题</span></span><br><span class="line">          axis.text <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 文本</span></span><br><span class="line">          axis.ticks <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>title<span class="operator">=</span><span class="string">&quot;Modified Background&quot;</span><span class="punctuation">,</span> subtitle<span class="operator">=</span><span class="string">&quot;Remove major and minor axis grid, border, axis title, text and ticks&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p><img src="/pics/2023-04-03-theme9.png" alt="alt 图标"></p>
+<h3 id="4-分面组件"><a href="#4-分面组件" class="headerlink" title="4. 分面组件"></a>4. 分面组件</h3><p>绘制多个图像时使用，简单整理。</p>
+<table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">对应的element_功能()</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">strip.background</td>
+<td align="center">element_rect()</td>
+<td align="center">分面标签背景</td>
+</tr>
+<tr>
+<td align="center">strip.text</td>
+<td align="center">element_text()</td>
+<td align="center">条状文本</td>
+</tr>
+<tr>
+<td align="center">strip.text.x</td>
+<td align="center">element_text()</td>
+<td align="center">水平条状文本</td>
+</tr>
+<tr>
+<td align="center">strip.text.y</td>
+<td align="center">element_text()</td>
+<td align="center">竖直条状文本</td>
+</tr>
+<tr>
+<td align="center">panel.spacing</td>
+<td align="center">unit()</td>
+<td align="center">分面间边距</td>
+</tr>
+<tr>
+<td align="center">panel.spacing.x</td>
+<td align="center">unit()</td>
+<td align="center">竖直分面间边距</td>
+</tr>
+<tr>
+<td align="center">panel.spacing.y</td>
+<td align="center">unit()</td>
+<td align="center">水平分面间边距</td>
+</tr>
+</tbody></table>
 ]]></content>
       <tags>
         <tag>R</tag>
