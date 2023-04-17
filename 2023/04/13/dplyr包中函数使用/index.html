@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文总结一下dplyr包中函数的使用，包括：  select() rename() filter() mutate() arrange() summarise() group_by() left_join() right_join() full_join() semi_join() anti_join() %&gt;% separate() unite() distinct() across()">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-13T05:22:28.000Z">
-<meta property="article:modified_time" content="2023-04-17T09:08:37.021Z">
+<meta property="article:modified_time" content="2023-04-17T09:20:30.833Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="R">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-17 17:08:37" itemprop="dateModified" datetime="2023-04-17T17:08:37+08:00">2023-04-17</time>
+                <time title="修改时间：2023-04-17 17:20:30" itemprop="dateModified" datetime="2023-04-17T17:20:30+08:00">2023-04-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -434,7 +434,7 @@
 <p>以下两个等价，count通过创建一个新的变量进行计数(注：变量内容为TRUE&#x2F;FALSE)：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_iris <span class="operator">%&gt;%</span> </span><br><span class="line"> filter<span class="punctuation">(</span>Sepal.Length<span class="operator">&gt;</span><span class="number">7</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line"> summarise<span class="punctuation">(</span>n<span class="operator">=</span>n<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">my_iris <span class="operator">%&gt;%</span> count<span class="punctuation">(</span>new_col <span class="operator">=</span> Sepal.Length<span class="operator">&gt;</span><span class="number">7</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="14-across"><a href="#14-across" class="headerlink" title="14. across()"></a>14. across()</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">对Sepal.Length和Petal.Length两列求均值：</span><br><span class="line">```R</span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(c(Sepal.Length,Petal.Length),mean)</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(ends_with(&quot;Length&quot;),mean)</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+<h3 id="14-across"><a href="#14-across" class="headerlink" title="14. across()"></a>14. across()</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">对Sepal.Length和Petal.Length两列求均值：</span><br><span class="line"></span><br><span class="line">```R</span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(c(Sepal.Length,Petal.Length),mean)</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(ends_with(&quot;Length&quot;),mean)</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
 <p>多列多个统计函数：</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">my_iris <span class="operator">%&gt;%</span> </span><br><span class="line"> group_by<span class="punctuation">(</span>Species<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line"> summarise<span class="punctuation">(</span></span><br><span class="line"> 	across<span class="punctuation">(</span>ends_with<span class="punctuation">(</span><span class="string">&quot;Length&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">list</span><span class="punctuation">(</span>mean<span class="operator">=</span>mean<span class="punctuation">,</span>sd<span class="operator">=</span>sd<span class="punctuation">)</span><span class="punctuation">,</span>na.rm<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"> 	<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># A tibble: 3 x 5</span></span><br><span class="line">  Species    Sepal.Length_mean Sepal.Length_sd Petal.Length_mean Petal.Length_sd</span><br><span class="line">  <span class="operator">&lt;</span>fct<span class="operator">&gt;</span>                  <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>           <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>             <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>           <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span></span><br><span class="line"><span class="number">1</span> setosa                  <span class="number">5.01</span>           <span class="number">0.352</span>              <span class="number">1.46</span>           <span class="number">0.174</span></span><br><span class="line"><span class="number">2</span> versicolor              <span class="number">5.94</span>           <span class="number">0.516</span>              <span class="number">4.26</span>           <span class="number">0.470</span></span><br><span class="line"><span class="number">3</span> virginica               <span class="number">6.59</span>           <span class="number">0.636</span>              <span class="number">5.55</span>           <span class="number">0.552</span></span><br></pre></td></tr></table></figure>
 
@@ -482,7 +482,10 @@
     <a href="/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/" rel="prev" title="ggplot2集锦之七文本注释函数">
       <i class="fa fa-chevron-left"></i> ggplot2集锦之七文本注释函数
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/17/R%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84tidy%E8%A7%84%E6%95%B4%E5%87%BD%E6%95%B0/" rel="next" title="R中数据的tidy规整函数">
+      R中数据的tidy规整函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -557,7 +560,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -570,7 +573,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

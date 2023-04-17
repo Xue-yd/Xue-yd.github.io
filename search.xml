@@ -2824,7 +2824,7 @@
 <p>以下两个等价，count通过创建一个新的变量进行计数(注：变量内容为TRUE&#x2F;FALSE)：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">my_iris <span class="operator">%&gt;%</span> </span><br><span class="line"> filter<span class="punctuation">(</span>Sepal.Length<span class="operator">&gt;</span><span class="number">7</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line"> summarise<span class="punctuation">(</span>n<span class="operator">=</span>n<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">my_iris <span class="operator">%&gt;%</span> count<span class="punctuation">(</span>new_col <span class="operator">=</span> Sepal.Length<span class="operator">&gt;</span><span class="number">7</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="14-across"><a href="#14-across" class="headerlink" title="14. across()"></a>14. across()</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">对Sepal.Length和Petal.Length两列求均值：</span><br><span class="line">```R</span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(c(Sepal.Length,Petal.Length),mean)</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(ends_with(&quot;Length&quot;),mean)</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+<h3 id="14-across"><a href="#14-across" class="headerlink" title="14. across()"></a>14. across()</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">对Sepal.Length和Petal.Length两列求均值：</span><br><span class="line"></span><br><span class="line">```R</span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(c(Sepal.Length,Petal.Length),mean)</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">my_iris %&gt;% summarise(</span><br><span class="line">	across(ends_with(&quot;Length&quot;),mean)</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
 <p>多列多个统计函数：</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">my_iris <span class="operator">%&gt;%</span> </span><br><span class="line"> group_by<span class="punctuation">(</span>Species<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line"> summarise<span class="punctuation">(</span></span><br><span class="line"> 	across<span class="punctuation">(</span>ends_with<span class="punctuation">(</span><span class="string">&quot;Length&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="built_in">list</span><span class="punctuation">(</span>mean<span class="operator">=</span>mean<span class="punctuation">,</span>sd<span class="operator">=</span>sd<span class="punctuation">)</span><span class="punctuation">,</span>na.rm<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"> 	<span class="punctuation">)</span></span><br><span class="line"><span class="comment"># A tibble: 3 x 5</span></span><br><span class="line">  Species    Sepal.Length_mean Sepal.Length_sd Petal.Length_mean Petal.Length_sd</span><br><span class="line">  <span class="operator">&lt;</span>fct<span class="operator">&gt;</span>                  <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>           <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>             <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span>           <span class="operator">&lt;</span>dbl<span class="operator">&gt;</span></span><br><span class="line"><span class="number">1</span> setosa                  <span class="number">5.01</span>           <span class="number">0.352</span>              <span class="number">1.46</span>           <span class="number">0.174</span></span><br><span class="line"><span class="number">2</span> versicolor              <span class="number">5.94</span>           <span class="number">0.516</span>              <span class="number">4.26</span>           <span class="number">0.470</span></span><br><span class="line"><span class="number">3</span> virginica               <span class="number">6.59</span>           <span class="number">0.636</span>              <span class="number">5.55</span>           <span class="number">0.552</span></span><br></pre></td></tr></table></figure>
 
@@ -2841,6 +2841,124 @@
       </categories>
       <tags>
         <tag>R</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>R中数据的tidy规整函数</title>
+    <url>/2023/04/17/R%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84tidy%E8%A7%84%E6%95%B4%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>本文总结R中利用tidyverse包中的函数来对数据进行规整。</p>
+<span id="more"></span>
+
+<h3 id="1-tidy的数据"><a href="#1-tidy的数据" class="headerlink" title="1. tidy的数据"></a>1. tidy的数据</h3><p>在R中数据需要是tidy的，即每个变量单独为一列，但是实际很多时候我们的数据并不是tidy的，比如，以下两个表格：<br><strong>表1（宽表格）:</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>rep1</th>
+<th>rep2</th>
+<th>rep3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>name2</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>name3</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>表2（长表格）:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>exp</td>
+<td>rep</td>
+<td></td>
+</tr>
+<tr>
+<td>——-</td>
+<td>—–</td>
+<td>——</td>
+<td></td>
+</tr>
+<tr>
+<td>name1</td>
+<td>1</td>
+<td>rep1</td>
+<td></td>
+</tr>
+<tr>
+<td>name1</td>
+<td>2</td>
+<td>rep2</td>
+<td></td>
+</tr>
+<tr>
+<td>name1</td>
+<td>3</td>
+<td>rep3</td>
+<td></td>
+</tr>
+<tr>
+<td>name2</td>
+<td>4</td>
+<td>rep1</td>
+<td></td>
+</tr>
+<tr>
+<td>name2</td>
+<td>5</td>
+<td>rep2</td>
+<td></td>
+</tr>
+<tr>
+<td>name2</td>
+<td>6</td>
+<td>rep3</td>
+<td></td>
+</tr>
+<tr>
+<td>name3</td>
+<td>7</td>
+<td>rep1</td>
+<td></td>
+</tr>
+<tr>
+<td>name3</td>
+<td>8</td>
+<td>rep2</td>
+<td></td>
+</tr>
+<tr>
+<td>name3</td>
+<td>9</td>
+<td>rep3</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>在绘制ggplot2时，明显需要将表1转化为表2，但是每次手动转换很麻烦，所以tidyverse包提供了转换的函数，使用以下函数转换很方便。</p>
+<h3 id="2-pivot-longer"><a href="#2-pivot-longer" class="headerlink" title="2. pivot_longer()"></a>2. pivot_longer()</h3>]]></content>
+      <categories>
+        <category>R</category>
+        <category>Tidyverse</category>
+      </categories>
+      <tags>
+        <tag>R</tag>
+        <tag>Tidyverse</tag>
       </tags>
   </entry>
 </search>
