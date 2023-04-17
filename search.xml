@@ -2680,7 +2680,8 @@
 <li><code>%&gt;%</code></li>
 <li><code>separate()</code></li>
 <li><code>unite()</code></li>
-<li><code>distinct()</code><span id="more"></span></li>
+<li><code>distinct()</code></li>
+<li><code>across()</code><span id="more"></span></li>
 </ul>
 <h3 id="1-select"><a href="#1-select" class="headerlink" title="1. select()"></a>1. select()</h3><p>一些operators：</p>
 <ul>
