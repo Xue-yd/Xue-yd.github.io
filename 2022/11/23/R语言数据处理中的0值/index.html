@@ -28,7 +28,7 @@
 <meta property="og:description" content="R语言处理数据中的0值和NA值。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-23T13:50:08.000Z">
-<meta property="article:modified_time" content="2023-04-13T05:15:39.495Z">
+<meta property="article:modified_time" content="2023-04-18T01:58:10.818Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="R">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-13 13:15:39" itemprop="dateModified" datetime="2023-04-13T13:15:39+08:00">2023-04-13</time>
+                <time title="修改时间：2023-04-18 09:58:10" itemprop="dateModified" datetime="2023-04-18T09:58:10+08:00">2023-04-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>70</span>
+              <span>150</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,6 +281,18 @@
 <h4 id="4-去除含有NA的行"><a href="#4-去除含有NA的行" class="headerlink" title="4. 去除含有NA的行"></a>4. 去除含有NA的行</h4> <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data3 <span class="operator">&lt;-</span> na.omit<span class="punctuation">(</span>data<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="5-将NA值替换为0"><a href="#5-将NA值替换为0" class="headerlink" title="5. 将NA值替换为0"></a>5. 将NA值替换为0</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data<span class="punctuation">[</span><span class="built_in">is.na</span><span class="punctuation">(</span>data<span class="punctuation">)</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-drop-na"><a href="#6-drop-na" class="headerlink" title="6. drop_na()"></a>6. drop_na()</h4><p>去掉含有NA值的行：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> drop_na<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>去除某一列有缺失值的行：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> drop_na<span class="punctuation">(</span>col1<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-replace-na"><a href="#7-replace-na" class="headerlink" title="7. replace_na()"></a>7. replace_na()</h4><p>将score列中的NA值改为0：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> mutate<span class="punctuation">(</span>score<span class="operator">=</span>replace_na<span class="punctuation">(</span>score<span class="punctuation">,</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>将score列中的NA值改为均值：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> mutate<span class="punctuation">(</span>score<span class="operator">=</span>replace_na<span class="punctuation">(</span>score<span class="punctuation">,</span>mean<span class="punctuation">(</span>score<span class="punctuation">,</span>na.rm<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -380,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%BB%E9%99%A4%E6%AF%8F%E4%B8%AA%E5%80%BC%E9%83%BD%E6%98%AF0%E7%9A%84%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">1. 去除每个值都是0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8E%BB%E9%99%A4%E5%AD%98%E5%9C%A8%E5%80%BC%E4%B8%BA0%E7%9A%84%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">2. 去除存在值为0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%B0%860%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA%E5%85%B6%E4%BB%96%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">3. 将0值替换为其他值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8E%BB%E9%99%A4%E5%90%AB%E6%9C%89NA%E7%9A%84%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">4. 去除含有NA的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%B0%86NA%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA0"><span class="nav-number">5.</span> <span class="nav-text">5. 将NA值替换为0</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%BB%E9%99%A4%E6%AF%8F%E4%B8%AA%E5%80%BC%E9%83%BD%E6%98%AF0%E7%9A%84%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">1. 去除每个值都是0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8E%BB%E9%99%A4%E5%AD%98%E5%9C%A8%E5%80%BC%E4%B8%BA0%E7%9A%84%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">2. 去除存在值为0的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%B0%860%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA%E5%85%B6%E4%BB%96%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">3. 将0值替换为其他值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8E%BB%E9%99%A4%E5%90%AB%E6%9C%89NA%E7%9A%84%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">4. 去除含有NA的行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%B0%86NA%E5%80%BC%E6%9B%BF%E6%8D%A2%E4%B8%BA0"><span class="nav-number">5.</span> <span class="nav-text">5. 将NA值替换为0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-drop-na"><span class="nav-number">6.</span> <span class="nav-text">6. drop_na()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-replace-na"><span class="nav-number">7.</span> <span class="nav-text">7. replace_na()</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

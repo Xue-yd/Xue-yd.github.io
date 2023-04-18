@@ -1238,7 +1238,19 @@
 
 <h4 id="4-去除含有NA的行"><a href="#4-去除含有NA的行" class="headerlink" title="4. 去除含有NA的行"></a>4. 去除含有NA的行</h4> <figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data3 <span class="operator">&lt;-</span> na.omit<span class="punctuation">(</span>data<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="5-将NA值替换为0"><a href="#5-将NA值替换为0" class="headerlink" title="5. 将NA值替换为0"></a>5. 将NA值替换为0</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data<span class="punctuation">[</span><span class="built_in">is.na</span><span class="punctuation">(</span>data<span class="punctuation">)</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>]]></content>
+<h4 id="5-将NA值替换为0"><a href="#5-将NA值替换为0" class="headerlink" title="5. 将NA值替换为0"></a>5. 将NA值替换为0</h4><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="operator">&gt;</span> data<span class="punctuation">[</span><span class="built_in">is.na</span><span class="punctuation">(</span>data<span class="punctuation">)</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-drop-na"><a href="#6-drop-na" class="headerlink" title="6. drop_na()"></a>6. drop_na()</h4><p>去掉含有NA值的行：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> drop_na<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>去除某一列有缺失值的行：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> drop_na<span class="punctuation">(</span>col1<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-replace-na"><a href="#7-replace-na" class="headerlink" title="7. replace_na()"></a>7. replace_na()</h4><p>将score列中的NA值改为0：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> mutate<span class="punctuation">(</span>score<span class="operator">=</span>replace_na<span class="punctuation">(</span>score<span class="punctuation">,</span><span class="number">0</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>将score列中的NA值改为均值：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">df <span class="operator">%&gt;%</span> mutate<span class="punctuation">(</span>score<span class="operator">=</span>replace_na<span class="punctuation">(</span>score<span class="punctuation">,</span>mean<span class="punctuation">(</span>score<span class="punctuation">,</span>na.rm<span class="operator">=</span><span class="literal">TRUE</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>R</category>
       </categories>
