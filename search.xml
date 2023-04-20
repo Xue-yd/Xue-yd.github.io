@@ -3098,8 +3098,8 @@
 <li>可以用于比较同一个基因在不同样品间的差异，不能用于比较不同基因之间的表达差异。</li>
 </ul>
 <h3 id="2-RPKM-x2F-FPKM"><a href="#2-RPKM-x2F-FPKM" class="headerlink" title="2. RPKM&#x2F;FPKM"></a>2. RPKM&#x2F;FPKM</h3><p>Reads per kilobase(kb) per million mapped reads。</p>
-<p><img src="/pics/2023-04-20-FPKM.jpg" alt="alt 图标"></p>
-<p>计算公式：<br><strong>长度以kb为单位：</strong><br>    <em>ExonMappedReads*10^6&#x2F;(TotalMappedReads*ExonLength)</em><br><strong>长度以bp为单位：</strong><br>    <em>ExonMappedReads*10^3*10^6&#x2F;(TotalMappedReads*ExonLength)</em></p>
+<p><img src="/pics/2023-04-20-FPKM.jpg" alt="alt 图标"><br><img src="/pics/2023-04-20-RPKM.jpg" alt="alt 图标"></p>
+<p>以RPKM为例，计算公式：<br><strong>长度以kb为单位：</strong><br>    <em>ExonMappedReads*10^6&#x2F;(TotalMappedReads*ExonLength)</em><br><strong>长度以bp为单位：</strong><br>    <em>ExonMappedReads*10^3*10^6&#x2F;(TotalMappedReads*ExonLength)</em></p>
 <ul>
 <li>对基因长度和测序深度都进行了归一化。</li>
 <li>RPKM适用于单端测序，一条read就是一个count。</li>
