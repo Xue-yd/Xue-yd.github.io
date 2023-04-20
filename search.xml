@@ -3120,9 +3120,11 @@
 <li>TPM先对基因长度进行标准化，再对测序深度进行标准化。</li>
 </ul>
 <h3 id="4-RPKM和TPM关系"><a href="#4-RPKM和TPM关系" class="headerlink" title="4. RPKM和TPM关系"></a>4. RPKM和TPM关系</h3><p><img src="/pics/2023-04-20-TPM-FPKM.jpg" alt="alt 图标"></p>
+<h3 id="5-各种标准化方法对比"><a href="#5-各种标准化方法对比" class="headerlink" title="5. 各种标准化方法对比"></a>5. 各种标准化方法对比</h3><p><img src="/pics/2023-04-20-normalization-duibi.jpg" alt="alt 图标"></p>
 <p>参考：</p>
 <ol>
 <li><a href="https://www.jianshu.com/p/1940c5954c81">https://www.jianshu.com/p/1940c5954c81</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/580665520">https://zhuanlan.zhihu.com/p/580665520</a></li>
 </ol>
 ]]></content>
       <categories>
