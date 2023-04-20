@@ -20,17 +20,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="人不能飞于是努力走">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xueyd&#39;s Blog">
-<meta property="og:url" content="http://example.com/archives/2022/09/index.html">
+  <meta name="description" content="本文总结CPM、RPKM、FPKM、TMP、RPM的计算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FPKM、RPKM、CPM、TPM计算方式">
+<meta property="og:url" content="http://example.com/2023/04/20/FPKM%E3%80%81RPKM%E3%80%81CPM%E3%80%81TPM%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
-<meta property="og:description" content="人不能飞于是努力走">
+<meta property="og:description" content="本文总结CPM、RPKM、FPKM、TMP、RPM的计算。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/pics/2023-04-20-FPKM.jpg">
+<meta property="og:image" content="http://example.com/pics/2023-04-20-TPM.jpg">
+<meta property="og:image" content="http://example.com/pics/2023-04-20-TPM-FPKM.jpg">
+<meta property="article:published_time" content="2023-04-20T02:59:41.000Z">
+<meta property="article:modified_time" content="2023-04-20T04:49:27.450Z">
 <meta property="article:author" content="Xue Yingdi">
+<meta property="article:tag" content="RNA-seq">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/pics/2023-04-20-FPKM.jpg">
 
-<link rel="canonical" href="http://example.com/archives/2022/09/">
+<link rel="canonical" href="http://example.com/2023/04/20/FPKM%E3%80%81RPKM%E3%80%81CPM%E3%80%81TPM%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -38,12 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Xueyd's Blog</title>
+  <title>FPKM、RPKM、CPM、TPM计算方式 | Xueyd's Blog</title>
   
 
 
@@ -185,231 +192,163 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">还行! 目前共计 47 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/20/FPKM%E3%80%81RPKM%E3%80%81CPM%E3%80%81TPM%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FPKM、RPKM、CPM、TPM计算方式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-04-20 10:59:41 / 修改时间：12:49:27" itemprop="dateCreated datePublished" datetime="2023-04-20T10:59:41+08:00">2023-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RNA-seq/" itemprop="url" rel="index"><span itemprop="name">RNA-seq</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>874</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
+        <p>本文总结CPM、RPKM、FPKM、TMP、RPM的计算。</p>
+<span id="more"></span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-21T08:04:27+08:00"
-              content="2022-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/21/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E7%AC%94%E8%AE%B02/" itemprop="url">
-            <span itemprop="name">医学统计学习笔记2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-19T21:07:45+08:00"
-              content="2022-09-19">
-          09-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/19/python%E4%B9%A0%E9%A2%98%E7%BB%83%E4%B9%A01/" itemprop="url">
-            <span itemprop="name">python习题练习1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-19T19:12:34+08:00"
-              content="2022-09-19">
-          09-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/19/ggplot2%E5%8C%85%E7%9A%84geom-col-%E5%92%8Cgeom-bar/" itemprop="url">
-            <span itemprop="name">ggplot2包的geom_col()和geom_bar()</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-19T18:56:23+08:00"
-              content="2022-09-19">
-          09-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/19/RNA-seq%E5%88%86%E6%9E%90-5-%E4%B9%8BGO%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">RNA-seq分析(5)之GO富集分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-18T16:56:44+08:00"
-              content="2022-09-18">
-          09-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/18/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8BKEGG%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">RNA-seq分析(4)之KEGG富集分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-17T09:46:21+08:00"
-              content="2022-09-17">
-          09-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/17/RNA-seq%E5%88%86%E6%9E%90%E4%B9%8BDESeq2%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">RNA-seq分析(3)之DESeq2差异分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-14T18:46:35+08:00"
-              content="2022-09-14">
-          09-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/14/%E5%8C%BB%E5%AD%A6%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" itemprop="url">
-            <span itemprop="name">医学统计基础学习笔记1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-13T20:45:34+08:00"
-              content="2022-09-13">
-          09-13
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/13/python%E5%AD%A6%E4%B9%A0%E4%B9%8B1/" itemprop="url">
-            <span itemprop="name">python学习之1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-08T19:53:56+08:00"
-              content="2022-09-08">
-          09-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/08/%E4%B8%89%E4%BB%A3hifi%E6%B5%8B%E5%BA%8F%E4%B9%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85/" itemprop="url">
-            <span itemprop="name">三代hifi测序之基因组组装</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-08T19:52:30+08:00"
-              content="2022-09-08">
-          09-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/08/scRNA-seq%E5%88%86%E6%9E%90%E4%B9%8BSeurat%E6%B5%81%E7%A8%8B/" itemprop="url">
-            <span itemprop="name">scRNA-seq分析之Seurat流程</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<h3 id="1-RPM-x2F-CPM"><a href="#1-RPM-x2F-CPM" class="headerlink" title="1. RPM&#x2F;CPM"></a>1. RPM&#x2F;CPM</h3><p>Reads&#x2F;Counts per million mapped reads。</p>
+<p>计算方式：<br>    <em><strong>RPM&#x3D;ExonMappedReads*10^6&#x2F;TotalMappedReads</strong></em></p>
+<ul>
+<li>只对文库大小测序深度进行了normalize，没有考虑基因长度的影响。</li>
+<li>适用于reads不受基因长度影响的测序，如miRNA测序等。</li>
+<li>可以用于比较同一个基因在不同样品间的差异，不能用于比较不同基因之间的表达差异。</li>
+</ul>
+<h3 id="2-RPKM-x2F-FPKM"><a href="#2-RPKM-x2F-FPKM" class="headerlink" title="2. RPKM&#x2F;FPKM"></a>2. RPKM&#x2F;FPKM</h3><p>Reads per kilobase(kb) per million mapped reads。</p>
+<p><img src="/pics/2023-04-20-FPKM.jpg" alt="alt 图标"></p>
+<p>计算公式：<br>    <em><strong>RPKM &#x3D; ExonMappedReads*10^3*10^6&#x2F;(TotalMappedReads*ExonLength)</strong></em></p>
+<ul>
+<li>对基因长度和测序深度都进行了归一化。</li>
+<li>RPKM适用于单端测序，一条read就是一个count。</li>
+<li>FPKM适用于双端测序，双端测序时一条read测了两遍，因此两条同样的read只能count一次，称为fragment。</li>
+</ul>
+<h3 id="3-TPM"><a href="#3-TPM" class="headerlink" title="3. TPM"></a>3. TPM</h3><p>Transcript per kilobase(kb) per million mapped reads。</p>
+<p><img src="/pics/2023-04-20-TPM.jpg" alt="alt 图标"></p>
+<p>计算公式：<br>    <em><strong>TPM&#x3D;(Ri&#x2F;Li)&#x2F;(sum(Ri&#x2F;Li+……..+ Rm&#x2F;Lm)*10^6)</strong></em></p>
+<ul>
+<li>每项意义：<ul>
+<li><em>Ni</em>：mapping到基因i上的read数； </li>
+<li><em>Li</em>：基因i的外显子长度的总和；</li>
+<li><em>Li</em>的单位是kb，如果是bp，分子需要再除以1000；</li>
+</ul>
+</li>
+<li>分子*Ri&#x2F;(Li(bp)&#x2F;1000)*是根据基因&#x2F;转录本的长度校正count值；</li>
+<li>分母*sum(Ri&#x2F;Li+……..+ Rm&#x2F;Lm)*是根据基因&#x2F;转录本长度校正之后的count值总和；</li>
+<li>TPM先对基因长度进行标准化，再对测序深度进行标准化。</li>
+</ul>
+<h3 id="4-RPKM和TPM关系"><a href="#4-RPKM和TPM关系" class="headerlink" title="4. RPKM和TPM关系"></a>4. RPKM和TPM关系</h3><p><img src="/pics/2023-04-20-TPM-FPKM.jpg" alt="alt 图标"></p>
+<p>参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1940c5954c81">https://www.jianshu.com/p/1940c5954c81</a></li>
+</ol>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Xue Yingdi
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/04/20/FPKM%E3%80%81RPKM%E3%80%81CPM%E3%80%81TPM%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F/" title="FPKM、RPKM、CPM、TPM计算方式">http://example.com/2023/04/20/FPKM、RPKM、CPM、TPM计算方式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RNA-seq/" rel="tag"># RNA-seq</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/17/R%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84tidy%E8%A7%84%E6%95%B4%E5%87%BD%E6%95%B0/" rel="prev" title="R中数据的tidy规整函数">
+      <i class="fa fa-chevron-left"></i> R中数据的tidy规整函数
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -462,6 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RPM-x2F-CPM"><span class="nav-number">1.</span> <span class="nav-text">1. RPM&#x2F;CPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-RPKM-x2F-FPKM"><span class="nav-number">2.</span> <span class="nav-text">2. RPKM&#x2F;FPKM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TPM"><span class="nav-number">3.</span> <span class="nav-text">3. TPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RPKM%E5%92%8CTPM%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">4. RPKM和TPM关系</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
