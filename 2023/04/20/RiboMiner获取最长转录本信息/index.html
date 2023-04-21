@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文总计利用RiboMiner包获取最长转录本信息及序列。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-20T12:51:12.000Z">
-<meta property="article:modified_time" content="2023-04-21T01:20:29.957Z">
+<meta property="article:modified_time" content="2023-04-21T01:22:22.648Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="Ribo-seq">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-04-21 09:20:29" itemprop="dateModified" datetime="2023-04-21T09:20:29+08:00">2023-04-21</time>
+                <time title="修改时间：2023-04-21 09:22:22" itemprop="dateModified" datetime="2023-04-21T09:22:22+08:00">2023-04-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>809</span>
+              <span>861</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -316,7 +316,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="4-得到UTR序列"><a href="#4-得到UTR序列" class="headerlink" title="4. 得到UTR序列"></a>4. 得到UTR序列</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GetUTRSequences -i input_transcript_sequences.fa -o output_prefix -c transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i Ribo_ann/transcripts_sequence.fa -o all -c Ribo_ann/transcripts_cds.txt</span><br></pre></td></tr></table></figure>
+<h3 id="4-得到UTR序列"><a href="#4-得到UTR序列" class="headerlink" title="4. 得到UTR序列"></a>4. 得到UTR序列</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GetUTRSequences -i input_transcript_sequences.fa -o output_prefix -c transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i longest_transcript_sequences.fa -o longest -c Ribo_ann/transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i Ribo_ann/transcripts_sequence.fa -o all -c Ribo_ann/transcripts_cds.txt</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>input:<ul>
@@ -325,10 +325,10 @@
 </ul>
 </li>
 <li>output:<ul>
-<li>prefix&#x2F;all_3UTR.fa 3UTR序列</li>
-<li>prefix&#x2F;all_5UTR.fa 5UTR序列</li>
-<li>prefix&#x2F;all_CDS.fa CDS序列</li>
-<li>prefix&#x2F;all.transcripts.info.txt 转录本信息</li>
+<li>prefix&#x2F;longest&#x2F;all_3UTR.fa 3UTR序列</li>
+<li>prefix&#x2F;longest&#x2F;all_5UTR.fa 5UTR序列</li>
+<li>prefix&#x2F;longest&#x2F;all_CDS.fa CDS序列</li>
+<li>prefix&#x2F;longest&#x2F;all.transcripts.info.txt 转录本信息</li>
 </ul>
 </li>
 </ul>
@@ -507,7 +507,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">43 分钟</span>
+    <span title="站点阅读时长">44 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

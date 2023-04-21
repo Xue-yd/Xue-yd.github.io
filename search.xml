@@ -3184,7 +3184,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="4-得到UTR序列"><a href="#4-得到UTR序列" class="headerlink" title="4. 得到UTR序列"></a>4. 得到UTR序列</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">GetUTRSequences -i input_transcript_sequences.fa -o output_prefix -c transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i Ribo_ann/transcripts_sequence.fa -o all -c Ribo_ann/transcripts_cds.txt</span><br></pre></td></tr></table></figure>
+<h3 id="4-得到UTR序列"><a href="#4-得到UTR序列" class="headerlink" title="4. 得到UTR序列"></a>4. 得到UTR序列</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">GetUTRSequences -i input_transcript_sequences.fa -o output_prefix -c transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i longest_transcript_sequences.fa -o longest -c Ribo_ann/transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i Ribo_ann/transcripts_sequence.fa -o all -c Ribo_ann/transcripts_cds.txt</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>input:<ul>
@@ -3193,10 +3193,10 @@
 </ul>
 </li>
 <li>output:<ul>
-<li>prefix&#x2F;all_3UTR.fa 3UTR序列</li>
-<li>prefix&#x2F;all_5UTR.fa 5UTR序列</li>
-<li>prefix&#x2F;all_CDS.fa CDS序列</li>
-<li>prefix&#x2F;all.transcripts.info.txt 转录本信息</li>
+<li>prefix&#x2F;longest&#x2F;all_3UTR.fa 3UTR序列</li>
+<li>prefix&#x2F;longest&#x2F;all_5UTR.fa 5UTR序列</li>
+<li>prefix&#x2F;longest&#x2F;all_CDS.fa CDS序列</li>
+<li>prefix&#x2F;longest&#x2F;all.transcripts.info.txt 转录本信息</li>
 </ul>
 </li>
 </ul>
