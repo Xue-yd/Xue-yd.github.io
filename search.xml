@@ -3140,7 +3140,6 @@
     <content><![CDATA[<p>本文总计利用RiboMiner包获取最长转录本信息及序列。</p>
 <span id="more"></span>
 
-
 <h3 id="1-得到所有转录本的信息"><a href="#1-得到所有转录本的信息" class="headerlink" title="1. 得到所有转录本的信息"></a>1. 得到所有转录本的信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prepare_transcripts -g Homo_sapiens.GRCh38.88.gtf -f Homo_sapiens.GRCh38.dna.primary_assembly.fa -o Ribo_ann</span><br></pre></td></tr></table></figure>
 <ul>
 <li>input<ul>
