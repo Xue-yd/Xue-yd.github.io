@@ -3134,4 +3134,79 @@
         <tag>RNA-seq</tag>
       </tags>
   </entry>
+  <entry>
+    <title>RiboMiner获取最长转录本信息</title>
+    <url>/2023/04/20/RiboMiner%E8%8E%B7%E5%8F%96%E6%9C%80%E9%95%BF%E8%BD%AC%E5%BD%95%E6%9C%AC%E4%BF%A1%E6%81%AF/</url>
+    <content><![CDATA[<p>本文总计利用RiboMiner包获取最长转录本信息及序列。</p>
+<span id="more"></span>
+
+
+<h3 id="1-得到所有转录本的信息"><a href="#1-得到所有转录本的信息" class="headerlink" title="1. 得到所有转录本的信息"></a>1. 得到所有转录本的信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prepare_transcripts -g Homo_sapiens.GRCh38.88.gtf -f Homo_sapiens.GRCh38.dna.primary_assembly.fa -o Ribo_ann</span><br></pre></td></tr></table></figure>
+<ul>
+<li>input<ul>
+<li>基因组gtf文件</li>
+<li>基因组序列</li>
+</ul>
+</li>
+<li>output<ul>
+<li>transcripts_cds.txt 所有转录本的cds序列信息</li>
+<li>transcripts_sequence.fa 所有转录本序列</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-得到最长转录本的信息"><a href="#2-得到最长转录本的信息" class="headerlink" title="2. 得到最长转录本的信息"></a>2. 得到最长转录本的信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">OutputTranscriptInfo -c transcripts_cds.txt -g Homo_sapiens.GRCh38.88.gtf -f transcripts_sequence.fa -o longest.transcripts.info.txt -O all.transcripts.info.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>input:<ul>
+<li>transcripts_cds.txt 所有转录本的cds序列</li>
+<li>transcripts_sequence.fa 所有转录本序列</li>
+<li>Homo_sapiens.GRCh38.88.gtf 参考基因组gtf文件</li>
+</ul>
+</li>
+<li>output:<ul>
+<li>longest.transcripts.info.txt 最长转录本的信息</li>
+<li>all.transcripts.info.txt 所有转录本的信息</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-得到最长转录本的序列"><a href="#3-得到最长转录本的序列" class="headerlink" title="3. 得到最长转录本的序列"></a>3. 得到最长转录本的序列</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">GetProteinCodingSequence -i transcripts_sequence.fa  -c longest.transcripts.info.txt -o output_prefix --mode whole --table 1 &#123;-l -r -S&#125;</span><br><span class="line"></span><br><span class="line">GetProteinCodingSequence -i transcripts_sequence.fa  -c longest.transcripts.info.txt -o longest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>input:<ul>
+<li>longest.transcripts.info.txt 最长转录本的信息</li>
+<li>transcripts_sequence.fa 所有转录本的序列</li>
+</ul>
+</li>
+<li>output：<ul>
+<li>longest_amino_acid_sequences.fa 最长转录本的氨基酸序列</li>
+<li>longest_cds_sequences.fa 最长转录本的cds序列</li>
+<li>longest_transcript_sequences.fa 最长转录本的基因组序列</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-得到UTR序列"><a href="#4-得到UTR序列" class="headerlink" title="4. 得到UTR序列"></a>4. 得到UTR序列</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">GetUTRSequences -i input_transcript_sequences.fa -o output_prefix -c transcripts_cds.txt</span><br><span class="line"></span><br><span class="line">GetUTRSequences -i Ribo_ann/transcripts_sequence.fa -o all -c Ribo_ann/transcripts_cds.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>input:<ul>
+<li>input_transcript_sequences.fa 从transcript_sequence.fa中得到的任何序列</li>
+<li>transcript_cds.txt 转录本的cds起始位置信息</li>
+</ul>
+</li>
+<li>output:<ul>
+<li>prefix&#x2F;all_3UTR.fa 3UTR序列</li>
+<li>prefix&#x2F;all_5UTR.fa 5UTR序列</li>
+<li>prefix&#x2F;all_CDS.fa CDS序列</li>
+<li>prefix&#x2F;all.transcripts.info.txt 转录本信息</li>
+</ul>
+</li>
+</ul>
+<p>参考：<br>1.<a href="https://github.com/xryanglab/RiboMiner">https://github.com/xryanglab/RiboMiner</a></p>
+]]></content>
+      <categories>
+        <category>Ribo-seq</category>
+      </categories>
+      <tags>
+        <tag>Ribo-seq</tag>
+      </tags>
+  </entry>
 </search>
