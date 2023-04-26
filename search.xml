@@ -3293,7 +3293,7 @@
 <p>如果提供给pmap()的.f是命名函数，且有三个参数（），正好与三个同名元素（params$n,params$min,params$max）一样，则会自动匹配。</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">pmap<span class="punctuation">(</span>params<span class="punctuation">,</span>runif<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
 
-<p>参考：<br>1.<a href="https://bookdown.org/wangminjie/R4DS/tidyverse-purrr.html">https://bookdown.org/wangminjie/R4DS/tidyverse-purrr.html</a></p>
+<h3 id="7-reduce"><a href="#7-reduce" class="headerlink" title="7. reduce()"></a>7. reduce()</h3><p>参考：<br>1.<a href="https://bookdown.org/wangminjie/R4DS/tidyverse-purrr.html">https://bookdown.org/wangminjie/R4DS/tidyverse-purrr.html</a></p>
 ]]></content>
       <categories>
         <category>R</category>
