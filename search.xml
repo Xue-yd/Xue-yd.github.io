@@ -3501,4 +3501,35 @@
         <tag>linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ggplot2绘制动图</title>
+    <url>/2023/05/02/ggplot2%E7%BB%98%E5%88%B6%E5%8A%A8%E5%9B%BE/</url>
+    <content><![CDATA[<p>总结在R中使用ggplot2绘制动图。</p>
+<span id="more"></span>
+
+<h3 id="1-举例"><a href="#1-举例" class="headerlink" title="1. 举例"></a>1. 举例</h3><p>绘制动图，两个步骤：静态图绘制、图形组装。ggplot2绘制动图需要用到<code>gganimate</code>这个包。</p>
+<p>例如：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library<span class="punctuation">(</span>tidyverse<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>covdata<span class="punctuation">)</span> <span class="comment"># remotes::install_github(&quot;kjhealy/covdata&quot;)</span></span><br><span class="line">library<span class="punctuation">(</span>gganimate<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">covdata<span class="operator">::</span>covnat_weekly <span class="operator">%&gt;%</span></span><br><span class="line">  dplyr<span class="operator">::</span>filter<span class="punctuation">(</span>iso3 <span class="operator">==</span> <span class="string">&quot;AUT&quot;</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  dplyr<span class="operator">::</span>filter<span class="punctuation">(</span>cu_cases <span class="operator">&gt;</span> <span class="number">0</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  ggplot<span class="punctuation">(</span>aes<span class="punctuation">(</span>x <span class="operator">=</span> date<span class="punctuation">,</span> y <span class="operator">=</span> cases<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_path<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span></span><br><span class="line">    title <span class="operator">=</span> <span class="string">&quot;澳大利亚新冠肺炎累积确诊病例&quot;</span><span class="punctuation">,</span></span><br><span class="line">    subtitle <span class="operator">=</span> <span class="string">&quot;数据来源https://kjhealy.github.io/covdata/&quot;</span></span><br><span class="line">  <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>加一行就可以使图片动起来：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">covdata<span class="operator">::</span>covnat_weekly <span class="operator">%&gt;%</span></span><br><span class="line">  dplyr<span class="operator">::</span>filter<span class="punctuation">(</span>iso3 <span class="operator">==</span> <span class="string">&quot;AUT&quot;</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  dplyr<span class="operator">::</span>filter<span class="punctuation">(</span>cu_cases <span class="operator">&gt;</span> <span class="number">0</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  ggplot<span class="punctuation">(</span>aes<span class="punctuation">(</span>x <span class="operator">=</span> date<span class="punctuation">,</span> y <span class="operator">=</span> cases<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_path<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span></span><br><span class="line">    title <span class="operator">=</span> <span class="string">&quot;澳大利亚新冠肺炎累积确诊病例&quot;</span><span class="punctuation">,</span></span><br><span class="line">    subtitle <span class="operator">=</span> <span class="string">&quot;数据来源https://kjhealy.github.io/covdata/&quot;</span></span><br><span class="line">  <span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  transition_reveal<span class="punctuation">(</span>along <span class="operator">=</span> date<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/pics/2023-05-02-preview.gif" alt="alt 图标"></p>
+<h3 id="2-gganimate中的函数"><a href="#2-gganimate中的函数" class="headerlink" title="2. gganimate中的函数"></a>2. gganimate中的函数</h3><ul>
+<li><code>transition_*()</code>: 定义动画是根据哪个变量进行”动”，以及如何”动”</li>
+<li><code>view_*()</code>: 定义坐标轴随数据变化.</li>
+<li><code>shadow_*()</code>: 影子（旧数据的历史记忆）?定义点相继出现的方式.</li>
+<li><code>enter_*()/exit_*()</code>: 定义新数据出现和旧数据退去的方式.</li>
+<li><code>ease_aes()</code>: 美观定义，控制变化的节奏(如何让整个动画看起来更舒适).</li>
+</ul>
+<p><a href="https://bookdown.org/wangminjie/R4DS/tidyverse-ggplot2-gganimate.html">绘制动图的详细解说</a></p>
+]]></content>
+      <categories>
+        <category>R</category>
+        <category>ggplot2</category>
+      </categories>
+      <tags>
+        <tag>R</tag>
+        <tag>ggplot2</tag>
+      </tags>
+  </entry>
 </search>
