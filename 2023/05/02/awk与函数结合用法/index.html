@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="总结awk中使用内置函数以及if-else、for循环等用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awk高级用法">
+<meta property="og:url" content="http://example.com/2023/05/02/awk%E4%B8%8E%E5%87%BD%E6%95%B0%E7%BB%93%E5%90%88%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Xueyd&#39;s Blog">
+<meta property="og:description" content="总结awk中使用内置函数以及if-else、for循环等用法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-02T03:05:03.000Z">
+<meta property="article:modified_time" content="2023-05-02T05:19:41.294Z">
+<meta property="article:author" content="Xue Yingdi">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/05/02/awk%E4%B8%8E%E5%87%BD%E6%95%B0%E7%BB%93%E5%90%88%E7%94%A8%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>awk高级用法 | Xueyd's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xueyd's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/02/awk%E4%B8%8E%E5%87%BD%E6%95%B0%E7%BB%93%E5%90%88%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          awk高级用法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-02 11:05:03 / 修改时间：13:19:41" itemprop="dateCreated datePublished" datetime="2023-05-02T11:05:03+08:00">2023-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>总结awk中使用内置函数以及if-else、for循环等用法。</p>
+<span id="more"></span>
+
+<p>awk中除了一些内置函数之外，也可以与其他函数结合在一起使用实现一些复杂的用法。</p>
+<h3 id="1-awk中内置函数"><a href="#1-awk中内置函数" class="headerlink" title="1. awk中内置函数"></a>1. awk中内置函数</h3><table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">函数作用</th>
+<th align="center">用法</th>
+<th align="center">命令输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">length($0)</td>
+<td align="center">输出$0的长度</td>
+<td align="center"><code>echo &quot;hello&quot; | awk &#39;&#123;print length($0)&#125;&#39;</code></td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">substr(str,start,length)</td>
+<td align="center">返回字符串中从start位置开始长度为length的子串</td>
+<td align="center"><code>echo &quot;hello world&quot; | awk &#39;&#123;print substr($0,7,5)&#125;&#39;</code></td>
+<td align="center">world</td>
+</tr>
+<tr>
+<td align="center">index(str,sub)</td>
+<td align="center">返回str字符串中第一次出现子串sub的位置，如果没有匹配，返回0</td>
+<td align="center"><code>echo &quot;hello&quot; | awk &#39;&#123;print index($0,&quot;world&quot;)&#125;&#39;</code></td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">split(str,arr,sep)</td>
+<td align="center">将字符串按照分隔符sep分隔成数组arr</td>
+<td align="center"><code>echo &quot;1,2,3,4&quot; | awk &#39;&#123;split($0,arr,&quot;,&quot;);print arr[3]&#125;&#39;</code></td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">gsub(regexp,replacement,str)</td>
+<td align="center">用字符串replacement替换字符串str中所有匹配正则表达式regexp的子串</td>
+<td align="center"><code>echo &quot;hello world&quot; | awk &#39;&#123;gsub(/o/,&quot;O&quot;,$0);print&#125;&#39;</code></td>
+<td align="center">hellO wOrld</td>
+</tr>
+<tr>
+<td align="center">six(x)、cos(x)、tan(x)、exp(x)、log(x)、sqrt(x)</td>
+<td align="center">数学函数，计算正弦值、余弦值、正切值、指数函数、对数、平方根</td>
+<td align="center"><code>echo &quot;3.1415926&quot; | awk &#39;&#123;print sin($0)&#125;&#39;</code></td>
+<td align="center">0.001592665</td>
+</tr>
+<tr>
+<td align="center">sstrftime(format,timestamp)</td>
+<td align="center">将时间戳timestamp格式转换为指定的日期格式</td>
+<td align="center"><code>echo $(date +%s) | awk &#39;&#123;print strftime(&quot;%Y-%m-%d %H:%M:%S&quot;, $1)&#125;&#39; </code></td>
+<td align="center">输出当前时间的日期格式2023-05-02 12:24:59</td>
+</tr>
+<tr>
+<td align="center">tolower($0)、toupper($0)</td>
+<td align="center">将字符串转换为大&#x2F;小写</td>
+<td align="center"><code>echo &quot;hello world&quot; | awk &#39;&#123;print toupper($0)&#125;&#39;</code></td>
+<td align="center">HELLO WORLD</td>
+</tr>
+</tbody></table>
+<h3 id="2-awk中使用控制语句：if-else条件语句-x2F-for循环-x2F-while循环-x2F-do-while循环"><a href="#2-awk中使用控制语句：if-else条件语句-x2F-for循环-x2F-while循环-x2F-do-while循环" class="headerlink" title="2. awk中使用控制语句：if-else条件语句&#x2F;for循环&#x2F;while循环&#x2F;do-while循环"></a>2. awk中使用控制语句：if-else条件语句&#x2F;for循环&#x2F;while循环&#x2F;do-while循环</h3><ul>
+<li><p><code>if/else</code> 条件语句：可以根据指定的条件执行不同的操作。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;if($1 &gt; 10) &#123;print &quot;large&quot;&#125; else &#123;print &quot;small&quot;&#125;&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+<p>  上面的命令根据第一个字段的值输出 “large” 或 “small”。</p>
+</li>
+<li><p><code>for</code> 循环：可以使用 <code>for</code> 循环对指定的字段进行遍历。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;for(i=1; i&lt;=NF; i++) &#123;print $i&#125;&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+<p> 上面的命令遍历每个字段并输出。</p>
+</li>
+<li><p><code>while</code> 循环：可以使用 <code>while</code> 循环对指定的条件进行迭代。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;i=1; while(i&lt;=NF) &#123;print $i; i++&#125;&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+<p> 上面的命令使用 <code>while</code> 循环遍历每个字段并输出。</p>
+</li>
+<li><p><code>do/while</code> 循环：可以使用 <code>do/while</code> 循环对指定的操作进行迭代，直到满足指定的条件为止。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;i=1; do &#123;print $i; i++&#125; while(i&lt;=NF)&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+<p> 上面的命令使用 <code>do/while</code> 循环遍历每个字段并输出。</p>
+</li>
+</ul>
+<h3 id="3-awk中使用数组"><a href="#3-awk中使用数组" class="headerlink" title="3. awk中使用数组"></a>3. awk中使用数组</h3><p>在 <code>awk</code> 中，数组是一种非常有用的数据结构，可以用于存储和处理文本数据。<code>awk</code> 中的数组是关联数组，也就是说，数组的下标可以是任意字符串或数字。</p>
+<p>以下是 <code>awk</code> 中使用数组的示例：</p>
+<ol>
+<li><p>声明和初始化数组：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;BEGIN&#123;arr[&quot;apple&quot;]=1; arr[&quot;orange&quot;]=2; arr[&quot;banana&quot;]=3; print arr[&quot;apple&quot;], arr[&quot;orange&quot;], arr[&quot;banana&quot;]&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令中，声明了一个名为 <code>arr</code> 的数组，并初始化了三个元素，然后输出了这些元素的值。</p>
+</li>
+<li><p>遍历数组：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;BEGIN&#123;arr[&quot;apple&quot;]=1; arr[&quot;orange&quot;]=2; arr[&quot;banana&quot;]=3; for(i in arr) &#123;print i, arr[i]&#125;&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令中，使用 <code>for</code> 循环遍历了 <code>arr</code> 数组，并输出了数组中每个元素的下标和值。</p>
+</li>
+<li><p>使用数组进行计数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;count[$1]++&#125; END&#123;for(i in count) &#123;print i, count[i]&#125;&#125;&#x27;</span> file.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令中，每次处理一行时，将第一个字段作为数组 <code>count</code> 的下标，并将对应的元素加 1。在处理完所有行后，使用 <code>for</code> 循环遍历 <code>count</code> 数组，并输出每个元素的下标和值，从而实现对每个值出现次数的计数。</p>
+</li>
+</ol>
+<p>以上是 <code>awk</code> 中使用数组的示例，数组在 <code>awk</code> 中的使用非常灵活，可以根据需要进行不同的操作。</p>
+<h3 id="4-awk高级用法实例"><a href="#4-awk高级用法实例" class="headerlink" title="4. awk高级用法实例"></a>4. awk高级用法实例</h3><p>有一个test文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> <span class="built_in">test</span></span><br><span class="line">1       3</span><br><span class="line">1       4</span><br><span class="line">1       5</span><br><span class="line">2       2</span><br><span class="line">2       5</span><br><span class="line">2       3</span><br></pre></td></tr></table></figure>
+<p>利用awk根据第一列值的不同进行分组，求第二列在相应组别中所占的比例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;BEGIN&#123;</span></span><br><span class="line"><span class="string">	while (getline &lt; &quot;test&quot;)</span></span><br><span class="line"><span class="string">	&#123;</span></span><br><span class="line"><span class="string">		a[$1]+=$2</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">	close(&quot;test&quot;)</span></span><br><span class="line"><span class="string">	while (getline &lt; &quot;test&quot;)</span></span><br><span class="line"><span class="string">	&#123;</span></span><br><span class="line"><span class="string">		for (i in a)</span></span><br><span class="line"><span class="string">		&#123;</span></span><br><span class="line"><span class="string">			if ($i==i)</span></span><br><span class="line"><span class="string">			&#123; print $1,$2,a[i],$2/a[i] &#125;</span></span><br><span class="line"><span class="string">		&#125;</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">	close(&quot;test&quot;)</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 3 12 0.25</span><br><span class="line">1 4 12 0.333333</span><br><span class="line">1 5 12 0.416667</span><br><span class="line">2 2 10 0.2</span><br><span class="line">2 5 10 0.5</span><br><span class="line">2 3 10 0.3</span><br></pre></td></tr></table></figure>
+<p>需要将文件遍历两遍，第一遍根据不同的分组计算不同组别的总和（求不同分组的和必然要将文件每一行都遍历一遍），第二遍求每一行相应数据所占的比例。所以需要将该文件遍历两遍，awk中将文件遍历两遍，可以使用getline函数。geline类似于python中的readline，一行一行地读取数据，最后遍历完之后将求得的和存入数组，然后关闭文件再重新进行第二遍的读取。</p>
+<p>第一列是字符串时也适用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> <span class="built_in">test</span></span><br><span class="line">a       3</span><br><span class="line">a       4</span><br><span class="line">b       5</span><br><span class="line">b       2</span><br><span class="line">c       5</span><br><span class="line">c       3</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a 3 7 0.428571</span><br><span class="line">a 4 7 0.571429</span><br><span class="line">b 5 7 0.714286</span><br><span class="line">b 2 7 0.285714</span><br><span class="line">c 5 8 0.625</span><br><span class="line">c 3 8 0.375</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Xue Yingdi
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/05/02/awk%E4%B8%8E%E5%87%BD%E6%95%B0%E7%BB%93%E5%90%88%E7%94%A8%E6%B3%95/" title="awk高级用法">http://example.com/2023/05/02/awk与函数结合用法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/25/R%E4%B8%ADpurrr%E5%8C%85%E7%9A%84%E5%BE%AA%E7%8E%AF%E8%BF%AD%E4%BB%A3map%E5%87%BD%E6%95%B0%E5%AE%B6%E6%97%8F/" rel="prev" title="R中purrr包的循环迭代map函数家族">
+      <i class="fa fa-chevron-left"></i> R中purrr包的循环迭代map函数家族
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-awk%E4%B8%AD%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1. awk中内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-awk%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%EF%BC%9Aif-else%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5-x2F-for%E5%BE%AA%E7%8E%AF-x2F-while%E5%BE%AA%E7%8E%AF-x2F-do-while%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.</span> <span class="nav-text">2. awk中使用控制语句：if-else条件语句&#x2F;for循环&#x2F;while循环&#x2F;do-while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-awk%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">3. awk中使用数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-awk%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">4. awk高级用法实例</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Yingdi"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xue Yingdi</p>
+  <div class="site-description" itemprop="description">人不能飞于是努力走</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xue-yd" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xue-yd" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Yingdi</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">53k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">48 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
