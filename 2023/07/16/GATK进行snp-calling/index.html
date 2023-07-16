@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文介绍GATk call SNP的原理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GATK进行snp calling">
+<meta property="og:url" content="http://example.com/2023/07/16/GATK%E8%BF%9B%E8%A1%8Csnp-calling/index.html">
+<meta property="og:site_name" content="Xueyd&#39;s Blog">
+<meta property="og:description" content="本文介绍GATk call SNP的原理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-DNAsnp.png">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-RNAsnp.png">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-SNP-calling1.png">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-SNP-calling2.png">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-SNP-calling3.png">
+<meta property="og:image" content="http://example.com/pics/2023-07-16-SNP-calling4.png">
+<meta property="article:published_time" content="2023-07-16T09:12:46.000Z">
+<meta property="article:modified_time" content="2023-07-16T09:46:36.150Z">
+<meta property="article:author" content="Xue Yingdi">
+<meta property="article:tag" content="SNP calling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/pics/2023-07-16-DNAsnp.png">
+
+<link rel="canonical" href="http://example.com/2023/07/16/GATK%E8%BF%9B%E8%A1%8Csnp-calling/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GATK进行snp calling | Xueyd's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Xueyd's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/16/GATK%E8%BF%9B%E8%A1%8Csnp-calling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xue Yingdi">
+      <meta itemprop="description" content="人不能飞于是努力走">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xueyd's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GATK进行snp calling
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-07-16 17:12:46 / 修改时间：17:46:36" itemprop="dateCreated datePublished" datetime="2023-07-16T17:12:46+08:00">2023-07-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SNP-calling/" itemprop="url" rel="index"><span itemprop="name">SNP calling</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文介绍GATk call SNP的原理。</p>
+<span id="more"></span>
+
+<h3 id="1-一些概念"><a href="#1-一些概念" class="headerlink" title="1. 一些概念"></a>1. 一些概念</h3><ul>
+<li>SNP <ul>
+<li>DNA序列中单个核苷酸的替代导致的、且分布于种群中相当一部分个体（如：1%以上）中的基因多样性。</li>
+<li>SNP具有二态性，几乎所有常见的单核苷酸多态性（SNP）位点只有两个等位基因。</li>
+<li>单核苷酸态性（SNP）位点的分布是不均匀的，在非编码区比在编码区更常见。这是由于自然选择倾向于保留最益于遗传适应性的单核苷酸多态性（SNP）位点。</li>
+<li>转换的发生率总是明显高于颠换。其中，C→T概率总是更高，这是因为CpG二核苷酸上的胞嘧啶残基大多数是甲基化的，可自发地脱去氨基而形成胸腺嘧啶。</li>
+</ul>
+</li>
+<li>SNP与突变<ul>
+<li>SNP是DNA序列中常见的单个碱基变异，而突变是DNA序列中更广泛的、相对罕见的变异。DNA序列有些地方，人和人就是不一样，这种不一样就叫多态性（polymorphism），单个碱基的不同，就叫SNP。如果这个SNP是突变引起的，依然可以叫它点突变。</li>
+</ul>
+</li>
+<li>SNP与SNV<ul>
+<li>SNP是SNV的一种特殊情况，SNV（Single Nucleotide Variant）则是指单个碱基的变异，包括SNP在内。</li>
+<li>SNV范围更广，它还包括其他类型的单个碱基变异，例如单个碱基插入或缺失等indel。</li>
+<li>群体中某个单碱基变异的频率达到一定水平就叫SNP，而频率未知（比如仅仅在一个个体中发现）就叫SNV。</li>
+</ul>
+</li>
+<li>SNP calling与genotype calling<ul>
+<li>SNP calling指的是在基因组序列数据中识别SNP的过程。SNP calling只是确定那个基因组位点存在变异，并不涉及对应位点的基因型。</li>
+<li>genotype calling则是在识别出SNP后，进一步确定每个样本的基因型的过程。例如是纯和的还是杂和的等等。这个过程通常会根据每个样本中的SNP位点的碱基信息，来决定该样本在该位点上的基因型，例如AA、AT、TT等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-DNA-seq与RNA-seq数据call-SNP原理"><a href="#2-DNA-seq与RNA-seq数据call-SNP原理" class="headerlink" title="2. DNA-seq与RNA-seq数据call SNP原理"></a>2. DNA-seq与RNA-seq数据call SNP原理</h3><ul>
+<li><p>DNA-seq call SNP步骤：<br><img src="/pics/2023-07-16-DNAsnp.png" alt="alt 图标"></p>
+</li>
+<li><p>RNA-seq call SNP步骤：<br><img src="/pics/2023-07-16-RNAsnp.png" alt="alt 图标"></p>
+</li>
+</ul>
+<p><strong>关键步骤：</strong></p>
+<ul>
+<li><p>去除PCR重复(for DNA-seq and RNA-seq)</p>
+<ul>
+<li>PCR重复会影响SNP位点的可信度，DNA在打断的那一步会发生一些损失，主要表现是会引发一些碱基发生颠换变换（嘌呤-变嘧啶或者嘧啶变嘌呤），带来假的变异。PCR过程会扩大这个信号，导致最后的检测结果中混入了假的结果； </li>
+<li>PCR反应过程中也会带来新的碱基错误。发生在前几轮的PCR扩增发生的错误会在后续的PCR过程中扩大，同样带来假的变异； </li>
+<li>对于真实的变异，PCR反应可能会对包含某一个碱基的DNA模版扩增更加剧烈（这个现象称为PCR Bias）。因此，如果反应体系是对含有reference allele的模板扩增偏向强烈，那么变异碱基的信息会变小，从而会导致假阴。<br><img src="/pics/2023-07-16-SNP-calling1.png" alt="alt 图标"></li>
+</ul>
+</li>
+<li><p>BQSR 碱基质量校正：</p>
+<ul>
+<li>BQSR 根据已知的SNP位点，基于机器学习的方法进行碱基质量校正，校正测序错误可能造成的误差，只会调整非已知SNP区域。</li>
+<li>对于非人物种，可以先call出一些SNP进行严格的过滤，然后作为已知的SNP去迭代校正<br><img src="/pics/2023-07-16-SNP-calling2.png" alt="alt 图标"></li>
+</ul>
+</li>
+<li><p>SplitNCigar (only for RNA-seq)</p>
+<ul>
+<li>转录信息比对到基因组上时，比对到内含子时为N，SplitNCigarReads可以留下跨越N区域的reads RNA-seq数据还需要去掉内含子区域的reads，对比对中的N进行剪切。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-SNP-calling策略"><a href="#3-SNP-calling策略" class="headerlink" title="3. SNP calling策略"></a>3. SNP calling策略</h3><p>一般有三种策略，一般推荐第三种策略：</p>
+<ul>
+<li>Single sample calling <ul>
+<li>每一个sample的bam file都进行单独的snp calling，然后每个sample单独snp calling结果再合成一个总的snp calling的结果。</li>
+</ul>
+</li>
+<li>Batch sample calling <ul>
+<li>一定数目群集的BAM files 分开批量call snps，然后不同批之间再merge在一起</li>
+</ul>
+</li>
+<li><strong>Joint sample calling</strong><ul>
+<li>所有samples的BAM files一起call 出一个包含所有samples 变异信息的output</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>batch calling: sample BAMs are analyzed in separate batches, and batch call sets are merged in a downstream processing step;<br>classic joint calling: variants are called simultaneously across all sample BAMs, generating a single call set for the entire cohort.</p>
+</blockquote>
+<p>第三种策略对于低频率的变异具有更高更好的检测sensitivity，如图：<br><img src="/pics/2023-07-16-SNP-calling3.png" alt="alt 图标"></p>
+<p>所有samples中所有的位点都是同时call的，换句话说就是，所有位点的信息都是share的，因此可以如果某些samples中个别位点是低频率的，但是可能在其他samples中，该位点的频率比较高，因此可以准确的对低频位点有更加好的calling 效果。<br>在1到n的samples中，碱基G只出现在其中两个samples中。如果我们将这些samples单独的call snps，这个低频率G的位点将会被忽略。但是joint calling 却可以允许将这些碱基G出现的频率进行累加，将该低频率的突变也call出来。</p>
+<p>右图中，上面的sample是一个跟ref一样具有纯合位点，下面的sample在一些位点中有部分数据缺少的情况，例如rs429358.如果将这两个samples分开call snp，然后merge一起，这样会错误地将这两个samples，在这个位点上看作具有类似的变异频率，但是其实由于下面的samples在该位点的区域存在数据缺少，只能看作non-informative。</p>
+<h3 id="4-变异检测原理"><a href="#4-变异检测原理" class="headerlink" title="4. 变异检测原理"></a>4. 变异检测原理</h3><p>HaplotypeCaller通过对活跃区域（也就是与参考基因组不同处较多的区域）局部重组装，同时寻找SNP和INDEL。<br>当HC看到一个地方好活跃，就不管之前的比对结果，直接对这个地方进行重新组装。<br>先推断群体的单倍体组合情况，计算各个组合的几率，然后根据这些信息再反推每个样本的基因型组合。<br>具体步骤如图：<br><img src="/pics/2023-07-16-SNP-calling4.png" alt="alt 图标"></p>
+<ul>
+<li><ol>
+<li>从原始测序数据中提取kmer片段，并构建一棵kmer树，以便在后续的变异检测中快速地比对到参考基因组上。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>对每个kmer片段，使用一种称为”De Bruijn graph”的方法来构建片段的序列图。这个序列图可以将kmer片段映射到参考基因组上，并在变异检测中帮助识别SNP和INDEL等变异。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>利用序列图对每个样本进行局部基因型估计，即对每个kmer片段，估计该样本中可能存在的变异类型（例如SNP或INDEL）及其频率。这个过程中考虑了对错配比对、reads深度、比对质量等多个因素，以提高估计的准确性。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>将各个kmer片段的局部基因型拼接起来，得到样本的全局基因型估计，并进行更准确的变异检测。在这个过程中，HaplotypeCaller会考虑到不同片段之间的连接关系，以提高变异检测的准确性。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>进行变异过滤，去除可能的假阳性变异，并提取出高置信度的SNP和INDEL等变异。</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-SNP过滤"><a href="#5-SNP过滤" class="headerlink" title="5. SNP过滤"></a>5. SNP过滤</h3><p>SNP过滤有两种方式：</p>
+<ul>
+<li>通过质量校正来过滤 Variant Quality Score Recalibration, VQSR<ul>
+<li>用机器学习的方法基于已知的变异位点对caller给出的原始 variant quality score 进行校正 (VQSR)。需要大量高质量的已知variants作为训练集，一般用于DNA-seq数据。</li>
+</ul>
+</li>
+<li>直接过滤 Hard filtering<ul>
+<li>RNA-seq进行SNP过滤推荐直接过滤，根据一些特征值进行过滤，如测序深度等。</li>
+<li>GATK推荐的过滤标准：<ul>
+<li>QD &gt;&#x3D;2</li>
+<li>FS &lt;&#x3D;60</li>
+<li>SOR &lt;&#x3D;3</li>
+<li>MQ &gt;&#x3D;40</li>
+<li>MQRankSum &gt;&#x3D;-2.5</li>
+<li>ReadPosRankSum &gt;&#x3D;-8</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>SNP过滤VSQR原理：</strong></p>
+<ul>
+<li>通过质量校正来过滤 Variant Quality Score Recalibration, VQSR需要一个精心准备的已知变异集，它将作为训练质控模型的真集。GATK会选择数据库里的变异数据作为高质量的已知变异集，把它们作为VQSR时的真集位点。VQSR是用我们自己的变异数据来训练模型。这些已知变异集的意义是告诉我们群体中哪些位点存在着变异，如果在其他人的数据里能观察到落入这个集合中的变异位点，那么这些被已知集包括的变异就有很大的可能是正确的。也就是说，我们可以从数据中筛选出那些和真集『位点』相同的变异，把它们当作是真实的变异结果。接着，进行VQSR的时候，程序就可以用这个筛选出来的数据作为真集数据来训练，并构造模型了。</li>
+<li>VQSR的核心就在于构造一个区分“好”变异和“坏”变异的分类器。这个分类器通过GMM模型构造，在构造的时候并不是用所有数据来造的。而是挑出部分和已知的不同变异集合Overlap的位点 (如与千人数据集、Hapmap数据集等)一并分配不同的高可信度权重，基于群体遗传的原理，已知的变异会被认为是更加靠谱的变异，因此在初始化的时候先把它们当作是好也就是正确的变异。</li>
+<li>这个初始变异集很重要，然后利用这些好变异的特征训练一个区分好变异的GMM，之后对全部数据进行打分，再把评分最低的那些拿出来，构成一个最不像正确变异的集合，用来构造一个区分坏变异的GMM，用来专门识别坏变异。最后同时使用好和坏的GMM再一次同时对变异进行打分，看每个变异更像谁，就能够评判出这个变异可信的质量值了!越靠近好的GMM，质量自然就越高。这就是VQSR过滤的大致原理了。</li>
+</ul>
+<p>参考资料：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23492496?rf=26011991">https://www.zhihu.com/question/23492496?rf=26011991</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/478898378">https://zhuanlan.zhihu.com/p/478898378</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/485479829">https://zhuanlan.zhihu.com/p/485479829</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Xue Yingdi
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/07/16/GATK%E8%BF%9B%E8%A1%8Csnp-calling/" title="GATK进行snp calling">http://example.com/2023/07/16/GATK进行snp-calling/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SNP-calling/" rel="tag"># SNP calling</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/15/conda%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88/" rel="prev" title="conda命令集合">
+      <i class="fa fa-chevron-left"></i> conda命令集合
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1. 一些概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-DNA-seq%E4%B8%8ERNA-seq%E6%95%B0%E6%8D%AEcall-SNP%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. DNA-seq与RNA-seq数据call SNP原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-SNP-calling%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">3. SNP calling策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">4. 变异检测原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-SNP%E8%BF%87%E6%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">5. SNP过滤</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Yingdi"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xue Yingdi</p>
+  <div class="site-description" itemprop="description">人不能飞于是努力走</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Xue-yd" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Xue-yd" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Yingdi</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">59k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">54 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
