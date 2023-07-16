@@ -3647,7 +3647,7 @@
   <entry>
     <title>GATK进行snp calling</title>
     <url>/2023/07/16/GATK%E8%BF%9B%E8%A1%8Csnp-calling/</url>
-    <content><![CDATA[<p>本文介绍GATk call SNP的原理。</p>
+    <content><![CDATA[<p>本文介绍GATK call SNP的原理。</p>
 <span id="more"></span>
 
 <h3 id="1-一些概念"><a href="#1-一些概念" class="headerlink" title="1. 一些概念"></a>1. 一些概念</h3><ul>
