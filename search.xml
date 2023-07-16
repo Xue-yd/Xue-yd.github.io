@@ -3613,6 +3613,8 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda list</span><br></pre></td></tr></table></figure>
 <p>搜索安装包：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda search package</span><br></pre></td></tr></table></figure>
+<p>更新conda</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-虚拟环境"><a href="#3-虚拟环境" class="headerlink" title="3. 虚拟环境"></a>3. 虚拟环境</h3><p>创建python3.7虚拟环境：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n py37 python=3.7</span><br></pre></td></tr></table></figure>
