@@ -3785,4 +3785,25 @@
         <tag>SNP calling</tag>
       </tags>
   </entry>
+  <entry>
+    <title>RiboMiner进行Ribo-seq的3nt周期性质控</title>
+    <url>/2023/07/17/RiboMiner%E8%BF%9B%E8%A1%8CRibo-seq%E7%9A%843nt%E5%91%A8%E6%9C%9F%E6%80%A7%E8%B4%A8%E6%8E%A7/</url>
+    <content><![CDATA[<p>总结在RiboMiner使用，RiboMiner功能太多了，对不上号，总结一下。</p>
+<span id="more"></span>
+
+<h3 id="1-metaplot"><a href="#1-metaplot" class="headerlink" title="1. metaplot"></a>1. metaplot</h3><p>bam文件需要sort并建立index。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools index -@ 10 01.bam/my_file.mapped.sorted.bam;</span><br><span class="line">metaplots -a Ribo_ann/ -r 01.bam/my_file.mapped.sorted.bam -o 02.Periodicity/my_file;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner1.png" alt="alt 图标"></p>
+<h3 id="2-periodicity"><a href="#2-periodicity" class="headerlink" title="2. periodicity"></a>2. periodicity</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Periodicity -i 01.bam/my_file.mapped.sorted.bam -a Ribo_ann/ -o 02.Periodicity/my_file -c Ribo_anno/longest.transcripts.info.txt -L 25 -R 35;</span><br></pre></td></tr></table></figure>
+<p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner2.png" alt="alt 图标"><br><img src="/pics/2023-07-17-RiboMiner3.png" alt="alt 图标"></p>
+<h3 id="3-lengthdistribution"><a href="#3-lengthdistribution" class="headerlink" title="3. lengthdistribution"></a>3. lengthdistribution</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LengthDistribution -i 01.bam/<span class="variable">$&#123;i&#125;</span>.mapped.sorted.bam -o 03.ReadLength/<span class="variable">$&#123;i&#125;</span> -f bam;</span><br></pre></td></tr></table></figure>
+<p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner4.png" alt="alt 图标"></p>
+]]></content>
+      <categories>
+        <category>Ribo-seq</category>
+      </categories>
+      <tags>
+        <tag>Ribo-seq</tag>
+      </tags>
+  </entry>
 </search>
