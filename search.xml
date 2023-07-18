@@ -3798,8 +3798,11 @@
 <p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner2.png" alt="alt 图标"><br><img src="/pics/2023-07-17-RiboMiner3.png" alt="alt 图标"></p>
 <h3 id="3-lengthdistribution"><a href="#3-lengthdistribution" class="headerlink" title="3. lengthdistribution"></a>3. lengthdistribution</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LengthDistribution -i 01.bam/<span class="variable">$&#123;i&#125;</span>.mapped.sorted.bam -o 03.ReadLength/<span class="variable">$&#123;i&#125;</span> -f bam;</span><br></pre></td></tr></table></figure>
 <p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner4.png" alt="alt 图标"></p>
-<h3 id="4-RiboDensityOfDiffFrames"><a href="#4-RiboDensityOfDiffFrames" class="headerlink" title="4. RiboDensityOfDiffFrames"></a>4. RiboDensityOfDiffFrames</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RiboDensityOfDiffFrames -f attributes.txt -c Ribo_anno/longest.transcripts.info.txt -o 04.RiboDensityofDiffFrames/ &#123;-S select_trans.txt --id-type transcript-id --plot <span class="built_in">yes</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>得到的图：<br><img src="/pics/2023-07-17-RiboMiner5.png" alt="alt 图标"></p>
+<h3 id="4-RiboDensityOfDiffFrames"><a href="#4-RiboDensityOfDiffFrames" class="headerlink" title="4. RiboDensityOfDiffFrames"></a>4. RiboDensityOfDiffFrames</h3><p>attributes.txt</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bamFiles    readLengths Offsets bamLegends</span><br><span class="line">./SRR5008134.bam    27,28,29,30 11,12,13,14 si-Ctrl-1</span><br><span class="line">./SRR5008135.bam    27,28,29,30 11,12,13,14 si-Ctrl-2</span><br></pre></td></tr></table></figure>
+<p>里面有几个文件，针对每一个文件都会单独产生一个图。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RiboDensityOfDiffFrames -f attributes.txt -c Ribo_anno/longest.transcripts.info.txt -o 04.RiboDensityofDiffFrames/ &#123;-S select_trans.txt --id-type transcript-id --plot <span class="built_in">yes</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>得到的每个bam文件的图如下：<br><img src="/pics/2023-07-17-RiboMiner5.png" alt="alt 图标"></p>
 ]]></content>
       <categories>
         <category>Ribo-seq</category>
