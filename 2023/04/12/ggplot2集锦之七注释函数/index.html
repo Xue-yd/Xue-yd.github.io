@@ -17,31 +17,31 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"xueyd212.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="在基础绘图系统中，注释功能主要由次级函数来实现，如text()函数可以添加文本、mtext()函数添加轴标签、segments()添加短线、arrows()函数添加箭头、rect()函数添加矩形等。而在ggplot2绘图系统中，一方面可以使用一些几何图形函数、统计变换函数充当注释函数，另一方面它还有专门的注释函数annotate()。本文总结一下ggplot2包中的文本注释函数，包括：geom_t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ggplot2集锦之七文本注释函数">
-<meta property="og:url" content="http://example.com/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:url" content="http://xueyd212.github.io/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Xueyd&#39;s Blog">
 <meta property="og:description" content="在基础绘图系统中，注释功能主要由次级函数来实现，如text()函数可以添加文本、mtext()函数添加轴标签、segments()添加短线、arrows()函数添加箭头、rect()函数添加矩形等。而在ggplot2绘图系统中，一方面可以使用一些几何图形函数、统计变换函数充当注释函数，另一方面它还有专门的注释函数annotate()。本文总结一下ggplot2包中的文本注释函数，包括：geom_t">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text1.png">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text2.png">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text5.png">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text3.png">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text4.png">
-<meta property="og:image" content="http://example.com/pics/2023-04-12-plot-text6.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text1.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text2.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text5.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text3.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text4.png">
+<meta property="og:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text6.png">
 <meta property="article:published_time" content="2023-04-12T01:39:17.000Z">
 <meta property="article:modified_time" content="2023-04-13T05:15:47.664Z">
 <meta property="article:author" content="Xue Yingdi">
 <meta property="article:tag" content="R">
 <meta property="article:tag" content="ggplot2">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/pics/2023-04-12-plot-text1.png">
+<meta name="twitter:image" content="http://xueyd212.github.io/pics/2023-04-12-plot-text1.png">
 
-<link rel="canonical" href="http://example.com/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/">
+<link rel="canonical" href="http://xueyd212.github.io/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/">
 
 
 <script id="page-configurations">
@@ -203,7 +203,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://xueyd212.github.io/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -344,7 +344,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/" title="ggplot2集锦之七文本注释函数">http://example.com/2023/04/12/ggplot2集锦之七注释函数/</a>
+    <a href="http://xueyd212.github.io/2023/04/12/ggplot2%E9%9B%86%E9%94%A6%E4%B9%8B%E4%B8%83%E6%B3%A8%E9%87%8A%E5%87%BD%E6%95%B0/" title="ggplot2集锦之七文本注释函数">http://xueyd212.github.io/2023/04/12/ggplot2集锦之七注释函数/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
